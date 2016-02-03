@@ -12,7 +12,7 @@
                 <div class="panel-heading">Transaction Details</div>
 
                 <div class="panel-body">
-                    <form action="create_persons" method="POST">
+                    <form action="update_transaction" method="POST">
                         <div class="app-label">Store</div>
                         <div class="app-value"><input type="text" name="store" required></div>
                         <div class="app-spacer"></div>

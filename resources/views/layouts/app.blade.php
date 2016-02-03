@@ -52,7 +52,7 @@
                 <ul class="nav navbar-nav">
                     @if (!Auth::guest())
                         <li><a href="{{ url('/home') }}">Home</a></li>
-                        <li><a href="{{ url('/create') }}">Create</a></li>
+                        <li><a href="{{ url('/create_transaction') }}">Create</a></li>
                     @endif
                 </ul>
 

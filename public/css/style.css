@@ -15,3 +15,7 @@
     clear: both;
     height: 10px;
 }
+
+#app-persons .app-label {
+    width: 30px;
+}

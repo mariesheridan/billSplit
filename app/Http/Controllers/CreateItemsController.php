@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class CreateController extends Controller
+class CreateItemsController extends Controller
 {
     public function __construct()
     {
@@ -16,6 +17,11 @@ class CreateController extends Controller
 
     public function index()
     {
-        return view('create');
+        $persons = Session::get('persons');
+        return view('createitems', array('persons' => $persons));
+    }
+
+    protected function updateTransactions($store, $date){
+
     }
 }

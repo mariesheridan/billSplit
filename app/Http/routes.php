@@ -29,6 +29,9 @@ Route::group(['middleware' => 'web'], function () {
         return view('welcome');
     });
     Route::get('/home', 'HomeController@index');
-    Route::get('/create', 'CreateController@index');
-    Route::post('/create_persons', 'CreatePersonsController@index');
+    Route::get('/create_transaction', 'CreateTransactionController@index');
+    Route::post('/update_transaction', 'UpdateTransactionController@update');
+    Route::get('/create_persons', ['as' => 'create_persons', 'uses' => 'CreatePersonsController@index']);
+    Route::post('/update_persons', 'UpdatePersonsController@update');
+    Route::get('/create_items', ['as' => 'create_items', 'uses' => 'CreateItemsController@index']);
 });
