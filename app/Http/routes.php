@@ -29,4 +29,6 @@ Route::group(['middleware' => 'web'], function () {
         return view('welcome');
     });
     Route::get('/home', 'HomeController@index');
+    Route::get('/create', 'CreateController@index');
+    Route::post('/create_persons', 'CreatePersonsController@index');
 });

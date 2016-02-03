@@ -5,16 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Dutch Treat Calculator</title>
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
+    <!--<link href="../../../public/css/reset.css" rel="stylesheet">-->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
-
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+<!--    <link href="/css/style.css" rel="stylesheet">-->
     <style>
         body {
             font-family: 'Lato';
@@ -24,6 +26,7 @@
             margin-right: 6px;
         }
     </style>
+    @yield('localStyle')
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default">
@@ -40,14 +43,17 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Laravel
+                    Dutch Treat Calculator
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
+                    @if (!Auth::guest())
+                        <li><a href="{{ url('/home') }}">Home</a></li>
+                        <li><a href="{{ url('/create') }}">Create</a></li>
+                    @endif
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -78,5 +84,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    
+    @yield('localScript')
+
 </body>
 </html>

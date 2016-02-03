@@ -1,0 +1,17 @@
+.app-label {
+    float: left;
+    width: 50px;
+}
+
+.app-value {
+    float: left;
+}
+
+.app-button {
+    clear: both;
+}
+
+.app-spacer {
+    clear: both;
+    height: 10px;
+}
