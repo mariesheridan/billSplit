@@ -61,7 +61,7 @@ function setOne(id, nameToUse)
     appendValue += divForValue(nameToUse, 1);
     if (isItem)
     {
-        appendValue += divForShow();
+        appendValue += divForPrice(nameToUse, 1);
     }
     $(id).append(appendValue);
     isOneSet = true;
@@ -93,10 +93,12 @@ function divForRemove(nameToUse, number)
            + nameToUse + number + "Remove' value='Remove' />";
 }
 
-function divForShow(nameToUse, number)
+function divForPrice(nameToUse, number)
 {
-    return "<input type='button' class='app-show' id='" 
-           + nameToUse + number + "Show' value='Show' />";
+    return "<div class='app-price' id='"
+           + nameToUse + number
+           + "Price'><input type='number' name='"
+           + nameToUse + number + "' required></div>";
 }
 
 function appendToDiv(divId, nameToUse, number)
@@ -114,7 +116,7 @@ function appendToDiv(divId, nameToUse, number)
     appendValue += divForValue(nameToUse, number);
     if (isItem)
     {
-        appendValue += divForShow(nameToUse, number);
+        appendValue += divForPrice(nameToUse, number);
     }
     if (number > 1)
     {
@@ -145,3 +147,4 @@ function getValues()
     });
     return values;
 }
+
