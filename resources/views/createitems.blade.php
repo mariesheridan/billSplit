@@ -16,8 +16,9 @@
                     <div class="app-spacer"></div>
                     <form action="update_items" method="POST">
                         <div id="app-items">
-                            <div class="app-label">1.</div>
-                            <div class="app-value"><input type="text" name="item1" required></div>
+                            <div class="app-label" id='item1Label'>1.</div>
+                            <div class="app-value" id='item1Value'><input type="text" name="item1" required></div>
+                            <input type="button" class="app-remove" id="item1Remove" value="Remove" />
                         </div>
                         <div class="app-spacer"></div>
                         <input type="button" id="addRow" value="Add" />
@@ -33,17 +34,8 @@
 @endsection
 
 @section ('localScript')
+<script src="{{ asset('js/inputs.js') }}"></script>
 <script>
-    var counter = 1;
-    $(document).ready(function () {
-
-        $("#addRow").click(function () {
-            counter++;
-            var appendValue = "<div class='app-spacer'></div>";
-            appendValue = appendValue + "<div class='app-label'>" + counter + ".</div>";
-            appendValue = appendValue + "<div class='app-value'><input type='text' name='item" + counter + "' required></div>";
-            $("#app-items").append(appendValue);
-        });
-    });
+    setName('item');
 </script>
 @endsection

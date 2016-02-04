@@ -19,3 +19,7 @@
 #app-persons .app-label {
     width: 30px;
 }
+
+.app-remove {
+    margin-left: 10px;
+}
