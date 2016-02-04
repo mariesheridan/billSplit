@@ -14,7 +14,7 @@
                         @endif
                     @endforeach
                     <div class="app-spacer"></div>
-                    <form "action="create_items" method="POST">
+                    <form action="update_items" method="POST">
                         <div id="app-items">
                             <div class="app-label">1.</div>
                             <div class="app-value"><input type="text" name="item1" required></div>

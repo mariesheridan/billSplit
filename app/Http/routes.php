@@ -34,4 +34,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/create_persons', ['as' => 'create_persons', 'uses' => 'CreatePersonsController@index']);
     Route::post('/update_persons', 'UpdatePersonsController@update');
     Route::get('/create_items', ['as' => 'create_items', 'uses' => 'CreateItemsController@index']);
+    Route::post('/update_items', 'UpdateItemsController@update');
+    Route::get('/summary', ['as' => 'summary', 'uses' => 'SummaryController@index']);
 });
