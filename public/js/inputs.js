@@ -59,10 +59,10 @@ function setOne(id, nameToUse)
 {
     var appendValue = divForLabel(nameToUse, 1);
     appendValue += divForValue(nameToUse, 1);
-    if (isItem)
-    {
-        appendValue += divForPrice(nameToUse, 1);
-    }
+    // if (isItem)
+    // {
+        // appendValue += divForPrice(nameToUse, 1);
+    // }
     $(id).append(appendValue);
     isOneSet = true;
 }
@@ -93,13 +93,13 @@ function divForRemove(nameToUse, number)
            + nameToUse + number + "Remove' value='Remove' />";
 }
 
-function divForPrice(nameToUse, number)
-{
-    return "<div class='app-price' id='"
-           + nameToUse + number
-           + "Price'><input type='number' name='"
-           + nameToUse + number + "' required></div>";
-}
+// function divForPrice(nameToUse, number)
+// {
+    // return "<div class='app-price' id='"
+           // + nameToUse + number
+           // + "Price'><input type='number' name='"
+           // + nameToUse + number + "' required></div>";
+// }
 
 function appendToDiv(divId, nameToUse, number)
 {
@@ -114,10 +114,10 @@ function appendToDiv(divId, nameToUse, number)
     }
     appendValue += divForLabel(nameToUse, number);
     appendValue += divForValue(nameToUse, number);
-    if (isItem)
-    {
-        appendValue += divForPrice(nameToUse, number);
-    }
+    // if (isItem)
+    // {
+        // appendValue += divForPrice(nameToUse, number);
+    // }
     if (number > 1)
     {
         appendValue += divForRemove(nameToUse, number);
