@@ -5,18 +5,16 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">What items were bought?</div>
+                <div class="panel-heading">What's the price? Who ordered the items?</div>
 
                 <div class="panel-body">
                     {{ $store }}
                     <br>
                     {{ $date }}
                     <div class="app-spacer"></div>
-                    <form action="update_items" method="POST">
-                        <div id="app-items">
+                    <form action="update_orders" method="POST">
+                        <div id="app-orders">
                         </div>
-                        <div class="app-spacer"></div>
-                        <input type="button" id="addRow" value="Add" />
                         <div class="app-spacer"></div>
                         <input type="hidden" name="_token" value={{ csrf_token() }}>
                         <div class="app-button"><input type="submit" value="Next >>"></div>
@@ -29,11 +27,13 @@
 @endsection
 
 @section ('localScript')
-<script src="{{ asset('js/inputs.js') }}"></script>
+<script src="{{ asset('js/orders.js') }}"></script>
 <script>
-    setName('item');
-//    var persons = <?php echo '["' . implode('", "', $persons) . '"]'; ?>;
-//    console.log("js persons = " + persons);
-//    setContents(persons);
+    var persons = <?php echo '["' . implode('", "', $persons) . '"]'; ?>;
+    console.log("js persons = " + persons);
+    var items = <?php echo '["' . implode('", "', $items) . '"]'; ?>;
+    console.log("js items = " + items);
+    setPersons(persons);
+    setItems(items);
 </script>
 @endsection

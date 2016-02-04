@@ -26,8 +26,8 @@ class UpdateItemsController extends Controller
             }
         }
         Session::forget('items');
-        Session::set('items', $item);
+        Session::set('items', $items);
 
-        return redirect()->route('summary');
+        return redirect()->route('order_details');
     }
 }

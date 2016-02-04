@@ -8,7 +8,7 @@ use Session;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class CreateItemsController extends Controller
+class OrderDetailsController extends Controller
 {
     public function __construct()
     {
@@ -19,8 +19,8 @@ class CreateItemsController extends Controller
     {
         $store = Session::get('store');
         $date = Session::get('date');
-//        $persons = Session::get('persons');
-//        return view('createitems', array('store' => $store, 'date' => $date, 'persons' => $persons));
-        return view('createitems', array('store' => $store, 'date' => $date));
+        $persons = Session::get('persons');
+        $items = Session::get('items');
+        return view('orderdetails', array('store' => $store, 'date' => $date, 'persons' => $persons, 'items' => $items));
     }
 }

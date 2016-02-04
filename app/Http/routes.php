@@ -36,5 +36,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/update_persons', 'UpdatePersonsController@update');
     Route::get('/create_items', ['as' => 'create_items', 'uses' => 'CreateItemsController@index']);
     Route::post('/update_items', 'UpdateItemsController@update');
+    Route::get('/order_details', ['as' => 'order_details', 'uses' => 'OrderDetailsController@index']);
+    Route::post('/update_orders', 'UpdateOrderDetailsController@update');
     Route::get('/summary', ['as' => 'summary', 'uses' => 'SummaryController@index']);
 });
