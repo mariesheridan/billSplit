@@ -3,6 +3,8 @@ var name = '';
 var counter = 1;
 var idToAppend = '';
 var isOneSet = false;
+var contents = [];
+var isItem = false;
 
 $(document).ready(function () {
 
@@ -38,12 +40,29 @@ function setName(nameToUse)
 {
     name = nameToUse;
     isNameSet = true;
+    if (name === "item")
+    {
+        isItem = true;
+    }
+}
+
+function setContents(contentFromPhp)
+{
+    contents = contentFromPhp;
+    for(iter in contents)
+    {
+        console.log("content: " + contents[iter]);
+    }
 }
 
 function setOne(id, nameToUse)
 {
     var appendValue = divForLabel(nameToUse, 1);
-    appendValue = appendValue + divForValue(nameToUse, 1);
+    appendValue += divForValue(nameToUse, 1);
+    if (isItem)
+    {
+        appendValue += divForShow();
+    }
     $(id).append(appendValue);
     isOneSet = true;
 }
@@ -68,10 +87,16 @@ function divForValue(nameToUse, number)
            + nameToUse + number + "' required></div>";
 }
 
-function divForButton(nameToUse, number)
+function divForRemove(nameToUse, number)
 {
     return "<input type='button' class='app-remove' id='" 
            + nameToUse + number + "Remove' value='Remove' />";
+}
+
+function divForShow(nameToUse, number)
+{
+    return "<input type='button' class='app-show' id='" 
+           + nameToUse + number + "Show' value='Show' />";
 }
 
 function appendToDiv(divId, nameToUse, number)
@@ -79,17 +104,21 @@ function appendToDiv(divId, nameToUse, number)
     var appendValue = '';
     if (number === 2)
     {
-        appendValue = appendValue + divForButton(nameToUse, number-1);
+        appendValue += divForRemove(nameToUse, number-1);
     }
     if (number > 1)
     {
-        appendValue = appendValue + divForSpacer(nameToUse, number);
+        appendValue += divForSpacer(nameToUse, number);
     }
-    appendValue = appendValue + divForLabel(nameToUse, number);
-    appendValue = appendValue + divForValue(nameToUse, number);
+    appendValue += divForLabel(nameToUse, number);
+    appendValue += divForValue(nameToUse, number);
+    if (isItem)
+    {
+        appendValue += divForShow(nameToUse, number);
+    }
     if (number > 1)
     {
-        appendValue = appendValue + divForButton(nameToUse, number);
+        appendValue += divForRemove(nameToUse, number);
     }
     $(divId).append(appendValue);
 }

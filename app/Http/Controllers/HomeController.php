@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Session;
+
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
@@ -24,6 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        Session::forget('store');
+        Session::forget('date');
+        Session::forget('persons');
         return view('home');
     }
 }

@@ -8,11 +8,9 @@
                 <div class="panel-heading">What items were bought?</div>
 
                 <div class="panel-body">
-                    @foreach($persons as $key=>$person)
-                        @if(preg_match('/^person[\d]+/', $key))
-                            {{$person}}<br>
-                        @endif
-                    @endforeach
+                    {{ $store }}
+                    <br>
+                    {{ $date }}
                     <div class="app-spacer"></div>
                     <form action="update_items" method="POST">
                         <div id="app-items">
@@ -34,5 +32,8 @@
 <script src="{{ asset('js/inputs.js') }}"></script>
 <script>
     setName('item');
+    var persons = <?php echo '["' . implode('", "', $persons) . '"]'; ?>;
+    console.log("js persons = " + persons);
+    setContents(persons);
 </script>
 @endsection

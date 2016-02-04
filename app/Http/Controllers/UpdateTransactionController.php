@@ -18,12 +18,14 @@ class UpdateTransactionController extends Controller
     }
     
     public function update(Request $request){
+        Session::forget('store');
+        Session::forget('key');
         Session::set('store', $request->input('store'));
         Session::set('date', $request->input('date'));
-        $trans = Transaction::create(array('user_id' => $request->user()->id,
-                                           'date' => $request->input('date'),
-                                           'store' => $request->input('store')));
-        Session::set('transactionId', $trans->id);
+//        $trans = Transaction::create(array('user_id' => $request->user()->id,
+//                                           'date' => $request->input('date'),
+//                                           'store' => $request->input('store')));
+//        Session::set('transactionId', $trans->id);
         return redirect()->route('create_persons');
     }
 }

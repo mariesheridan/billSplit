@@ -18,7 +18,17 @@ class UpdatePersonsController extends Controller
     
     public function update(Request $request)    
     {
-        Session::set('persons', $request->all());
+        $persons = array();
+        foreach($request->all() as $key=>$person)
+        {
+            if(preg_match('/^person[\d]+/', $key))
+            {
+                array_push($persons, $person);
+            }
+        }
+        Session::forget('persons');
+        Session::set('persons', $persons);
+
         return redirect()->route('create_items');
     }
 }

@@ -17,14 +17,12 @@ class CreatePersonsController extends Controller
     }
 
     public function index(){
-//        $store = Session::get('store');
-//        $date = Session::get('date');
-        $transId = Session::get('transactionId');
-        $transaction = Transaction::find($transId);
-        return view('createpersons', array('store' => $transaction->store, 'date' => $transaction->date));
-    }
-
-    protected function updateTransactions($store, $date){
-
+        $store = Session::get('store');
+        $date = Session::get('date');
+        $persons = Session::get('persons', array());
+//        $transId = Session::get('transactionId');
+//        $transaction = Transaction::find($transId);
+//        return view('createpersons', array('store' => $transaction->store, 'date' => $transaction->date));
+        return view('createpersons', array('store' => $store, 'date' => $date, 'persons' => $persons));
     }
 }

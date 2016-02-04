@@ -26,9 +26,10 @@
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
     Route::get('/', function () {
-        return view('welcome');
+//        return view('welcome');
+        return redirect()->route('home');
     });
-    Route::get('/home', 'HomeController@index');
+    Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@index']);
     Route::get('/create_transaction', 'CreateTransactionController@index');
     Route::post('/update_transaction', 'UpdateTransactionController@update');
     Route::get('/create_persons', ['as' => 'create_persons', 'uses' => 'CreatePersonsController@index']);

@@ -7,6 +7,11 @@
     float: left;
 }
 
+.app-price {
+    float: left;
+    margin-left: 10px;
+}
+
 .app-button {
     clear: both;
 }
@@ -16,10 +21,14 @@
     height: 10px;
 }
 
-#app-persons .app-label {
+#app-persons .app-label{
     width: 30px;
 }
 
-.app-remove {
+#app-items .app-label{
+    width: 30px;
+}
+
+input.app-remove, input.app-show{
     margin-left: 10px;
 }

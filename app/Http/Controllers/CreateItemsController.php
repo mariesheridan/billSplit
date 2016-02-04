@@ -17,11 +17,9 @@ class CreateItemsController extends Controller
 
     public function index()
     {
+        $store = Session::get('store');
+        $date = Session::get('date');
         $persons = Session::get('persons');
-        return view('createitems', array('persons' => $persons));
-    }
-
-    protected function updateTransactions($store, $date){
-
+        return view('createitems', array('store' => $store, 'date' => $date, 'persons' => $persons));
     }
 }

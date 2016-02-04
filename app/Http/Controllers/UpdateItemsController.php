@@ -17,7 +17,17 @@ class UpdateItemsController extends Controller
     
     public function update(Request $request)    
     {
-        Session::set('items', $request->all());
+        $items = array();
+        foreach($request->all() as $key=>$item)
+        {
+            if(preg_match('/^item[\d]+/', $key))
+            {
+                array_push($items, $item);
+            }
+        }
+        Session::forget('items');
+        Session::set('items', $item);
+
         return redirect()->route('summary');
     }
 }
