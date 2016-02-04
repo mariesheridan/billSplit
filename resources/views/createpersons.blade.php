@@ -14,9 +14,6 @@
                     <div class="app-spacer"></div>
                     <form action="update_persons" method="POST">
                         <div id="app-persons">
-                            <div class="app-label" id="person1Label">1.</div>
-                            <div class="app-value" id="person1Value"><input type="text" name="person1" required></div>
-                            <input type="button" class="app-remove" id="person1Remove" value="Remove" />
                         </div>
                         <div class="app-spacer"></div>
                         <input type="button" id="addRow" value="Add" />
