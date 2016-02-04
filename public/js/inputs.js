@@ -15,16 +15,7 @@ $(document).ready(function () {
         }
         $("#addRow").click(function () {
             counter++;
-            var appendValue = '';
-            if (counter === 2)
-            {
-                appendValue = appendValue + divForButton(name, counter-1);
-            }
-            appendValue = appendValue + divForSpacer(name, counter);
-            appendValue = appendValue + divForLabel(name, counter);
-            appendValue = appendValue + divForValue(name, counter);
-            appendValue = appendValue + divForButton(name, counter);
-            $(idToAppend).append(appendValue);
+            appendToDiv(idToAppend, name, counter);
         });
     }
     $(document).on('click', '.app-remove', function(){
@@ -38,6 +29,7 @@ $(document).ready(function () {
         $(labelId).remove();
         $(valueId).remove();
         $(spacerId).remove();
+        updateDiv(idToAppend, name);
     });
 
 });
@@ -80,4 +72,47 @@ function divForButton(nameToUse, number)
 {
     return "<input type='button' class='app-remove' id='" 
            + nameToUse + number + "Remove' value='Remove' />";
+}
+
+function appendToDiv(divId, nameToUse, number)
+{
+    var appendValue = '';
+    if (number === 2)
+    {
+        appendValue = appendValue + divForButton(nameToUse, number-1);
+    }
+    if (number > 1)
+    {
+        appendValue = appendValue + divForSpacer(nameToUse, number);
+    }
+    appendValue = appendValue + divForLabel(nameToUse, number);
+    appendValue = appendValue + divForValue(nameToUse, number);
+    if (number > 1)
+    {
+        appendValue = appendValue + divForButton(nameToUse, number);
+    }
+    $(divId).append(appendValue);
+}
+
+function updateDiv(divId, nameToUse)
+{
+    var values = getValues();
+    console.log(values);
+    $(divId).empty();
+    counter = 0;
+    for (var iter in values)
+    {
+        counter++;
+        appendToDiv(divId, nameToUse, counter);
+        $('#' + nameToUse + counter + 'Value :text').val(values[iter]);
+    }
+}
+
+function getValues()
+{
+    var values = [];
+    $(idToAppend + " :text").each(function(){
+        values.push($(this).val());
+    });
+    return values;
 }

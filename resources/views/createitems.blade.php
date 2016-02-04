@@ -16,8 +16,6 @@
                     <div class="app-spacer"></div>
                     <form action="update_items" method="POST">
                         <div id="app-items">
-                            <div class="app-label" id='item1Label'>1.</div>
-                            <div class="app-value" id='item1Value'><input type="text" name="item1" required></div>
                         </div>
                         <div class="app-spacer"></div>
                         <input type="button" id="addRow" value="Add" />
