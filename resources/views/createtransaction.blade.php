@@ -14,10 +14,18 @@
                 <div class="panel-body">
                     <form action="update_transaction" method="POST">
                         <div class="app-label">Store</div>
-                        <div class="app-value"><input type="text" name="store" required></div>
+                        <div class="app-value"><input type="text" name="store"
+                        @if (Session::has('store'))
+                            value="{{Session::get('store')}}"
+                        @endif
+                        required></div>
                         <div class="app-spacer"></div>
                         <div class="app-label">Date</div>
-                        <div class="app-value"><input id="datepicker" name="date" required></div>
+                        <div class="app-value"><input id="datepicker" name="date"
+                        @if (Session::has('date'))
+                            value={{Session::get('date')}}
+                        @endif
+                        required></div>
                         <div class="app-spacer"></div>
                         <input type="hidden" name="_token" value={{ csrf_token() }}>
                         <div class="app-button"><input type="submit" value="Next >>"></div>
@@ -33,7 +41,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script>
     $(document).ready(function() {
-    $("#datepicker").datepicker();
+        $("#datepicker").datepicker();
     });
 </script>
 @endsection
