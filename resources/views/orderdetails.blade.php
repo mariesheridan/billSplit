@@ -34,7 +34,10 @@
     console.log("js persons = " + persons);
     var items = <?php echo '["' . implode('", "', $items) . '"]'; ?>;
     console.log("js items = " + items);
+    var prices = <?php echo '["' . implode('", "', $prices) . '"]'; ?>;
+    console.log("js prices = " + prices);
     setPersons(persons);
     setItems(items);
+    setPrices(prices);
 </script>
 @endsection

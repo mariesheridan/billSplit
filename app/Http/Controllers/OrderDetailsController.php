@@ -21,6 +21,14 @@ class OrderDetailsController extends Controller
         $date = Session::get('date');
         $persons = Session::get('persons');
         $items = Session::get('items');
-        return view('orderdetails', array('store' => $store, 'date' => $date, 'persons' => $persons, 'items' => $items));
+        $prices = Session::get('prices');
+        return view('orderdetails', 
+                     array('store' => $store, 
+                           'date' => $date, 
+                           'persons' => $persons, 
+                           'items' => $items,
+                           'prices' => $prices
+                     )
+                   );
     }
 }

@@ -1,6 +1,11 @@
-.app-label {
+.app-label-word {
     float: left;
     width: 50px;
+}
+
+.app-label {
+    float: left;
+    width: 30px;
 }
 
 .app-value {
@@ -22,14 +27,20 @@
     height: 10px;
 }
 
-#app-persons .app-label{
-    width: 30px;
-}
-
-#app-items .app-label{
-    width: 30px;
-}
-
 input.app-remove, input.app-show{
     margin-left: 10px;
+}
+
+.app-price{
+    float: left;
+}
+
+.app-price input{
+    width: 80px;
+}
+
+.app-item-name{
+    float: left;
+    width: 100px;
+    margin-right: 10px;
 }
