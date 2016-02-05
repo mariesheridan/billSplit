@@ -26,16 +26,6 @@ $(document).ready(function () {
 
 });
 
-function setName(nameToUse)
-{
-    name = nameToUse;
-    isNameSet = true;
-    if (name === "item")
-    {
-        isItem = true;
-    }
-}
-
 function setPersons(contentFromPhp)
 {
     persons = contentFromPhp;
@@ -52,19 +42,6 @@ function setItems(contentFromPhp)
     {
         console.log("content: " + items[iter]);
     }
-}
-
-
-function setOne(id, nameToUse)
-{
-    var appendValue = divForLabel(nameToUse, 1);
-    appendValue += divForValue(nameToUse, 1);
-    // if (isItem)
-    // {
-        // appendValue += divForPrice(nameToUse, 1);
-    // }
-    $(id).append(appendValue);
-    isOneSet = true;
 }
 
 function divForSpacer(nameToUse, number)
