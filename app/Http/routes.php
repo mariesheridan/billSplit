@@ -25,10 +25,10 @@
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
-    Route::get('/', function () {
+//    Route::get('/', function () {
 //        return view('welcome');
-        return redirect()->route('home');
-    });
+//    });
+    Route::get('/', 'WelcomeController@index');
     Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@index']);
     Route::get('/create_transaction', 'CreateTransactionController@index');
     Route::post('/update_transaction', 'UpdateTransactionController@update');

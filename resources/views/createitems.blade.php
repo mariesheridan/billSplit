@@ -32,8 +32,5 @@
 <script src="{{ asset('js/inputs.js') }}"></script>
 <script>
     setName('item');
-//    var persons = <?php echo '["' . implode('", "', $persons) . '"]'; ?>;
-//    console.log("js persons = " + persons);
-//    setContents(persons);
 </script>
 @endsection
