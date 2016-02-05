@@ -4,21 +4,27 @@ var counter = 1;
 var idToAppend = '';
 var isOneSet = false;
 var contents = [];
-var isItem = false;
 
 $(document).ready(function () {
 
     if (isNameSet)
     {
         idToAppend = '#app-' + name + 's';
-        if (!isOneSet)
+        if (!isEmpty(contents))
         {
-            setOne(idToAppend, name);
+            showPreviousInputs(idToAppend, name, contents);
         }
-        $("#addRow").click(function () {
-            counter++;
-            appendToDiv(idToAppend, name, counter);
-        });
+        else
+        {
+            if (!isOneSet)
+            {
+                setOne(idToAppend, name);
+            }
+            $("#addRow").click(function () {
+                counter++;
+                appendToDiv(idToAppend, name, counter);
+            });
+        }
     }
     $(document).on('click', '.app-remove', function(){
         var removeId = $(this).attr('id');
@@ -40,9 +46,23 @@ function setName(nameToUse)
 {
     name = nameToUse;
     isNameSet = true;
-    if (name === "item")
+}
+
+function isEmpty(inputArray)
+{
+    var elemCounter = 0;
+    for(input in inputArray)
     {
-        isItem = true;
+        elemCounter++;
+    }
+    console.log('elemCounter = ' + elemCounter);
+    if (elemCounter === 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
 
@@ -59,10 +79,6 @@ function setOne(id, nameToUse)
 {
     var appendValue = divForLabel(nameToUse, 1);
     appendValue += divForValue(nameToUse, 1);
-    // if (isItem)
-    // {
-        // appendValue += divForPrice(nameToUse, 1);
-    // }
     $(id).append(appendValue);
     isOneSet = true;
 }
@@ -93,14 +109,6 @@ function divForRemove(nameToUse, number)
            + nameToUse + number + "Remove' value='Remove' />";
 }
 
-// function divForPrice(nameToUse, number)
-// {
-    // return "<div class='app-price' id='"
-           // + nameToUse + number
-           // + "Price'><input type='number' name='"
-           // + nameToUse + number + "' required></div>";
-// }
-
 function appendToDiv(divId, nameToUse, number)
 {
     var appendValue = '';
@@ -114,10 +122,6 @@ function appendToDiv(divId, nameToUse, number)
     }
     appendValue += divForLabel(nameToUse, number);
     appendValue += divForValue(nameToUse, number);
-    // if (isItem)
-    // {
-        // appendValue += divForPrice(nameToUse, number);
-    // }
     if (number > 1)
     {
         appendValue += divForRemove(nameToUse, number);
@@ -148,3 +152,15 @@ function getValues()
     return values;
 }
 
+function showPreviousInputs(divId, nameToUse, inputs)
+{
+    console.log(inputs);
+    $(divId).empty();
+    counter = 0;
+    for (var iter in inputs)
+    {
+        counter++;
+        appendToDiv(divId, nameToUse, counter, inputs[iter]);
+        $('#' + nameToUse + counter + 'Value :text').val(inputs[iter]);
+    }
+}
