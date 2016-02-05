@@ -13,7 +13,8 @@
 }
 
 .app-button {
-    clear: both;
+    float: left;
+    margin-right: 10px;
 }
 
 .app-spacer {

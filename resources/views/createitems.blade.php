@@ -19,7 +19,8 @@
                         <input type="button" id="addRow" value="Add" />
                         <div class="app-spacer"></div>
                         <input type="hidden" name="_token" value={{ csrf_token() }}>
-                        <div class="app-button"><input type="submit" value="Next >>"></div>
+                        <div class="app-button"><input type="submit" name="back" value="<< Back"></div>
+                        <div class="app-button"><input type="submit" name="next" value="Next >>"></div>
                     </form>
                 </div>
             </div>
