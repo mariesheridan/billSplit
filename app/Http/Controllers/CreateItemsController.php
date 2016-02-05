@@ -19,7 +19,7 @@ class CreateItemsController extends Controller
     {
         $store = Session::get('store');
         $date = Session::get('date');
-        $items = Session::get('items');
+        $items = Session::get('items', array());
 //        $persons = Session::get('persons');
 //        return view('createitems', array('store' => $store, 'date' => $date, 'persons' => $persons));
         return view('createitems', array('store' => $store, 'date' => $date, 'items' => $items));
