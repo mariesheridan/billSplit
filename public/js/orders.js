@@ -2,27 +2,20 @@ var isNameSet = false;
 var name = '';
 var counter = 1;
 var idToAppend = '';
-var isOneSet = false;
+var isItemsSet = false;
+var isPersonsSet = false;
+var isPriceSet = false;
 var persons = [];
 var items = [];
-var isItem = false;
+var prices = [];
 
 $(document).ready(function () {
 
     idToAppend = '#app-orders';
-    $(document).on('click', '.app-remove', function(){
-        var removeId = $(this).attr('id');
-        var number = removeId.match(/\d+/);
-        removeId = "#" + removeId;
-        var labelId = "#" + name + number + "Label";
-        var valueId = "#" + name + number + "Value";
-        var spacerId = "#" + name + number + "Spacer";
-        $(removeId).remove();
-        $(labelId).remove();
-        $(valueId).remove();
-        $(spacerId).remove();
-        updateDiv(idToAppend, name);
-    });
+    if (isItemsSet)
+    {
+        listItems(idToAppend, 'order', items);
+    }
 
 });
 
@@ -33,6 +26,7 @@ function setPersons(contentFromPhp)
     {
         console.log("content: " + persons[iter]);
     }
+    isPersonsSet = true;
 }
 
 function setItems(contentFromPhp)
@@ -42,6 +36,17 @@ function setItems(contentFromPhp)
     {
         console.log("content: " + items[iter]);
     }
+    isItemsSet = true;
+}
+
+function setPrices(contentFromPhp)
+{
+    prices = contentFromPhp;
+    for(iter in prices)
+    {
+        console.log("content: " + prices[iter]);
+    }
+    isPriceSet = true;
 }
 
 function divForSpacer(nameToUse, number)
@@ -56,72 +61,52 @@ function divForLabel(nameToUse, number)
            + counter + ".</div>";
 }
 
-function divForValue(nameToUse, number)
+function divForItem(nameToUse, number, input)
 {
-    return "<div class='app-value' id='"
+    return "<div class='app-item-name' id='"
+           + nameToUse + number + "ItemName'>"
+           + input + "</div>";
+}
+
+function divForPrice(nameToUse, number, value)
+{
+    return "<div class='app-price' id='"
            + nameToUse + number
-           + "Value'><input type='text' name='"
-           + nameToUse + number + "' required></div>";
+           + "Price'>Total Price: <input type='number' step='0.01' name='price"
+           + number + "' value='" + value + "' required></div>";
 }
 
-function divForRemove(nameToUse, number)
+function divForShowDetails(nameToUse, number)
 {
-    return "<input type='button' class='app-remove' id='" 
-           + nameToUse + number + "Remove' value='Remove' />";
+    return "<input type='button' class='app-show' id='" 
+           + nameToUse + number + "Show' value='Split With' />";
 }
 
-// function divForPrice(nameToUse, number)
-// {
-    // return "<div class='app-price' id='"
-           // + nameToUse + number
-           // + "Price'><input type='number' name='"
-           // + nameToUse + number + "' required></div>";
-// }
 
-function appendToDiv(divId, nameToUse, number)
+function appendToDiv(divId, nameToUse, number, input)
 {
     var appendValue = '';
-    if (number === 2)
-    {
-        appendValue += divForRemove(nameToUse, number-1);
-    }
     if (number > 1)
     {
         appendValue += divForSpacer(nameToUse, number);
     }
     appendValue += divForLabel(nameToUse, number);
-    appendValue += divForValue(nameToUse, number);
-    // if (isItem)
-    // {
-        // appendValue += divForPrice(nameToUse, number);
-    // }
-    if (number > 1)
-    {
-        appendValue += divForRemove(nameToUse, number);
-    }
+    appendValue += divForItem(nameToUse, number, input);
+    appendValue += divForPrice(nameToUse, number, prices[number-1]);
+    appendValue += divForShowDetails(nameToUse, number);
+
     $(divId).append(appendValue);
 }
 
-function updateDiv(divId, nameToUse)
+function listItems(divId, nameToUse, inputs)
 {
-    var values = getValues();
-    console.log(values);
+    console.log(inputs);
     $(divId).empty();
     counter = 0;
-    for (var iter in values)
+    for (var iter in inputs)
     {
         counter++;
-        appendToDiv(divId, nameToUse, counter);
-        $('#' + nameToUse + counter + 'Value :text').val(values[iter]);
+        appendToDiv(divId, nameToUse, counter, inputs[iter]);
     }
-}
-
-function getValues()
-{
-    var values = [];
-    $(idToAppend + " :text").each(function(){
-        values.push($(this).val());
-    });
-    return values;
 }
 
