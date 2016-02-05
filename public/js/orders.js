@@ -3,26 +3,13 @@ var name = '';
 var counter = 1;
 var idToAppend = '';
 var isOneSet = false;
-var contents = [];
+var persons = [];
+var items = [];
+var isItem = false;
 
 $(document).ready(function () {
 
-    if (isNameSet)
-    {
-        idToAppend = '#app-' + name + 's';
-        if (!isEmpty(contents))
-        {
-            showPreviousInputs(idToAppend, name, contents);
-        }
-        else if(!isOneSet)
-        {
-            setOne(idToAppend, name);
-        }
-        $("#addRow").click(function () {
-            counter++;
-            appendToDiv(idToAppend, name, counter);
-        });
-    }
+    idToAppend = '#app-orders';
     $(document).on('click', '.app-remove', function(){
         var removeId = $(this).attr('id');
         var number = removeId.match(/\d+/);
@@ -34,47 +21,27 @@ $(document).ready(function () {
         $(labelId).remove();
         $(valueId).remove();
         $(spacerId).remove();
-        var values = getValues();
-        showPreviousInputs(idToAppend, name, values);
+        updateDiv(idToAppend, name);
     });
 
 });
 
-function setName(nameToUse)
+function setPersons(contentFromPhp)
 {
-    name = nameToUse;
-    isNameSet = true;
-}
-
-function isEmpty(inputArray)
-{
-    if (inputArray.length <= 0)
+    persons = contentFromPhp;
+    for(iter in persons)
     {
-        //console.log('Array is empty!')
-        return true;
-    }
-    else
-    {
-        //console.log('Array is NOT empty!')
-        return false;
+        console.log("content: " + persons[iter]);
     }
 }
 
-function setContents(contentFromPhp)
+function setItems(contentFromPhp)
 {
-    contents = contentFromPhp;
-    for(iter in contents)
+    items = contentFromPhp;
+    for(iter in items)
     {
-        console.log("content: " + contents[iter]);
+        console.log("content: " + items[iter]);
     }
-}
-
-function setOne(id, nameToUse)
-{
-    var appendValue = divForLabel(nameToUse, 1);
-    appendValue += divForValue(nameToUse, 1);
-    $(id).append(appendValue);
-    isOneSet = true;
 }
 
 function divForSpacer(nameToUse, number)
@@ -103,6 +70,14 @@ function divForRemove(nameToUse, number)
            + nameToUse + number + "Remove' value='Remove' />";
 }
 
+// function divForPrice(nameToUse, number)
+// {
+    // return "<div class='app-price' id='"
+           // + nameToUse + number
+           // + "Price'><input type='number' name='"
+           // + nameToUse + number + "' required></div>";
+// }
+
 function appendToDiv(divId, nameToUse, number)
 {
     var appendValue = '';
@@ -116,11 +91,29 @@ function appendToDiv(divId, nameToUse, number)
     }
     appendValue += divForLabel(nameToUse, number);
     appendValue += divForValue(nameToUse, number);
+    // if (isItem)
+    // {
+        // appendValue += divForPrice(nameToUse, number);
+    // }
     if (number > 1)
     {
         appendValue += divForRemove(nameToUse, number);
     }
     $(divId).append(appendValue);
+}
+
+function updateDiv(divId, nameToUse)
+{
+    var values = getValues();
+    console.log(values);
+    $(divId).empty();
+    counter = 0;
+    for (var iter in values)
+    {
+        counter++;
+        appendToDiv(divId, nameToUse, counter);
+        $('#' + nameToUse + counter + 'Value :text').val(values[iter]);
+    }
 }
 
 function getValues()
@@ -132,15 +125,3 @@ function getValues()
     return values;
 }
 
-function showPreviousInputs(divId, nameToUse, inputs)
-{
-    console.log(inputs);
-    $(divId).empty();
-    counter = 0;
-    for (var iter in inputs)
-    {
-        counter++;
-        appendToDiv(divId, nameToUse, counter);
-        $('#' + nameToUse + counter + 'Value :text').val(inputs[iter]);
-    }
-}

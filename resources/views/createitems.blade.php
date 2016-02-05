@@ -19,7 +19,8 @@
                         <input type="button" id="addRow" value="Add" />
                         <div class="app-spacer"></div>
                         <input type="hidden" name="_token" value={{ csrf_token() }}>
-                        <div class="app-button"><input type="submit" value="Next >>"></div>
+                        <div class="app-button"><input type="submit" name="back" value="<< Back"></div>
+                        <div class="app-button"><input type="submit" name="next" value="Next >>"></div>
                     </form>
                 </div>
             </div>
@@ -32,8 +33,8 @@
 <script src="{{ asset('js/inputs.js') }}"></script>
 <script>
     setName('item');
-    var persons = <?php echo '["' . implode('", "', $persons) . '"]'; ?>;
-    console.log("js persons = " + persons);
-    setContents(persons);
+    var items = <?php echo '["' . implode('", "', $items) . '"]'; ?>;
+    console.log("js items = " + items);
+    setContents(items);
 </script>
 @endsection

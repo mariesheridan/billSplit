@@ -26,8 +26,21 @@ class UpdateItemsController extends Controller
             }
         }
         Session::forget('items');
-        Session::set('items', $item);
+        Session::set('items', $items);
 
-        return redirect()->route('summary');
+        if ($request->__get('next'))
+        {
+            echo "Next";
+            return redirect()->route('order_details');
+        }
+        else if ($request->__get('back'))
+        {
+            echo "Back";
+            return redirect()->route('create_persons');
+        }
+        else
+        {
+            echo "Ooops.. Please go back";
+        }
     }
 }
