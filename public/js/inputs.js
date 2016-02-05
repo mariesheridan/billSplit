@@ -14,17 +14,14 @@ $(document).ready(function () {
         {
             showPreviousInputs(idToAppend, name, contents);
         }
-        else
+        else if(!isOneSet)
         {
-            if (!isOneSet)
-            {
-                setOne(idToAppend, name);
-            }
-            $("#addRow").click(function () {
-                counter++;
-                appendToDiv(idToAppend, name, counter);
-            });
+            setOne(idToAppend, name);
         }
+        $("#addRow").click(function () {
+            counter++;
+            appendToDiv(idToAppend, name, counter);
+        });
     }
     $(document).on('click', '.app-remove', function(){
         var removeId = $(this).attr('id');
@@ -37,7 +34,8 @@ $(document).ready(function () {
         $(labelId).remove();
         $(valueId).remove();
         $(spacerId).remove();
-        updateDiv(idToAppend, name);
+        var values = getValues();
+        showPreviousInputs(idToAppend, name, values);
     });
 
 });
@@ -50,18 +48,14 @@ function setName(nameToUse)
 
 function isEmpty(inputArray)
 {
-    var elemCounter = 0;
-    for(input in inputArray)
+    if (inputArray.length <= 0)
     {
-        elemCounter++;
-    }
-    console.log('elemCounter = ' + elemCounter);
-    if (elemCounter === 0)
-    {
+        //console.log('Array is empty!')
         return true;
     }
     else
     {
+        //console.log('Array is NOT empty!')
         return false;
     }
 }
@@ -129,20 +123,6 @@ function appendToDiv(divId, nameToUse, number)
     $(divId).append(appendValue);
 }
 
-function updateDiv(divId, nameToUse)
-{
-    var values = getValues();
-    console.log(values);
-    $(divId).empty();
-    counter = 0;
-    for (var iter in values)
-    {
-        counter++;
-        appendToDiv(divId, nameToUse, counter);
-        $('#' + nameToUse + counter + 'Value :text').val(values[iter]);
-    }
-}
-
 function getValues()
 {
     var values = [];
@@ -160,7 +140,7 @@ function showPreviousInputs(divId, nameToUse, inputs)
     for (var iter in inputs)
     {
         counter++;
-        appendToDiv(divId, nameToUse, counter, inputs[iter]);
+        appendToDiv(divId, nameToUse, counter);
         $('#' + nameToUse + counter + 'Value :text').val(inputs[iter]);
     }
 }

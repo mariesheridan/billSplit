@@ -11,10 +11,6 @@
                     {{ $store }}
                     <br>
                     {{ $date }}
-                    <br>
-                    @foreach($persons as $key=>$person)
-                        {{$person}}<br>
-                    @endforeach
                     <div class="app-spacer"></div>
                     <form action="update_persons" method="POST">
                         <div id="app-persons">

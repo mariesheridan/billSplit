@@ -16,6 +16,19 @@ class UpdateOrderDetailsController extends Controller
     
     public function update(Request $request)    
     {
-        return redirect()->route('summary');
+        if ($request->__get('next'))
+        {
+            echo "Next";
+            return redirect()->route('summary');
+        }
+        else if ($request->__get('back'))
+        {
+            echo "Back";
+            return redirect()->route('create_items');
+        }
+        else
+        {
+            echo "Ooops.. Please go back";
+        }
     }
 }
