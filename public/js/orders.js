@@ -6,11 +6,7 @@ var idToAppend = '';
 $(document).ready(function () {
 
     idToAppend = '#app-orders';
-    if (isItemsSet)
-    {
-        listItems(idToAppend, 'order', items);
-    }
-
+    listItems(idToAppend, 'order', itemNames, itemPrices);
 });
 
 function divForSpacer(nameToUse, number)
@@ -32,12 +28,11 @@ function divForItem(nameToUse, number, input)
            + input + "</div>";
 }
 
-function divForPrice(nameToUse, number, value)
+function divForPrice(nameToUse, number, input)
 {
-    return "<div class='app-price' id='"
-           + nameToUse + number
-           + "Price'>Total Price: <input type='number' step='0.01' name='price"
-           + number + "' value='" + value + "' required></div>";
+    return "<div class='app-item-price' id='"
+           + nameToUse + number + "ItemPrice'>Price: "
+           + input + "</div>";
 }
 
 function divForShowDetails(nameToUse, number)
@@ -47,7 +42,7 @@ function divForShowDetails(nameToUse, number)
 }
 
 
-function appendToDiv(divId, nameToUse, number, input)
+function appendToDiv(divId, nameToUse, number, name, price)
 {
     var appendValue = '';
     if (number > 1)
@@ -55,8 +50,8 @@ function appendToDiv(divId, nameToUse, number, input)
         appendValue += divForSpacer(nameToUse, number);
     }
     appendValue += divForLabel(nameToUse, number);
-    appendValue += divForItem(nameToUse, number, input);
-    appendValue += divForPrice(nameToUse, number, findPriceForItem(input, prices));
+    appendValue += divForItem(nameToUse, number, name);
+    appendValue += divForPrice(nameToUse, number, price);
     appendValue += divForShowDetails(nameToUse, number);
 
     $(divId).append(appendValue);
@@ -74,15 +69,15 @@ function findPriceForItem(itemName, priceList)
     return "";
 }
 
-function listItems(divId, nameToUse, inputs)
+function listItems(divId, nameToUse, names, prices)
 {
-    console.log(inputs);
+    console.log(names);
     $(divId).empty();
     counter = 0;
-    for (var iter in inputs)
+    for (var iter in names)
     {
         counter++;
-        appendToDiv(divId, nameToUse, counter, inputs[iter]);
+        appendToDiv(divId, nameToUse, counter, names[iter], prices[iter]);
     }
 }
 

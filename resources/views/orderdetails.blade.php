@@ -39,8 +39,3 @@
 </script>
 @endsection
 
-<!--
-//    var prices = <!-?php echo '["' . implode('", "', $prices) . '"]'; ?>;
-//    console.log("js prices = " + prices);
-//    setPrices(prices);
--->

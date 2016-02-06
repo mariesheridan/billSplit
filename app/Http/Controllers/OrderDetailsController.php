@@ -17,17 +17,15 @@ class OrderDetailsController extends Controller
 
     public function index()
     {
-        $store = Session::get('store');
-        $date = Session::get('date');
-        $persons = Session::get('persons');
-        $items = Session::get('items');
-        $prices = Session::get('prices', array());
+        $store = Session::get('store', "");
+        $date = Session::get('date', "");
+        $persons = Session::get('persons', array());
+        $items = Session::get('items', array());
         return view('orderdetails', 
                      array('store' => $store, 
                            'date' => $date, 
                            'persons' => $persons, 
-                           'items' => $items,
-                           'prices' => $prices
+                           'items' => $items
                      )
                    );
     }

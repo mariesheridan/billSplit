@@ -33,6 +33,7 @@
 }
 
 input.app-remove, input.app-show {
+    float: left;
     margin-left: 10px;
     margin-top: 0px;
 }
@@ -52,6 +53,12 @@ input.app-remove, input.app-show {
     margin-right: 10px;
 }
 
+.app-item-price{
+    float: left;
+    width: 120px;
+    margin-left: 10px;
+}
+
 @media screen and (max-width: 430px) {
     input.app-remove, input.app-show{
         margin-left: 30px;
@@ -64,8 +71,21 @@ input.app-remove, input.app-show {
         margin-top: 10px;
     }
 
-    input.app-remove, input.app-show{
+    .app-item-price{
+        clear: both;
+        width: 120px;
+        margin-left: 30px;
+        margin-top: 10px;
+    }
+
+    input.app-remove{
         margin-left: 10px;
+        margin-top: 10px;
+    }
+
+    input.app-show{
+        clear: both;
+        margin-left: 30px;
         margin-top: 10px;
     }
 }
