@@ -38,13 +38,5 @@
     var itemPrices = <?php echo '["' . implode('", "', array_column($items, 'itemPrice')) . '"]'; ?>;
     console.log("js itemNames = " + itemNames);
     console.log("js itemPrices = " + itemPrices);
-//    var items = [];
-//    for (index in itemNames)
-//    {
-//        items.push({itemName: itemNames[index], itemPrice: itemPrices[index]});
-//        console.log("js " + itemNames[index] + " = " + itemPrices[index]);
-//    }
-//    console.log("js items = " + items);
-//    setItems(items);
 </script>
 @endsection

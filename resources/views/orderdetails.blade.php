@@ -32,20 +32,10 @@
 <script>
     var persons = <?php echo '["' . implode('", "', $persons) . '"]'; ?>;
     console.log("js persons = " + persons);
-    var items = <?php echo '["' . implode('", "', $items) . '"]'; ?>;
-    console.log("js items = " + items);
-    var priceNames = <?php echo '["' . implode('", "', array_column($prices, 'priceName')) . '"]'; ?>;
-    var priceAmounts = <?php echo '["' . implode('", "', array_column($prices, 'priceAmount')) . '"]'; ?>;
-    var prices = [];
-    for (index in priceNames)
-    {
-        prices.push({priceName: priceNames[index], priceAmount: priceAmounts[index]}); 
-    }
-    console.log("js prices = " + prices);
-    setPersons(persons);
-    setItems(items);
-    setPrices(prices);
-
+    var itemNames = <?php echo '["' . implode('", "', array_column($items, 'itemName')) . '"]'; ?>;
+    var itemPrices = <?php echo '["' . implode('", "', array_column($items, 'itemPrice')) . '"]'; ?>;
+    console.log("js itemNames = " + itemNames);
+    console.log("js itemPrices = " + itemPrices);
 </script>
 @endsection
 

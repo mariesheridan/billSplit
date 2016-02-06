@@ -20,18 +20,7 @@ class UpdateOrderDetailsController extends Controller
         $prices = array();
         $index = 0;
         $items = Session::get('items');
-        foreach($request->all() as $key=>$price)
-        {
-            if(preg_match('/^price[\d]+/', $key))
-            {
-                array_push($prices, array('priceName' => $items[$index], 'priceAmount' => $price));
-                //array_push($prices, $price);
-                $index++;
-            }
-        }
-        print_r($prices);
-        Session::forget('prices');
-        Session::set('prices', $prices);
+
         if ($request->__get('next'))
         {
             echo "Next";

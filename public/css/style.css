@@ -12,6 +12,11 @@
     float: left;
 }
 
+.app-value input{
+    /*width: 100px;*/
+    width: 100%;
+}
+
 .app-price {
     float: left;
     margin-left: 10px;
@@ -27,8 +32,9 @@
     height: 10px;
 }
 
-input.app-remove, input.app-show{
+input.app-remove, input.app-show {
     margin-left: 10px;
+    margin-top: 0px;
 }
 
 .app-price{
@@ -36,11 +42,30 @@ input.app-remove, input.app-show{
 }
 
 .app-price input{
-    width: 80px;
+    width: 60px;
+    margin-top: 0px;
 }
 
 .app-item-name{
     float: left;
     width: 100px;
     margin-right: 10px;
+}
+
+@media screen and (max-width: 430px) {
+    input.app-remove, input.app-show{
+        margin-left: 30px;
+        margin-top: 10px;
+    }
+}
+
+@media screen and (max-width: 355px) {
+    .app-price input{
+        margin-top: 10px;
+    }
+
+    input.app-remove, input.app-show{
+        margin-left: 10px;
+        margin-top: 10px;
+    }
 }

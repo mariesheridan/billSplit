@@ -44,7 +44,7 @@ class UpdateItemsController extends Controller
         if ($request->__get('next'))
         {
             echo "Next";
-            //return redirect()->route('order_details');
+            return redirect()->route('order_details');
         }
         else if ($request->__get('back'))
         {

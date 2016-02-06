@@ -2,12 +2,6 @@ var isNameSet = false;
 var name = '';
 var counter = 1;
 var idToAppend = '';
-var isItemsSet = false;
-var isPersonsSet = false;
-var isPriceSet = false;
-var persons = [];
-var items = [];
-var prices = [];
 
 $(document).ready(function () {
 
@@ -19,36 +13,6 @@ $(document).ready(function () {
 
 });
 
-function setPersons(contentFromPhp)
-{
-    persons = contentFromPhp;
-    for(iter in persons)
-    {
-        console.log("content: " + persons[iter]);
-    }
-    isPersonsSet = true;
-}
-
-function setItems(contentFromPhp)
-{
-    items = contentFromPhp;
-    for(iter in items)
-    {
-        console.log("content: " + items[iter]);
-    }
-    isItemsSet = true;
-}
-
-function setPrices(contentFromPhp)
-{
-    prices = contentFromPhp;
-    for(iter in prices)
-    {
-        console.log("content: " + prices[iter].priceName + " = " + prices[iter].priceAmount);
-    }
-    isPriceSet = true;
-}
-
 function divForSpacer(nameToUse, number)
 {
     return "<div class='app-spacer' id='" + nameToUse + number + "Spacer'></div>";
@@ -58,7 +22,7 @@ function divForLabel(nameToUse, number)
 {
     return "<div class='app-label' id='"
            + nameToUse + number + "Label'>"
-           + counter + ".</div>";
+           + number + ".</div>";
 }
 
 function divForItem(nameToUse, number, input)

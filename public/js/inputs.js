@@ -40,7 +40,7 @@ function divForLabel(nameToUse, number)
 {
     return "<div class='app-label' id='"
            + nameToUse + number + "Label'>"
-           + counter + ".</div>";
+           + number + ".</div>";
 }
 
 function divForValue(nameToUse, number)
