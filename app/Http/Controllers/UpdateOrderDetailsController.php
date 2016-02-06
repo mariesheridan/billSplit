@@ -24,9 +24,9 @@ class UpdateOrderDetailsController extends Controller
         {
             if(preg_match('/^price[\d]+/', $key))
             {
-                //array_push($prices, array($items[$index], $price));
-                array_push($prices, $price);
-                //$index++;
+                array_push($prices, array('priceName' => $items[$index], 'priceAmount' => $price));
+                //array_push($prices, $price);
+                $index++;
             }
         }
         print_r($prices);

@@ -44,7 +44,7 @@ function setPrices(contentFromPhp)
     prices = contentFromPhp;
     for(iter in prices)
     {
-        console.log("content: " + prices[iter]);
+        console.log("content: " + prices[iter].priceName + " = " + prices[iter].priceAmount);
     }
     isPriceSet = true;
 }
@@ -92,10 +92,22 @@ function appendToDiv(divId, nameToUse, number, input)
     }
     appendValue += divForLabel(nameToUse, number);
     appendValue += divForItem(nameToUse, number, input);
-    appendValue += divForPrice(nameToUse, number, prices[number-1]);
+    appendValue += divForPrice(nameToUse, number, findPriceForItem(input, prices));
     appendValue += divForShowDetails(nameToUse, number);
 
     $(divId).append(appendValue);
+}
+
+function findPriceForItem(itemName, priceList)
+{
+    for (iter in priceList)
+    {
+        if (priceList[iter].priceName === itemName)
+        {
+            return priceList[iter].priceAmount;
+        }
+    }
+    return "";
 }
 
 function listItems(divId, nameToUse, inputs)

@@ -34,10 +34,23 @@
     console.log("js persons = " + persons);
     var items = <?php echo '["' . implode('", "', $items) . '"]'; ?>;
     console.log("js items = " + items);
-    var prices = <?php echo '["' . implode('", "', $prices) . '"]'; ?>;
+    var priceNames = <?php echo '["' . implode('", "', array_column($prices, 'priceName')) . '"]'; ?>;
+    var priceAmounts = <?php echo '["' . implode('", "', array_column($prices, 'priceAmount')) . '"]'; ?>;
+    var prices = [];
+    for (index in priceNames)
+    {
+        prices.push({priceName: priceNames[index], priceAmount: priceAmounts[index]}); 
+    }
     console.log("js prices = " + prices);
     setPersons(persons);
     setItems(items);
     setPrices(prices);
+
 </script>
 @endsection
+
+<!--
+//    var prices = <!-?php echo '["' . implode('", "', $prices) . '"]'; ?>;
+//    console.log("js prices = " + prices);
+//    setPrices(prices);
+-->
