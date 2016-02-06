@@ -8,16 +8,7 @@ $(document).ready(function () {
 
     idToAppend = '#app-orders';
     listItems(idToAppend, 'order', itemNames, itemPrices, persons);
-    $(function(){
-        var requiredCheckboxes = $('.person-checkbox :checkbox[required]');
-        requiredCheckboxes.change(function(){
-            if(requiredCheckboxes.is(':checked')) {
-                requiredCheckboxes.removeAttr('required');
-            } else {
-                requiredCheckboxes.attr('required', 'required');
-            }
-        });
-    });
+
     $(document).on('click', '.app-show', function(){
         var showId = $(this).attr('id');
         var number = showId.match(/\d+/);
@@ -32,6 +23,21 @@ $(document).ready(function () {
             buyers.addClass('hide');
             $(this).attr('value', 'Split With');   
         }
+    });
+
+    $(document).on('change', '.person-checkbox', function(){
+        var checkboxId = $(this).attr('id');
+        console.log("id = " + checkboxId);
+        var number = checkboxId.match(/\d+/);
+        var buyersId = '#buyers' + number;
+        var requiredCheckboxes = $(buyersId + ' :checkbox[required]');
+        requiredCheckboxes.change(function(){
+            if(requiredCheckboxes.is(':checked')) {
+                requiredCheckboxes.removeAttr('required');
+            } else {
+                requiredCheckboxes.attr('required', 'required');
+            }
+        });
     });
 });
 
