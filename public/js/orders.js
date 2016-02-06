@@ -2,11 +2,37 @@ var isNameSet = false;
 var name = '';
 var counter = 1;
 var idToAppend = '';
+// persons, itemNames, itemPrices - taken from html
 
 $(document).ready(function () {
 
     idToAppend = '#app-orders';
-    listItems(idToAppend, 'order', itemNames, itemPrices);
+    listItems(idToAppend, 'order', itemNames, itemPrices, persons);
+    $(function(){
+        var requiredCheckboxes = $('.person-checkbox :checkbox[required]');
+        requiredCheckboxes.change(function(){
+            if(requiredCheckboxes.is(':checked')) {
+                requiredCheckboxes.removeAttr('required');
+            } else {
+                requiredCheckboxes.attr('required', 'required');
+            }
+        });
+    });
+    $(document).on('click', '.app-show', function(){
+        var showId = $(this).attr('id');
+        var number = showId.match(/\d+/);
+        var buyers = $('#buyers' + number);
+        if (buyers.hasClass('hide'))
+        {
+            buyers.removeClass('hide');
+            $(this).attr('value', 'Hide Details');
+        }
+        else
+        {
+            buyers.addClass('hide');
+            $(this).attr('value', 'Split With');   
+        }
+    });
 });
 
 function divForSpacer(nameToUse, number)
@@ -41,8 +67,24 @@ function divForShowDetails(nameToUse, number)
            + nameToUse + number + "Show' value='Split With' />";
 }
 
+function divForPersons(nameToUse, number, names)
+{
+    var appendValue = "<div class='hide person-checkbox' id='buyers" + number +"'>";
+    for (iter in names)
+    {
+        appendValue += "<div class='nameCheckbox' id='" 
+                       + nameToUse + number
+                       + "NameCheckbox'><input type='checkbox' name='"
+                       + nameToUse + number 
+                       + "Name' value='" + names[iter] + "' required checked/>"
+                       + names[iter] + "</div>";
+    }
+    appendValue += "</div>";
+    return appendValue;
+}
 
-function appendToDiv(divId, nameToUse, number, name, price)
+
+function appendToDiv(divId, nameToUse, number, name, price, personNames)
 {
     var appendValue = '';
     if (number > 1)
@@ -53,6 +95,7 @@ function appendToDiv(divId, nameToUse, number, name, price)
     appendValue += divForItem(nameToUse, number, name);
     appendValue += divForPrice(nameToUse, number, price);
     appendValue += divForShowDetails(nameToUse, number);
+    appendValue += divForPersons(nameToUse, number, personNames);
 
     $(divId).append(appendValue);
 }
@@ -69,7 +112,7 @@ function findPriceForItem(itemName, priceList)
     return "";
 }
 
-function listItems(divId, nameToUse, names, prices)
+function listItems(divId, nameToUse, names, prices, personNames)
 {
     console.log(names);
     $(divId).empty();
@@ -77,7 +120,7 @@ function listItems(divId, nameToUse, names, prices)
     for (var iter in names)
     {
         counter++;
-        appendToDiv(divId, nameToUse, counter, names[iter], prices[iter]);
+        appendToDiv(divId, nameToUse, counter, names[iter], prices[iter], personNames);
     }
 }
 
