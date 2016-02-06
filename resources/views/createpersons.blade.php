@@ -36,6 +36,5 @@
     setClass('person');
     var persons = <?php echo '["' . implode('", "', $persons) . '"]'; ?>;
     console.log("js persons = " + persons);
-    setPersons(persons);
 </script>
 @endsection

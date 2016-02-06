@@ -61,31 +61,16 @@ function divForPrice(nameToUse, number)
 {
     return "<div class='app-price' id='"
            + nameToUse + number
-           + "Price'>Total Price: <input type='number' step='0.01' name='price"
+           + "Price'>Price: <input type='number' step='0.01' name='price"
            + number + "' required></div>";
 }
 
-function getValues(fromDivId)
+function getValues(fromDivId, inputType)
 {
     var values = [];
-    $(fromDivId + " :text").each(function(){
+    $(fromDivId + " :" + inputType).each(function(){
         values.push($(this).val());
     });
     return values;
 }
 
-/**
- * @param type The input type. e.g. 'text' or 'number'
- */
-function showPreviousInputs(divId, nameToUse, inputs, type)
-{
-    console.log(inputs);
-    $(divId).empty();
-    counter = 0;
-    for (var iter in inputs)
-    {
-        counter++;
-        appendToDiv(divId, nameToUse, counter);
-        $('#' + nameToUse + counter + 'Value :' + type).val(inputs[iter]);
-    }
-}

@@ -1,7 +1,7 @@
 var counter = 1;
 var idToAppend = '';
 var isOneSet = false;
-// persons - taken from html
+// itemNames and itemPrices - taken from html
 
 $(document).ready(function () {
 
@@ -10,9 +10,9 @@ $(document).ready(function () {
     {
         className = getClassName();
         idToAppend = '#app-' + className + 's';
-        if (!isEmpty(persons))
+        if (!isEmpty(itemNames))
         {
-            showPreviousInputs(idToAppend, className, persons);
+            showPreviousInputs(idToAppend, className, itemNames, itemPrices);
         }
         else if(!getIsOneSet())
         {
@@ -34,8 +34,9 @@ $(document).ready(function () {
         $(labelId).remove();
         $(valueId).remove();
         $(spacerId).remove();
-        var values = getValues(idToAppend, 'text');
-        showPreviousInputs(idToAppend, className, values);
+        var names = getValues(idToAppend, 'text');
+        var prices = getValues(idToAppend, 'number');
+        showPreviousInputs(idToAppend, className, names, prices);
     });
 
 });
@@ -61,6 +62,7 @@ function appendToDiv(divId, nameToUse, number)
     }
     appendValue += divForLabel(nameToUse, number);
     appendValue += divForValue(nameToUse, number);
+    appendValue += divForPrice(nameToUse, number);
     if (number > 1)
     {
         appendValue += divForRemove(nameToUse, number);
@@ -68,15 +70,17 @@ function appendToDiv(divId, nameToUse, number)
     $(divId).append(appendValue);
 }
 
-function showPreviousInputs(divId, nameToUse, inputs)
+function showPreviousInputs(divId, nameToUse, names, prices)
 {
-    console.log(inputs);
+    console.log("showPreviousInputs names: " + names);
+    console.log("showPreviousInputs prices: " + prices);
     $(divId).empty();
     counter = 0;
-    for (var iter in inputs)
+    for (var iter in names)
     {
         counter++;
         appendToDiv(divId, nameToUse, counter);
-        $('#' + nameToUse + counter + 'Value input').val(inputs[iter]);
+        $('#' + nameToUse + counter + 'Value input').val(names[iter]);
+        $('#' + nameToUse + counter + 'Price input').val(prices[iter]);
     }
 }
