@@ -31,10 +31,11 @@
 
 @section ('localScript')
 <script src="{{ asset('js/inputs.js') }}"></script>
+<script src="{{ asset('js/persons.js') }}"></script>
 <script>
-    setName('person');
+    setClass('person');
     var persons = <?php echo '["' . implode('", "', $persons) . '"]'; ?>;
     console.log("js persons = " + persons);
-    setContents(persons);
+    setPersons(persons);
 </script>
 @endsection

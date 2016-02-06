@@ -1,49 +1,20 @@
-var isNameSet = false;
-var name = '';
-var counter = 1;
-var idToAppend = '';
-var isOneSet = false;
-var contents = [];
+var isClassSet = false;
+var className = '';
 
-$(document).ready(function () {
-
-    if (isNameSet)
-    {
-        idToAppend = '#app-' + name + 's';
-        if (!isEmpty(contents))
-        {
-            showPreviousInputs(idToAppend, name, contents);
-        }
-        else if(!isOneSet)
-        {
-            setOne(idToAppend, name);
-        }
-        $("#addRow").click(function () {
-            counter++;
-            appendToDiv(idToAppend, name, counter);
-        });
-    }
-    $(document).on('click', '.app-remove', function(){
-        var removeId = $(this).attr('id');
-        var number = removeId.match(/\d+/);
-        removeId = "#" + removeId;
-        var labelId = "#" + name + number + "Label";
-        var valueId = "#" + name + number + "Value";
-        var spacerId = "#" + name + number + "Spacer";
-        $(removeId).remove();
-        $(labelId).remove();
-        $(valueId).remove();
-        $(spacerId).remove();
-        var values = getValues();
-        showPreviousInputs(idToAppend, name, values);
-    });
-
-});
-
-function setName(nameToUse)
+function getIsClassSet()
 {
-    name = nameToUse;
-    isNameSet = true;
+    return isClassSet;
+}
+
+function setClass(nameToUse)
+{
+    className = nameToUse;
+    isClassSet = true;
+}
+
+function getClassName()
+{
+    return className;
 }
 
 function isEmpty(inputArray)
@@ -58,23 +29,6 @@ function isEmpty(inputArray)
         //console.log('Array is NOT empty!')
         return false;
     }
-}
-
-function setContents(contentFromPhp)
-{
-    contents = contentFromPhp;
-    for(iter in contents)
-    {
-        console.log("content: " + contents[iter]);
-    }
-}
-
-function setOne(id, nameToUse)
-{
-    var appendValue = divForLabel(nameToUse, 1);
-    appendValue += divForValue(nameToUse, 1);
-    $(id).append(appendValue);
-    isOneSet = true;
 }
 
 function divForSpacer(nameToUse, number)
@@ -103,36 +57,27 @@ function divForRemove(nameToUse, number)
            + nameToUse + number + "Remove' value='Remove' />";
 }
 
-function appendToDiv(divId, nameToUse, number)
+function divForPrice(nameToUse, number)
 {
-    var appendValue = '';
-    if (number === 2)
-    {
-        appendValue += divForRemove(nameToUse, number-1);
-    }
-    if (number > 1)
-    {
-        appendValue += divForSpacer(nameToUse, number);
-    }
-    appendValue += divForLabel(nameToUse, number);
-    appendValue += divForValue(nameToUse, number);
-    if (number > 1)
-    {
-        appendValue += divForRemove(nameToUse, number);
-    }
-    $(divId).append(appendValue);
+    return "<div class='app-price' id='"
+           + nameToUse + number
+           + "Price'>Total Price: <input type='number' step='0.01' name='price"
+           + number + "' required></div>";
 }
 
-function getValues()
+function getValues(fromDivId)
 {
     var values = [];
-    $(idToAppend + " :text").each(function(){
+    $(fromDivId + " :text").each(function(){
         values.push($(this).val());
     });
     return values;
 }
 
-function showPreviousInputs(divId, nameToUse, inputs)
+/**
+ * @param type The input type. e.g. 'text' or 'number'
+ */
+function showPreviousInputs(divId, nameToUse, inputs, type)
 {
     console.log(inputs);
     $(divId).empty();
@@ -141,6 +86,6 @@ function showPreviousInputs(divId, nameToUse, inputs)
     {
         counter++;
         appendToDiv(divId, nameToUse, counter);
-        $('#' + nameToUse + counter + 'Value :text').val(inputs[iter]);
+        $('#' + nameToUse + counter + 'Value :' + type).val(inputs[iter]);
     }
 }
