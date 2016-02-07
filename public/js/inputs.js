@@ -62,13 +62,15 @@ function divForPrice(nameToUse, number)
     return "<div class='app-price' id='"
            + nameToUse + number
            + "Price'>Price: <input type='number' step='0.01' name='price"
-           + number + "' required></div>";
+           + number + "' required /></div>";
 }
 
-function getValues(fromDivId, inputType)
+function getValues(fromDivId)
 {
     var values = [];
-    $(fromDivId + " :" + inputType).each(function(){
+    console.log("Entered getValues()");
+    $('div' + fromDivId).find('input').each(function(){
+        console.log($(this).val());
         values.push($(this).val());
     });
     return values;

@@ -34,7 +34,7 @@ $(document).ready(function () {
         $(labelId).remove();
         $(valueId).remove();
         $(spacerId).remove();
-        var values = getValues(idToAppend, 'text');
+        var values = getValues('.app-value');
         showPreviousInputs(idToAppend, className, values);
     });
 

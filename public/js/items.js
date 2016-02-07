@@ -36,8 +36,8 @@ $(document).ready(function () {
         $(valueId).remove();
         $(spacerId).remove();
         $(priceId).remove();
-        var names = getValues(idToAppend, 'text');
-        var prices = getValues(idToAppend, 'number');
+        var names = getValues('.app-value');
+        var prices = getValues('.app-price');
         showPreviousInputs(idToAppend, className, names, prices);
     });
 
