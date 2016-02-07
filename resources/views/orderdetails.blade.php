@@ -30,10 +30,10 @@
 @section ('localScript')
 <script src="{{ asset('js/orders.js') }}"></script>
 <script>
-    var persons = <?php echo '["' . implode('", "', $persons) . '"]'; ?>;
+    var persons = <?php echo $persons; ?>;
     console.log("js persons = " + persons);
-    var itemNames = <?php echo '["' . implode('", "', array_column($items, 'itemName')) . '"]'; ?>;
-    var itemPrices = <?php echo '["' . implode('", "', array_column($items, 'itemPrice')) . '"]'; ?>;
+    var itemNames = <?php echo $itemNames; ?>;
+    var itemPrices = <?php echo $itemPrices; ?>;
     console.log("js itemNames = " + itemNames);
     console.log("js itemPrices = " + itemPrices);
 </script>

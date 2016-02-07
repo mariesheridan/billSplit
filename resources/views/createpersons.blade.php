@@ -34,7 +34,7 @@
 <script src="{{ asset('js/persons.js') }}"></script>
 <script>
     setClass('person');
-    var persons = <?php echo '["' . implode('", "', $persons) . '"]'; ?>;
+    var persons = <?php echo $persons; ?>;
     console.log("js persons = " + persons);
 </script>
 @endsection

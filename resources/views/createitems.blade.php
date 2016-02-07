@@ -34,8 +34,8 @@
 <script src="{{ asset('js/items.js') }}"></script>
 <script>
     setClass('item');
-    var itemNames = <?php echo '["' . implode('", "', array_column($items, 'itemName')) . '"]'; ?>;
-    var itemPrices = <?php echo '["' . implode('", "', array_column($items, 'itemPrice')) . '"]'; ?>;
+    var itemNames = <?php echo $itemNames; ?>;
+    var itemPrices = <?php echo $itemPrices; ?>;
     console.log("js itemNames = " + itemNames);
     console.log("js itemPrices = " + itemPrices);
 </script>

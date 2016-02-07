@@ -30,10 +30,12 @@ $(document).ready(function () {
         var labelId = "#" + className + number + "Label";
         var valueId = "#" + className + number + "Value";
         var spacerId = "#" + className + number + "Spacer";
+        var priceId =  "#" + className + number + "Price";
         $(removeId).remove();
         $(labelId).remove();
         $(valueId).remove();
         $(spacerId).remove();
+        $(priceId).remove();
         var names = getValues(idToAppend, 'text');
         var prices = getValues(idToAppend, 'number');
         showPreviousInputs(idToAppend, className, names, prices);

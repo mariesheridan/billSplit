@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
+use App\MyLibrary\JSConverter;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -20,12 +21,18 @@ class OrderDetailsController extends Controller
         $store = Session::get('store', "");
         $date = Session::get('date', "");
         $persons = Session::get('persons', array());
+        $personsJSArray = JSConverter::toJSArray($persons);
         $items = Session::get('items', array());
+        $itemNamesJSArray = JSConverter::toJSArray(array_column($items, 'itemName'));
+        $itemPricesJSArray = JSConverter::toJSArray(array_column($items, 'itemPrice'));
+        $buyers = array_column($items, 'buyers');
         return view('orderdetails', 
                      array('store' => $store, 
                            'date' => $date, 
-                           'persons' => $persons, 
-                           'items' => $items
+                           'persons' => $personsJSArray, 
+                           'itemNames' => $itemNamesJSArray,
+                           'itemPrices' => $itemPricesJSArray,
+                           'buyers' => $buyers
                      )
                    );
     }

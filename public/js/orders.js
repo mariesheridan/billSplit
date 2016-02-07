@@ -2,7 +2,7 @@ var isNameSet = false;
 var name = '';
 var counter = 1;
 var idToAppend = '';
-// persons, itemNames, itemPrices - taken from html
+// persons, itemNames, itemPrices, buyers - taken from html
 
 $(document).ready(function () {
 
