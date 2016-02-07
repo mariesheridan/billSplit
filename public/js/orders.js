@@ -26,7 +26,20 @@ $(document).ready(function () {
     });
 
     // Require at least one checkbox checked per group
-    $(document).on('click', '.nameCheckbox', function(){
+    $(document).on('click', '.app-checkbox', function(){
+        var id = $(this).attr('id');
+        var number = id.match(/\d+/);
+        var myRegexp = /^order\d+(.*)/;
+        var match = myRegexp.exec(id);
+        var name = match[1];
+        if ($(this).is(':checked'))
+        {
+            $(this).append(divForQuantity(id, number, name));
+        }
+        else
+        {
+            $(this).find('div.app-qty').remove();
+        }
         var requiredCheckboxes = $(this).closest('div.person-checkbox').find('input:checkbox');
         var atLeastOneChecked = false;
         requiredCheckboxes.each(function(){
@@ -96,10 +109,10 @@ function divForShowDetails(nameToUse, number)
 
 function divForPersons(nameToUse, number, names)
 {
-    var appendValue = divForSpacer(nameToUse, number);
-    appendValue += "<div class='hide person-checkbox' id='buyers" + number +"'>";
+    var appendValue = "<div class='hide person-checkbox' id='buyers" + number +"'>";
     for (iter in names)
     {
+        appendValue += divForSpacer(nameToUse, number);
         appendValue += "<div class='app-checkbox' id='" 
                        + nameToUse + number + names[iter]
                        + "'><div class='app-name' id='" 
