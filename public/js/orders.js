@@ -32,8 +32,9 @@ $(document).ready(function () {
         var myRegexp = /^order\d+(.*)/;
         var match = myRegexp.exec(id);
         var name = match[1];
-        if ($(this).is(':checked'))
+        if ($(this).find('input:checkbox').is(':checked'))
         {
+            console.log('checked');
             $(this).append(divForQuantity(id, number, name));
         }
         else
