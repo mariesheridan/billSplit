@@ -22,15 +22,24 @@ class UpdateOrderDetailsController extends Controller
 
         $names = array();
 
-        foreach($request->all() as $key=>$name)
+        foreach($request->all() as $key=>$nameArray)
         {
             if(preg_match('/^order[\d]+Name/', $key))
             {
-                array_push($names, $name);
+                echo "items[$index]: <br>"; 
+                print_r($items[$index]);
+                echo "<br>";
+                $items[$index]['buyers'] = array();
+                foreach($nameArray as $name)
+                {
+                    array_push($items[$index]['buyers'], array('name' => $name));
+                }
             }
+            $index++;
         }
-        echo "Names: <br>";
-        print_r($names);
+
+        echo "items: <br>";
+        print_r($items);
 
         if ($request->__get('next'))
         {
