@@ -46,6 +46,19 @@ $(document).ready(function () {
         }
     });
 
+    $('.app-checkbox').each(function(){
+        var id = $(this).attr('id');
+        var number = id.match(/\d+/);
+        var myRegexp = /^order\d+(.*)/;
+        var match = myRegexp.exec(id);
+        var name = match[1];
+        console.log('name = ' + name);
+        var checkbox = $(this).find('input:checkbox');
+        if (checkbox.is(':checked'))
+        {
+            $(this).append(divForQuantity(id, number, name));
+        }
+    });
  
 });
 
@@ -83,18 +96,29 @@ function divForShowDetails(nameToUse, number)
 
 function divForPersons(nameToUse, number, names)
 {
-    var appendValue = "<div class='hide person-checkbox' id='buyers" + number +"'>";
+    var appendValue = divForSpacer(nameToUse, number);
+    appendValue += "<div class='hide person-checkbox' id='buyers" + number +"'>";
     for (iter in names)
     {
-        appendValue += "<div class='nameCheckbox' id='" 
-                       + nameToUse + number
-                       + names[iter] + "'><input type='checkbox' name='"
+        appendValue += "<div class='app-checkbox' id='" 
+                       + nameToUse + number + names[iter]
+                       + "'><div class='app-name' id='" 
+                       + nameToUse + number + names[iter] 
+                       + "Checkbox'><input type='checkbox' name='"
                        + nameToUse + number 
                        + "Name[]' value='" + names[iter] + "' required checked/>"
-                       + names[iter] + "</div>";
+                       + names[iter] + "</div></div>";
     }
     appendValue += "</div>";
     return appendValue;
+}
+
+function divForQuantity(nameToUse, number, personName)
+{
+    return "<div class='app-qty' id='"
+           + nameToUse
+           + "Qty'>Qty: <input type='number' step='0.01' name='qty"
+           + number + "' required /></div>";
 }
 
 
