@@ -17,9 +17,20 @@ class UpdateOrderDetailsController extends Controller
     
     public function update(Request $request)    
     {
-        $prices = array();
         $index = 0;
         $items = Session::get('items');
+
+        $names = array();
+
+        foreach($request->all() as $key=>$name)
+        {
+            if(preg_match('/^order[\d]+Name/', $key))
+            {
+                array_push($names, $name);
+            }
+        }
+        echo "Names: <br>";
+        print_r($names);
 
         if ($request->__get('next'))
         {

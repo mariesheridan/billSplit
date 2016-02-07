@@ -25,20 +25,28 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('change', '.person-checkbox', function(){
-        var checkboxId = $(this).attr('id');
-        console.log("id = " + checkboxId);
-        var number = checkboxId.match(/\d+/);
-        var buyersId = '#buyers' + number;
-        var requiredCheckboxes = $(buyersId + ' :checkbox[required]');
-        requiredCheckboxes.change(function(){
-            if(requiredCheckboxes.is(':checked')) {
-                requiredCheckboxes.removeAttr('required');
-            } else {
-                requiredCheckboxes.attr('required', 'required');
+    // Require at least one checkbox checked per group
+    $(document).on('click', '.nameCheckbox', function(){
+        var requiredCheckboxes = $(this).closest('div.person-checkbox').find('input:checkbox');
+        var atLeastOneChecked = false;
+        requiredCheckboxes.each(function(){
+            console.log("val: " + $(this).val());
+            if ($(this).is(':checked'))
+            {
+                atLeastOneChecked = true;
             }
         });
+        if (atLeastOneChecked)
+        {
+            requiredCheckboxes.removeAttr('required');
+        }
+        else
+        {
+            requiredCheckboxes.attr('required', 'required');
+        }
     });
+
+ 
 });
 
 function divForSpacer(nameToUse, number)
@@ -80,9 +88,9 @@ function divForPersons(nameToUse, number, names)
     {
         appendValue += "<div class='nameCheckbox' id='" 
                        + nameToUse + number
-                       + "NameCheckbox'><input type='checkbox' name='"
+                       + names[iter] + "'><input type='checkbox' name='"
                        + nameToUse + number 
-                       + "Name' value='" + names[iter] + "' required checked/>"
+                       + "Name[]' value='" + names[iter] + "' required checked/>"
                        + names[iter] + "</div>";
     }
     appendValue += "</div>";
