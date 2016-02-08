@@ -41,7 +41,13 @@ $(document).ready(function () {
         var prices = getValues('.app-price');
         showPreviousInputs(idToAppend, className, names, prices);
     });
-
+    $("#app-form").submit(function(event){
+        if(!checkUnique())
+        {
+            alert("Please enter unique items!");
+            event.preventDefault(); 
+        }
+    });
 });
 
 function setOne(id, nameToUse)

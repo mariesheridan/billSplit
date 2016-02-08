@@ -38,7 +38,13 @@ $(document).ready(function () {
         var values = getValues('.app-value');
         showPreviousInputs(idToAppend, className, values);
     });
-
+    $("#app-form").submit(function(event){
+        if(!checkUnique())
+        {
+            alert("Please enter unique names!");
+            event.preventDefault(); 
+        }
+    });
 });
 
 function setOne(id, nameToUse)

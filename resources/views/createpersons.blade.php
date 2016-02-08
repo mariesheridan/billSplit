@@ -12,7 +12,7 @@
                     <br>
                     {{ $date }}
                     <div class="app-spacer"></div>
-                    <form action="update_persons" method="POST">
+                    <form id="app-form" action="update_persons" method="POST">
                         <div id="app-persons">
                         </div>
                         <div class="app-spacer"></div>

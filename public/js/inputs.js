@@ -76,3 +76,30 @@ function getValues(fromDivId)
     return values;
 }
 
+function checkUnique()
+{
+    var inputs = [];
+    $('.app-value').each(function(){
+        console.log("id: " + $(this).attr('id'));
+        inputs.push($(this).find('input:text').val());
+    });
+    var unique = true;
+    console.log('checkUnique: ' + inputs);
+    for (iter1 in inputs)
+    {
+        for (iter2 in inputs)
+        {
+            if ((iter1 != iter2) && (inputs[iter2] == inputs[iter1]))
+            {
+                console.log("iter1: " + iter1 + ", iter2: " + iter2 + ", value= " + inputs[iter2]);
+                unique = false;
+                break;
+            }
+        }
+        if (!unique)
+        {
+            break;
+        }
+    }
+    return unique;
+}
