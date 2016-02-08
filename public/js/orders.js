@@ -147,7 +147,7 @@ function divForQuantity(nameToUse, personName, value)
     return "<div class='app-qty' id='"
            + nameToUse
            + "Qty'>Qty: <input type='number' step='0.01' name='"
-           + nameToUse + personName + "' value='" + value + "'required /></div>";
+           + nameToUse + personName + "' value='" + value + "' autofocus required/></div>";
 }
 
 function appendToDiv(divId, nameToUse, number, name, price, personNames)

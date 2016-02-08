@@ -41,7 +41,7 @@ class OrderDetailsController extends Controller
                 {
                     $itemsJSArray .= '{';
                     $itemsJSArray .= "name: '" . $buyer['name'] . "', ";
-                    $itemsJSArray .= "qty: '" . $buyer['qty'] . "'";
+                    $itemsJSArray .= "qty: " . $buyer['qty'];
                     $itemsJSArray .= '}, ';
                 }
                 $itemsJSArray .= "]";

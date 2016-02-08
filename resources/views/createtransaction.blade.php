@@ -14,7 +14,7 @@
                 <div class="panel-body">
                     <form action="update_transaction" method="POST">
                         <div class="app-label-word">Store</div>
-                        <div class="app-value"><input type="text" name="store" value="{{ $store }}" required></div>
+                        <div class="app-value"><input type="text" name="store" value="{{ $store }}" autofocus required></div>
                         <div class="app-spacer"></div>
                         <div class="app-label-word">Date</div>
                         <div class="app-value"><input id="datepicker" name="date" value="{{ $date }}" required></div>

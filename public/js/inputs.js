@@ -48,7 +48,7 @@ function divForValue(nameToUse, number)
     return "<div class='app-value' id='"
            + nameToUse + number
            + "Value'><input type='text' name='"
-           + nameToUse + number + "' required></div>";
+           + nameToUse + number + "' autofocus required></div>";
 }
 
 function divForRemove(nameToUse, number)
