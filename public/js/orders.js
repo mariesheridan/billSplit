@@ -27,13 +27,9 @@ $(document).ready(function () {
 
     // Show or hide the quantity textbox
     $(document).on('click', '.app-name', function(){
-        var id = $(this).attr('id');
-        var number = id.match(/\d+/);
-        var myRegexp = /^order\d+(.*)/;
-        var match = myRegexp.exec(id);
-        var name = match[1];
-
         var checkboxDiv = $(this).closest('.app-checkbox');
+        var name = checkboxDiv.data('name');
+        var number = checkboxDiv.data('number');
         if ($(this).find('input:checkbox').is(':checked'))
         {
             if ($(this).data('qtyVisible') == false)
@@ -74,11 +70,8 @@ $(document).ready(function () {
 
     // At the beginning, add quantity beside checked checkboxes
     $('.app-checkbox').each(function(){
-        var id = $(this).attr('id');
-        var number = id.match(/\d+/);
-        var myRegexp = /^order\d+(.*)/;
-        var match = myRegexp.exec(id);
-        var name = match[1];
+        var number = $(this).data('number');
+        var name =$(this).data('name');
         console.log('name = ' + name);
         var checkbox = $(this).find('input:checkbox');
         if (checkbox.is(':checked'))
@@ -130,8 +123,9 @@ function divForPersons(nameToUse, number, names)
     {
         appendValue += divForSpacer(nameToUse, number);
         appendValue += "<div class='app-checkbox' id='" 
-                       + nameToUse + number + names[iter]
-                       + "'><div class='app-name' id='" 
+                       + nameToUse + number + names[iter] + "' data-name='"
+                       + names[iter] + "' data-number='"
+                       + number + "'><div class='app-name' id='" 
                        + nameToUse + number + names[iter] 
                        + "Checkbox'><input type='checkbox' name='"
                        + nameToUse + number 
