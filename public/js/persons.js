@@ -21,6 +21,7 @@ $(document).ready(function () {
         $("#addRow").click(function () {
             counter++;
             appendToDiv(idToAppend, className, counter);
+            $(".app-value :last").focus();
         });
     }
     $(document).on('click', '.app-remove', function(){
