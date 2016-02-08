@@ -22,6 +22,10 @@ class CreateItemsController extends Controller
         $date = Session::get('date', "");
         $items = Session::get('items', array());
         $itemNames = array_keys($items);
+        print_r($items);
+        echo "<br>";
+        print_r($itemNames);
+        echo"<br>";
         $itemPrices = array();
         foreach ($items as $item)
         {

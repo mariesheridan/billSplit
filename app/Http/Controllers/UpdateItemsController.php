@@ -17,13 +17,13 @@ class UpdateItemsController extends Controller
     
     public function update(Request $request)    
     {
-        $items = Session::get('items', array());
+        $oldItems = Session::get('items', array());
         $itemNames = array();
-        foreach($request->all() as $key=>$item)
+        foreach($request->all() as $key=>$itemName)
         {
             if(preg_match('/^item[\d]+/', $key))
             {
-                array_push($itemNames, $item);
+                array_push($itemNames, $itemName);
             }
         }
 
@@ -37,6 +37,16 @@ class UpdateItemsController extends Controller
             }
         }
 */
+        // Copy old values having the current item names
+        // This will remove other entries that were removed in the view
+        $items = array();
+        foreach($itemNames as $itemName)
+        {
+            if (array_key_exists($itemName, $oldItems))
+            {
+                $items[$itemName] = $oldItems[$itemName];
+            }
+        }
         foreach($request->all() as $key=>$price)
         {
             if(preg_match('/^price[\d]+/', $key))
