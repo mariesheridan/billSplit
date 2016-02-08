@@ -35,7 +35,7 @@ class UpdateOrderDetailsController extends Controller
                 {
                     $qtyName = 'order' . ($index + 1) . $name;
                     $qty = $request->input($qtyName);
-                    echo "qtyName = " . $qtyName . ", qty = " . $qty . "<br>";
+                    //echo "qtyName = " . $qtyName . ", qty = " . $qty . "<br>";
                     array_push($items[$index]['buyers'], array('name' => $name, 'qty' => $qty));
                 }
                 $index++;
@@ -44,6 +44,9 @@ class UpdateOrderDetailsController extends Controller
 
         echo "items: <br>";
         print_r($items);
+
+        Session::forget('items');
+        Session::set('items', $items);
 
         if ($request->__get('next'))
         {
