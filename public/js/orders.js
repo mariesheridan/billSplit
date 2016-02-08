@@ -25,22 +25,32 @@ $(document).ready(function () {
         }
     });
 
-    // Require at least one checkbox checked per group
-    $(document).on('click', '.app-checkbox', function(){
+    $(document).on('click', '.app-name', function(){
         var id = $(this).attr('id');
         var number = id.match(/\d+/);
         var myRegexp = /^order\d+(.*)/;
         var match = myRegexp.exec(id);
         var name = match[1];
+
+        var checkboxDiv = $(this).closest('.app-checkbox');
         if ($(this).find('input:checkbox').is(':checked'))
         {
-            console.log('checked');
-            $(this).append(divForQuantity(id, number, name));
+            if ($(this).data('qtyVisible') == false)
+            {
+                console.log('checked');
+                checkboxDiv.append(divForQuantity(id, number, name));
+                $(this).data('qtyVisible', true);
+            }
         }
         else
         {
-            $(this).find('div.app-qty').remove();
+            checkboxDiv.find('div.app-qty').remove();
+            $(this).data('qtyVisible', false);
         }
+    });
+
+    // Require at least one checkbox checked per group
+    $(document).on('click', '.app-checkbox', function(){
         var requiredCheckboxes = $(this).closest('div.person-checkbox').find('input:checkbox');
         var atLeastOneChecked = false;
         requiredCheckboxes.each(function(){
@@ -60,6 +70,7 @@ $(document).ready(function () {
         }
     });
 
+    // At the beginning, add quantity beside checked checkboxes
     $('.app-checkbox').each(function(){
         var id = $(this).attr('id');
         var number = id.match(/\d+/);
