@@ -144,7 +144,14 @@ function divForQuantity(nameToUse, personName, value)
            + nameToUse + personName + "' value='" + value + "' autofocus required/></div>";
 }
 
-function appendToDiv(divId, nameToUse, number, name, price, personNames)
+function divForHiddenItemName(nameToUse, number, item)
+{
+    return "<input type='hidden' name='" 
+           + nameToUse + number + "Name-item-name' value='" 
+           + item + "'>";
+}
+
+function appendToDiv(divId, nameToUse, number, item, price, personNames)
 {
     var appendValue = '';
     if (number > 1)
@@ -152,8 +159,9 @@ function appendToDiv(divId, nameToUse, number, name, price, personNames)
         appendValue += divForSpacer(nameToUse, number);
     }
     appendValue += "<div class='app-item-block' id='" + nameToUse + number + "'>";
+    appendValue += divForHiddenItemName(nameToUse, number, item);
     appendValue += divForLabel(nameToUse, number);
-    appendValue += divForItem(nameToUse, number, name);
+    appendValue += divForItem(nameToUse, number, item);
     appendValue += divForPrice(nameToUse, number, price);
     appendValue += divForShowDetails(nameToUse, number);
     appendValue += divForPersons(nameToUse, number, personNames);

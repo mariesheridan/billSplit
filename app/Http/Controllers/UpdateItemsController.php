@@ -17,7 +17,7 @@ class UpdateItemsController extends Controller
     
     public function update(Request $request)    
     {
-        $items = array();
+        $items = Session::get('items', array());
         $itemNames = array();
         foreach($request->all() as $key=>$item)
         {
@@ -28,7 +28,7 @@ class UpdateItemsController extends Controller
         }
 
         $index = 0;
-        foreach($request->all() as $key=>$price)
+/*        foreach($request->all() as $key=>$price)
         {
             if(preg_match('/^price[\d]+/', $key))
             {
@@ -36,6 +36,27 @@ class UpdateItemsController extends Controller
                 $index++;
             }
         }
+*/
+        foreach($request->all() as $key=>$price)
+        {
+            if(preg_match('/^price[\d]+/', $key))
+            {
+                echo "key: " . $key . ", itemNames [" . $index . "] = " . $itemNames[$index] . "<br>";
+                if (array_key_exists($itemNames[$index], $items))
+                {
+                    echo "exists!<br>";
+                    $items[$itemNames[$index]]['itemPrice'] = $price;
+                }
+                else
+                {
+                    echo "does not exist!<br>";
+                    //array_push($items, array('itemName' => $itemNames[$index], 'itemPrice' => $price));
+                    $items[$itemNames[$index]] = array('itemPrice' => $price);
+                }
+                $index++;
+            }
+        }
+
         print_r($items);
 
         Session::forget('items');

@@ -23,16 +23,24 @@ class OrderDetailsController extends Controller
         $persons = Session::get('persons', array());
         $personsJSArray = JSConverter::toJSArray($persons);
         $items = Session::get('items', array());
-        $itemNames = array_column($items, 'itemName');
-        $itemPrices = array_column($items, 'itemPrice');
-        $itemNamesJSArray = JSConverter::toJSArray(array_column($items, 'itemName'));
-        $itemPricesJSArray = JSConverter::toJSArray(array_column($items, 'itemPrice'));
+        $itemNames = array_keys($items);
+        print_r($itemNames);
+        echo"<br>";
+        $itemPrices = array();
+        foreach ($items as $item)
+        {
+            array_push($itemPrices, $item['itemPrice']);
+        }
+        print_r($itemPrices);
+        echo"<br>";
+        $itemNamesJSArray = JSConverter::toJSArray($itemNames);
+        $itemPricesJSArray = JSConverter::toJSArray($itemPrices);
         $buyers = array_column($items, 'buyers');
         $itemsJSArray = "[";
         foreach($items as $item)
         {
             $itemsJSArray .= "{";
-            $itemsJSArray .= "itemName: '" . $item['itemName'] . "', ";
+            $itemsJSArray .= "itemName: '" . key($item) . "', ";
             $itemsJSArray .= "itemPrice: '" . $item['itemPrice'] . "', ";
             if (array_key_exists('buyers', $item))
             {

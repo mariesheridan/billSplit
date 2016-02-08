@@ -18,11 +18,17 @@ class CreateItemsController extends Controller
 
     public function index()
     {
-        $store = Session::get('store');
-        $date = Session::get('date');
+        $store = Session::get('store', "");
+        $date = Session::get('date', "");
         $items = Session::get('items', array());
-        $itemNames = array_column($items, 'itemName');
-        $itemPrices = array_column($items, 'itemPrice');
+        $itemNames = array_keys($items);
+        $itemPrices = array();
+        foreach ($items as $item)
+        {
+            array_push($itemPrices, $item['itemPrice']);
+        }
+        print_r($itemPrices);
+        echo"<br>";
         $itemNamesJSArray = JSConverter::toJSArray($itemNames);
         $itemPricesJSArray = JSConverter::toJSArray($itemPrices);
         return view('createitems', array('store' => $store, 
