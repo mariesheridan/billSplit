@@ -25,6 +25,7 @@ $(document).ready(function () {
         }
     });
 
+    // Show or hide the quantity textbox
     $(document).on('click', '.app-name', function(){
         var id = $(this).attr('id');
         var number = id.match(/\d+/);
@@ -38,7 +39,8 @@ $(document).ready(function () {
             if ($(this).data('qtyVisible') == false)
             {
                 console.log('checked');
-                checkboxDiv.append(divForQuantity(id, number, name));
+                var qtyId = $(this).closest('.app-item-block').attr('id');
+                checkboxDiv.append(divForQuantity(qtyId, name, 1));
                 $(this).data('qtyVisible', true);
             }
         }
@@ -81,7 +83,8 @@ $(document).ready(function () {
         var checkbox = $(this).find('input:checkbox');
         if (checkbox.is(':checked'))
         {
-            $(this).append(divForQuantity(id, number, name));
+            var qtyId = $(this).closest('.app-item-block').attr('id');
+            $(this).append(divForQuantity(qtyId, name, 1));
         }
     });
  
@@ -102,7 +105,8 @@ function divForLabel(nameToUse, number)
 function divForItem(nameToUse, number, input)
 {
     return "<div class='app-item-name' id='"
-           + nameToUse + number + "ItemName'>"
+           + nameToUse + number + "ItemName' data-itemName='"
+           + input + "'>"
            + input + "</div>";
 }
 
@@ -138,14 +142,13 @@ function divForPersons(nameToUse, number, names)
     return appendValue;
 }
 
-function divForQuantity(nameToUse, number, personName)
+function divForQuantity(nameToUse, personName, value)
 {
     return "<div class='app-qty' id='"
            + nameToUse
-           + "Qty'>Qty: <input type='number' step='0.01' name='qty"
-           + number + "' required /></div>";
+           + "Qty'>Qty: <input type='number' step='0.01' name='"
+           + nameToUse + personName + "' value='" + value + "'required /></div>";
 }
-
 
 function appendToDiv(divId, nameToUse, number, name, price, personNames)
 {
@@ -154,11 +157,13 @@ function appendToDiv(divId, nameToUse, number, name, price, personNames)
     {
         appendValue += divForSpacer(nameToUse, number);
     }
+    appendValue += "<div class='app-item-block' id='" + nameToUse + number + "'>";
     appendValue += divForLabel(nameToUse, number);
     appendValue += divForItem(nameToUse, number, name);
     appendValue += divForPrice(nameToUse, number, price);
     appendValue += divForShowDetails(nameToUse, number);
     appendValue += divForPersons(nameToUse, number, personNames);
+    appendValue += "</div>";
 
     $(divId).append(appendValue);
 }

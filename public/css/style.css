@@ -69,11 +69,11 @@ input.app-remove, input.app-show {
 
 .app-name{
     float: left;
-    width: 60px;
+    width: 80px;
 }
 
 .app-qty input{
-    width: 60px;
+    width: 45px;
 }
 
 @media screen and (max-width: 430px) {

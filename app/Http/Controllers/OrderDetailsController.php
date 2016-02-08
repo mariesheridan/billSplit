@@ -26,14 +26,11 @@ class OrderDetailsController extends Controller
         $itemNamesJSArray = JSConverter::toJSArray(array_column($items, 'itemName'));
         $itemPricesJSArray = JSConverter::toJSArray(array_column($items, 'itemPrice'));
         $buyers = array_column($items, 'buyers');
-        return view('orderdetails', 
-                     array('store' => $store, 
-                           'date' => $date, 
-                           'persons' => $personsJSArray, 
-                           'itemNames' => $itemNamesJSArray,
-                           'itemPrices' => $itemPricesJSArray,
-                           'buyers' => $buyers
-                     )
-                   );
+        return view('orderdetails', array('store' => $store, 
+                                          'date' => $date, 
+                                          'persons' => $personsJSArray, 
+                                          'itemNames' => $itemNamesJSArray,
+                                          'itemPrices' => $itemPricesJSArray,
+                                          'buyers' => $buyers));
     }
 }
