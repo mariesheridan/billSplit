@@ -26,26 +26,29 @@ $(document).ready(function () {
     });
 
     // Show or hide the quantity textbox
-    $(document).on('click', '.app-name', function(){
+    $(document).on('click', 'input:checkbox', function(){
+        var nameDiv = $(this).closest('.app-name');
         var checkboxDiv = $(this).closest('.app-checkbox');
         var personName = checkboxDiv.data('name');
         var number = checkboxDiv.data('number');
-        if ($(this).find('input:checkbox').is(':checked'))
+        //if ($(this).find('input:checkbox').is(':checked'))
+        if ($(this).is(':checked'))
         {
-            if (!($(this).attr('qtyVisible')) || ($(this).data('qtyVisible') == false))
+            //if (!($(this).attr('qtyVisible')) || ($(this).data('qtyVisible') == false))
+            if (!(nameDiv.attr('qtyVisible')) || (nameDiv.data('qtyVisible') == false))
             {
                 console.log('checked');
-                var qtyId = $(this).closest('.app-item-block').attr('id');
-                var itemName = $(this).closest('.app-item-block').data('itemname');
+                var qtyId = nameDiv.closest('.app-item-block').attr('id');
+                var itemName = nameDiv.closest('.app-item-block').data('itemname');
                 var qtyValue = getQuantity(items, itemName, personName);
                 checkboxDiv.append(divForQuantity(qtyId, personName, qtyValue));
-                $(this).data('qtyVisible', true);
+                nameDiv.data('qtyVisible', true);
             }
         }
         else
         {
             checkboxDiv.find('div.app-qty').remove();
-            $(this).data('qtyVisible', false);
+            nameDiv.data('qtyVisible', false);
         }
     });
 
