@@ -28,7 +28,6 @@ class OrderDetailsController extends Controller
         //print_r($itemNames);
         //echo"<br>";
         $itemNamesJSArray = JSConverter::toJSArray($itemNames);
-        $buyers = array_column($items, 'buyers');
         $itemsJSArray = JSConverter::toJSItemObject($items);
         //echo "--itemsJSArray--<br>";
         //print_r($itemsJSArray);
@@ -38,7 +37,6 @@ class OrderDetailsController extends Controller
                                           'svcCharge' => $svcCharge,
                                           'persons' => $personsJSArray,
                                           'itemNames' => $itemNamesJSArray,
-                                          'items' => $itemsJSArray,
-                                          'buyers' => $buyers));
+                                          'items' => $itemsJSArray));
     }
 }

@@ -82,8 +82,24 @@ input.app-remove, input.app-show {
     width: 120px;
 }
 
-#svc-charge-price input{
+#svc-charge-price input {
     width: 60px;
+}
+
+.app-item-block {
+    clear:both;
+}
+
+.app-line {
+    clear: both;
+    width: 100%;
+    height: 1px;
+    background-color: gray;
+}
+
+.app-line-space {
+    clear: both;
+    height: 5px;
 }
 
 @media screen and (max-width: 430px) {

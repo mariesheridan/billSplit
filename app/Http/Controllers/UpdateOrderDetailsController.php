@@ -54,7 +54,7 @@ class UpdateOrderDetailsController extends Controller
         if ($request->__get('next'))
         {
             echo "Next";
-//            return redirect()->route('summary');
+            return redirect()->route('summary');
         }
         else if ($request->__get('back'))
         {
