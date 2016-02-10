@@ -26,15 +26,7 @@ class OrderDetailsController extends Controller
         $itemNames = array_keys($items);
         print_r($itemNames);
         echo"<br>";
-        $itemPrices = array();
-        foreach ($items as $item)
-        {
-            array_push($itemPrices, $item['itemPrice']);
-        }
-        print_r($itemPrices);
-        echo"<br>";
         $itemNamesJSArray = JSConverter::toJSArray($itemNames);
-        $itemPricesJSArray = JSConverter::toJSArray($itemPrices);
         $buyers = array_column($items, 'buyers');
         $itemsJSArray = "{";
         foreach($items as $itemName => $item)
@@ -64,7 +56,6 @@ class OrderDetailsController extends Controller
                                           'persons' => $personsJSArray,
                                           'itemNames' => $itemNamesJSArray,
                                           'items' => $itemsJSArray,
-                                          'itemPrices' => $itemPricesJSArray,
                                           'buyers' => $buyers));
     }
 }

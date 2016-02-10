@@ -7,7 +7,7 @@ var idToAppend = '';
 $(document).ready(function () {
 
     idToAppend = '#app-orders';
-    listItems(idToAppend, 'order', itemNames, items, itemPrices, persons);
+    listItems(idToAppend, 'order', itemNames, items, persons);
 
     $(document).on('click', '.app-show', function(){
         var showId = $(this).attr('id');
@@ -208,7 +208,7 @@ function divForHiddenItemName(nameToUse, number, item)
            + item + "'>";
 }
 
-function appendToDiv(divId, nameToUse, number, itemNameInput, itemObject, price, personNames)
+function appendToDiv(divId, nameToUse, number, itemNameInput, itemObject, personNames)
 {
     var appendValue = '';
     if (number > 1)
@@ -220,7 +220,7 @@ function appendToDiv(divId, nameToUse, number, itemNameInput, itemObject, price,
     appendValue += divForHiddenItemName(nameToUse, number, itemNameInput);
     appendValue += divForLabel(nameToUse, number);
     appendValue += divForItem(nameToUse, number, itemNameInput);
-    appendValue += divForPrice(nameToUse, number, price);
+    appendValue += divForPrice(nameToUse, number, itemObject.itemPrice);
     appendValue += divForShowDetails(nameToUse, number);
     appendValue += divForPersons(nameToUse, number, itemObject, personNames);
     appendValue += "</div>";
@@ -240,7 +240,7 @@ function findPriceForItem(itemName, priceList)
     return "";
 }
 
-function listItems(divId, nameToUse, itemNamesInput, itemsArray, prices, personNames)
+function listItems(divId, nameToUse, itemNamesInput, itemsArray, personNames)
 {
     console.log("itemNamesInput = " + itemNamesInput);
     console.log("items = " + items);
@@ -251,7 +251,7 @@ function listItems(divId, nameToUse, itemNamesInput, itemsArray, prices, personN
         counter++;
         var itemObject = itemsArray[itemNamesInput[iter]];
         console.log("itemObject[" + itemNamesInput[iter] + "] = " + itemObject);
-        appendToDiv(divId, nameToUse, counter, itemNamesInput[iter], itemObject, prices[iter], personNames);
+        appendToDiv(divId, nameToUse, counter, itemNamesInput[iter], itemObject, personNames);
     }
     $('.app-checkbox').each(function(){
         requireCheckboxPerGroup($(this));
