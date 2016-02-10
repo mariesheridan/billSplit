@@ -7,7 +7,7 @@ var idToAppend = '';
 $(document).ready(function () {
 
     idToAppend = '#app-orders';
-    listItems(idToAppend, 'order', itemNames, itemPrices, persons);
+    listItems(idToAppend, 'order', itemNames, items, itemPrices, persons);
 
     $(document).on('click', '.app-show', function(){
         var showId = $(this).attr('id');
@@ -116,11 +116,18 @@ function divForShowDetails(nameToUse, number)
            + nameToUse + number + "Show' value='Split With' />";
 }
 
-function divForPersons(nameToUse, number, names)
+function divForPersons(nameToUse, number, itemObject, names)
 {
     var appendValue = "<div class='hide person-checkbox' id='buyers" + number +"'>";
     for (iter in names)
     {
+        var checked = '';
+        console.log("names [iter] = " + names[iter]);
+        if (itemObject['buyers'].hasOwnProperty(names[iter]))
+        {
+            checked = 'checked';
+        }
+        //var checked = "checked";
         appendValue += divForSpacer(nameToUse, number);
         appendValue += "<div class='app-checkbox' id='" 
                        + nameToUse + number + names[iter] + "' data-name='"
@@ -129,7 +136,7 @@ function divForPersons(nameToUse, number, names)
                        + nameToUse + number + names[iter] 
                        + "Checkbox'><input type='checkbox' name='"
                        + nameToUse + number 
-                       + "Name[]' value='" + names[iter] + "' required checked/>"
+                       + "Name[]' value='" + names[iter] + "' required " + checked + "/>"
                        + names[iter] + "</div></div>";
     }
     appendValue += "</div>";
@@ -151,7 +158,7 @@ function divForHiddenItemName(nameToUse, number, item)
            + item + "'>";
 }
 
-function appendToDiv(divId, nameToUse, number, item, price, personNames)
+function appendToDiv(divId, nameToUse, number, itemNameInput, itemObject, price, personNames)
 {
     var appendValue = '';
     if (number > 1)
@@ -159,12 +166,12 @@ function appendToDiv(divId, nameToUse, number, item, price, personNames)
         appendValue += divForSpacer(nameToUse, number);
     }
     appendValue += "<div class='app-item-block' id='" + nameToUse + number + "'>";
-    appendValue += divForHiddenItemName(nameToUse, number, item);
+    appendValue += divForHiddenItemName(nameToUse, number, itemNameInput);
     appendValue += divForLabel(nameToUse, number);
-    appendValue += divForItem(nameToUse, number, item);
+    appendValue += divForItem(nameToUse, number, itemNameInput);
     appendValue += divForPrice(nameToUse, number, price);
     appendValue += divForShowDetails(nameToUse, number);
-    appendValue += divForPersons(nameToUse, number, personNames);
+    appendValue += divForPersons(nameToUse, number, itemObject, personNames);
     appendValue += "</div>";
 
     $(divId).append(appendValue);
@@ -182,15 +189,18 @@ function findPriceForItem(itemName, priceList)
     return "";
 }
 
-function listItems(divId, nameToUse, names, prices, personNames)
+function listItems(divId, nameToUse, itemNamesInput, itemsArray, prices, personNames)
 {
-    console.log(names);
+    console.log("itemNamesInput = " + itemNamesInput);
+    console.log("items = " + items);
     $(divId).empty();
     counter = 0;
-    for (var iter in names)
+    for (var iter in itemNamesInput)
     {
         counter++;
-        appendToDiv(divId, nameToUse, counter, names[iter], prices[iter], personNames);
+        var itemObject = itemsArray[itemNamesInput[iter]];
+        console.log("itemObject[" + itemNamesInput[iter] + "] = " + itemObject);
+        appendToDiv(divId, nameToUse, counter, itemNamesInput[iter], itemObject, prices[iter], personNames);
     }
 }
 
