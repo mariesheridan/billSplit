@@ -24,14 +24,14 @@ class OrderDetailsController extends Controller
         $personsJSArray = JSConverter::toJSArray($persons);
         $items = Session::get('items', array());
         $itemNames = array_keys($items);
-        print_r($itemNames);
-        echo"<br>";
+        //print_r($itemNames);
+        //echo"<br>";
         $itemNamesJSArray = JSConverter::toJSArray($itemNames);
         $buyers = array_column($items, 'buyers');
         $itemsJSArray = JSConverter::toJSItemObject($items);
-        echo "--itemsJSArray--<br>";
-        print_r($itemsJSArray);
-        echo "<br>--end--";
+        //echo "--itemsJSArray--<br>";
+        //print_r($itemsJSArray);
+        //echo "<br>--end--";
         return view('orderdetails', array('store' => $store, 
                                           'date' => $date, 
                                           'persons' => $personsJSArray,

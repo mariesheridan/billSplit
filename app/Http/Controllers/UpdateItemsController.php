@@ -28,15 +28,7 @@ class UpdateItemsController extends Controller
         }
 
         $index = 0;
-/*        foreach($request->all() as $key=>$price)
-        {
-            if(preg_match('/^price[\d]+/', $key))
-            {
-                array_push($items, array('itemName' => $itemNames[$index], 'itemPrice' => $price));
-                $index++;
-            }
-        }
-*/
+
         // Copy old values having the current item names
         // This will remove other entries that were removed in the view
         $items = array();
@@ -51,15 +43,15 @@ class UpdateItemsController extends Controller
         {
             if(preg_match('/^price[\d]+/', $key))
             {
-                echo "key: " . $key . ", itemNames [" . $index . "] = " . $itemNames[$index] . "<br>";
+                //echo "key: " . $key . ", itemNames [" . $index . "] = " . $itemNames[$index] . "<br>";
                 if (array_key_exists($itemNames[$index], $items))
                 {
-                    echo "exists!<br>";
+                    //echo "exists!<br>";
                     $items[$itemNames[$index]]['itemPrice'] = $price;
                 }
                 else
                 {
-                    echo "does not exist!<br>";
+                    //echo "does not exist!<br>";
                     //array_push($items, array('itemName' => $itemNames[$index], 'itemPrice' => $price));
                     $items[$itemNames[$index]] = array('itemPrice' => $price);
                 }
@@ -67,7 +59,7 @@ class UpdateItemsController extends Controller
             }
         }
 
-        print_r($items);
+        //print_r($items);
 
         Session::forget('items');
         Session::set('items', $items);

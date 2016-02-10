@@ -29,9 +29,9 @@ class JSConverter
         $itemsJSArray = "{";
         foreach($itemObject as $itemName => $item)
         {
-            echo ("item: <br>");
-            print_r($item);
-            echo ("<br>---- end item ---- <br>");
+            //echo ("item: <br>");
+            //print_r($item);
+            //echo ("<br>---- end item ---- <br>");
               $itemsJSArray .= $itemName . ": {";
             $itemsJSArray .= "itemPrice: " . $item['itemPrice'] . ", ";
             if (array_key_exists('buyers', $item))
