@@ -12,15 +12,14 @@ function showItemSummary(divId, itemsObject, totalPrice, serviceCharge)
     appendValue += divForLine();
     for (iter in itemsObject)
     {
-        appendValue += "<div class='app-item-block'>";
+        appendValue += "<div class='summary-item-block'>";
         appendValue += divForItem(iter);
         appendValue += divForPrice(itemsObject[iter]['itemPrice'].toFixed(2));
         appendValue += "</div>";
     }
     appendValue += divForServiceCharge(serviceCharge, false);
     appendValue += divForLine();
-    appendValue += divForItem('Total Price');
-    appendValue += divForPrice(totalPrice.toFixed(2));
+    appendValue += divForTotal(totalPrice, false);
     appendValue += "</div>";
 
     $(divId).append(appendValue);
@@ -58,7 +57,7 @@ function showPerson(divId, personName, itemsObject, totalPrice, totalSvcCharge)
             var payPrice = unitPrice * quantity;
             payTotal += payPrice;
 
-            appendValue += "<div class='app-item-block'>";
+            appendValue += "<div class='summary-item-block'>";
             appendValue += divForItem(iter);
             appendValue += divForQuantity(quantity);
             appendValue += divForUnitPrice(unitPrice.toFixed(2));
@@ -70,9 +69,7 @@ function showPerson(divId, personName, itemsObject, totalPrice, totalSvcCharge)
     payTotal += serviceCharge;
     appendValue += divForServiceCharge(serviceCharge, true);
     appendValue += divForLine();
-    appendValue += divForItem('Total');
-    appendValue += divForPlaceholder();
-    appendValue += divForPrice(payTotal.toFixed(2));
+    appendValue += divForTotal(payTotal, true);
     appendValue += divForSpacer();
     appendValue += "</div>";
     $(divId).append(appendValue);
@@ -169,7 +166,7 @@ function divForServiceCharge(serviceCharge, withPlaceholder)
     var appendValue = '';
     if (serviceCharge > 0)
     {
-        appendValue += "<div class='app-item-block'>";
+        appendValue += "<div class='summary-item-block'>";
         appendValue += divForItem('Service Charge');
         if (withPlaceholder)
         {
@@ -189,4 +186,18 @@ function divForPlaceholder()
 function divForSpacer()
 {
     return "<div class='app-spacer'></div>";
+}
+
+function divForTotal(input, withPlaceholder)
+{
+    var appendValue = "<div class='summary-item-block'>";
+    appendValue += divForItem('Total');
+    if (withPlaceholder)
+    {
+        appendValue += divForPlaceholder();
+    }
+    appendValue += divForPrice(input.toFixed(2));
+    appendValue += "</div>";
+
+    return appendValue;
 }
