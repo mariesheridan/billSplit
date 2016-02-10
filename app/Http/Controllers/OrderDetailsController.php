@@ -28,26 +28,7 @@ class OrderDetailsController extends Controller
         echo"<br>";
         $itemNamesJSArray = JSConverter::toJSArray($itemNames);
         $buyers = array_column($items, 'buyers');
-        $itemsJSArray = "{";
-        foreach($items as $itemName => $item)
-        {
-            echo ("item: <br>");
-            print_r($item);
-            echo ("<br>---- end item ---- <br>");
-              $itemsJSArray .= $itemName . ": {";
-            $itemsJSArray .= "itemPrice: " . $item['itemPrice'] . ", ";
-            if (array_key_exists('buyers', $item))
-            {
-                $itemsJSArray .= "buyers: {";
-                foreach ($item['buyers'] as $buyer)
-                {
-                    $itemsJSArray .= $buyer['name'] . ": " . $buyer['qty'] . ",";
-                }
-                $itemsJSArray .= "}";
-            }
-            $itemsJSArray .= "},";
-        }
-        $itemsJSArray .= "};";
+        $itemsJSArray = JSConverter::toJSItemObject($items);
         echo "--itemsJSArray--<br>";
         print_r($itemsJSArray);
         echo "<br>--end--";
