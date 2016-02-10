@@ -12,4 +12,19 @@ class Transaction extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function items()
+    {
+        return $this->hasMany('App\Item');
+    }
+
+    public function persons()
+    {
+        return $this->hasMany('App\Order');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
 }

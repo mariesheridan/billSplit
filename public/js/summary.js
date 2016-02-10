@@ -62,12 +62,13 @@ function showPerson(divId, personName, itemsObject, totalPrice, totalSvcCharge)
             appendValue += divForQuantity(quantity);
             appendValue += divForUnitPrice(unitPrice.toFixed(2));
             appendValue += divForPrice(payPrice.toFixed(2));
+            appendValue += divForHiddenInputs(personName, iter, quantity, unitPrice);
             appendValue += "</div>";
         }
     }
     var serviceCharge = (payTotal / totalPrice) * totalSvcCharge;
     payTotal += serviceCharge;
-    appendValue += divForServiceCharge(serviceCharge, true);
+    appendValue += divForServiceCharge(personName, serviceCharge, true);
     appendValue += divForLine();
     appendValue += divForTotal(payTotal, true);
     appendValue += divForSpacer();
@@ -161,7 +162,7 @@ function divForLine()
            + "<div class='app-line-space'></div>";
 }
 
-function divForServiceCharge(serviceCharge, withPlaceholder)
+function divForServiceCharge(personName, serviceCharge, withPlaceholder)
 {
     var appendValue = '';
     if (serviceCharge > 0)
@@ -173,6 +174,7 @@ function divForServiceCharge(serviceCharge, withPlaceholder)
             appendValue += divForPlaceholder();
         }
         appendValue += divForPrice(serviceCharge.toFixed(2));
+        appendValue += divForHiddenInputs(personName, 'SvcCharge', 1, serviceCharge);
         appendValue += "</div>";
     }
     return appendValue;
@@ -199,5 +201,19 @@ function divForTotal(input, withPlaceholder)
     appendValue += divForPrice(input.toFixed(2));
     appendValue += "</div>";
 
+    return appendValue;
+}
+
+function divForHiddenInputs(personName, itemName, quantity, unitPrice)
+{
+    var appendValue = "";
+    appendValue += "<input type='hidden' name='" 
+                + personName + itemName 
+                + "Qty' value='" 
+                + quantity + "' />";
+    appendValue += "<input type='hidden' name='" 
+                + personName + itemName 
+                + "UnitPrice' value='" 
+                + unitPrice + "' />";              
     return appendValue;
 }
