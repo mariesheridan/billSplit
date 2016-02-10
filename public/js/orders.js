@@ -51,6 +51,7 @@ $(document).ready(function () {
 
     // Require at least one checkbox checked per group
     $(document).on('click', '.app-checkbox', function(){
+    /*
         var requiredCheckboxes = $(this).closest('div.person-checkbox').find('input:checkbox');
         var atLeastOneChecked = false;
         requiredCheckboxes.each(function(){
@@ -68,6 +69,8 @@ $(document).ready(function () {
         {
             requiredCheckboxes.attr('required', 'required');
         }
+    */
+        requireCheckboxPerGroup($(this));
     });
 
     // At the beginning, add quantity beside checked checkboxes
@@ -87,6 +90,28 @@ $(document).ready(function () {
     });
  
 });
+
+
+function requireCheckboxPerGroup(object)
+{
+    var requiredCheckboxes = object.closest('div.person-checkbox').find('input:checkbox');
+    var atLeastOneChecked = false;
+    requiredCheckboxes.each(function(){
+        console.log("val: " + $(this).val());
+        if ($(this).is(':checked'))
+        {
+            atLeastOneChecked = true;
+        }
+    });
+    if (atLeastOneChecked)
+    {
+        requiredCheckboxes.removeAttr('required');
+    }
+    else
+    {
+        requiredCheckboxes.attr('required', 'required');
+    }
+}
 
 function getQuantity(itemsArray, itemName, persoName)
 {
@@ -228,5 +253,8 @@ function listItems(divId, nameToUse, itemNamesInput, itemsArray, prices, personN
         console.log("itemObject[" + itemNamesInput[iter] + "] = " + itemObject);
         appendToDiv(divId, nameToUse, counter, itemNamesInput[iter], itemObject, prices[iter], personNames);
     }
+    $('.app-checkbox').each(function(){
+        requireCheckboxPerGroup($(this));
+    });
 }
 
