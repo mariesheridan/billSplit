@@ -20,6 +20,7 @@ class CreateItemsController extends Controller
     {
         $store = Session::get('store', "");
         $date = Session::get('date', "");
+        $svcCharge = Session::get('svcCharge', 0);
         $items = Session::get('items', array());
         $itemNames = array_keys($items);
         //print_r($items);
@@ -36,7 +37,8 @@ class CreateItemsController extends Controller
         $itemNamesJSArray = JSConverter::toJSArray($itemNames);
         $itemPricesJSArray = JSConverter::toJSArray($itemPrices);
         return view('createitems', array('store' => $store, 
-                                         'date' => $date, 
+                                         'date' => $date,
+                                         'svcCharge' => $svcCharge,
                                          'itemNames' => $itemNamesJSArray,
                                          'itemPrices' => $itemPricesJSArray));
     }

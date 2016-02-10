@@ -20,6 +20,7 @@ class OrderDetailsController extends Controller
     {
         $store = Session::get('store', "");
         $date = Session::get('date', "");
+        $svcCharge = Session::get('svcCharge', 0);
         $persons = Session::get('persons', array());
         $personsJSArray = JSConverter::toJSArray($persons);
         $items = Session::get('items', array());
@@ -33,7 +34,8 @@ class OrderDetailsController extends Controller
         //print_r($itemsJSArray);
         //echo "<br>--end--";
         return view('orderdetails', array('store' => $store, 
-                                          'date' => $date, 
+                                          'date' => $date,
+                                          'svcCharge' => $svcCharge,
                                           'persons' => $personsJSArray,
                                           'itemNames' => $itemNamesJSArray,
                                           'items' => $itemsJSArray,

@@ -12,7 +12,7 @@
     float: left;
 }
 
-.app-value input{
+.app-value input {
     /*width: 100px;*/
     width: 100%;
 }
@@ -38,42 +38,52 @@ input.app-remove, input.app-show {
     margin-top: 0px;
 }
 
-.app-price{
+.app-price {
     float: left;
 }
 
-.app-price input{
+.app-price input {
     width: 60px;
     margin-top: 0px;
 }
 
-.app-item-name{
+.app-item-name {
     float: left;
     width: 100px;
     margin-right: 10px;
 }
 
-.app-item-price{
+.app-item-price {
     float: left;
     width: 120px;
     margin-left: 10px;
 }
 
-.person-checkbox{
+.person-checkbox {
     clear:both;
     margin-left: 30px;
 }
 
-.app-checkbox{
+.app-checkbox {
 }
 
-.app-name{
+.app-name {
     float: left;
     width: 80px;
 }
 
-.app-qty input{
+.app-qty input {
     width: 45px;
+}
+
+#svc-charge-label {
+    float: left;
+    margin-left: 30px;
+    width: 120px;
+}
+
+#svc-charge-price input{
+    width: 60px;
 }
 
 @media screen and (max-width: 430px) {

@@ -64,6 +64,9 @@ class UpdateItemsController extends Controller
         Session::forget('items');
         Session::set('items', $items);
 
+        $svcCharge = $request->input('svc-charge');
+        Session::set('svcCharge', $svcCharge);
+
         if ($request->__get('next'))
         {
             echo "Next";
