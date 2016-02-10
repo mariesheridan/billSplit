@@ -28,7 +28,7 @@ $(document).ready(function () {
     // Show or hide the quantity textbox
     $(document).on('click', '.app-name', function(){
         var checkboxDiv = $(this).closest('.app-checkbox');
-        var name = checkboxDiv.data('name');
+        var personName = checkboxDiv.data('name');
         var number = checkboxDiv.data('number');
         if ($(this).find('input:checkbox').is(':checked'))
         {
@@ -36,7 +36,9 @@ $(document).ready(function () {
             {
                 console.log('checked');
                 var qtyId = $(this).closest('.app-item-block').attr('id');
-                checkboxDiv.append(divForQuantity(qtyId, name, 1));
+                var itemName = $(this).closest('.app-item-block').data('itemname');
+                var qtyValue = getQuantity(items, itemName, personName);
+                checkboxDiv.append(divForQuantity(qtyId, personName, qtyValue));
                 $(this).data('qtyVisible', true);
             }
         }
@@ -71,17 +73,33 @@ $(document).ready(function () {
     // At the beginning, add quantity beside checked checkboxes
     $('.app-checkbox').each(function(){
         var number = $(this).data('number');
-        var name =$(this).data('name');
-        console.log('name = ' + name);
+        var personName =$(this).data('name');
+        console.log('name = ' + personName);
         var checkbox = $(this).find('input:checkbox');
+        var itemName = $(this).closest('.app-item-block').data('itemname');
+        console.log('itemName = ' + itemName);
         if (checkbox.is(':checked'))
         {
             var qtyId = $(this).closest('.app-item-block').attr('id');
-            $(this).append(divForQuantity(qtyId, name, 1));
+            var qtyValue = getQuantity(items, itemName, personName);
+            $(this).append(divForQuantity(qtyId, personName, qtyValue));
         }
     });
  
 });
+
+function getQuantity(itemsArray, itemName, persoName)
+{
+    var qtyValue = 1;
+    if (itemsArray[itemName].hasOwnProperty('buyers'))
+    {
+        if (itemsArray[itemName]['buyers'].hasOwnProperty(persoName))
+        {
+            qtyValue = itemsArray[itemName]['buyers'][persoName];
+        }
+    }
+    return qtyValue;
+}
 
 function divForSpacer(nameToUse, number)
 {
@@ -123,9 +141,16 @@ function divForPersons(nameToUse, number, itemObject, names)
     {
         var checked = '';
         console.log("names [iter] = " + names[iter]);
-        if (itemObject['buyers'].hasOwnProperty(names[iter]))
+        if (itemObject.hasOwnProperty('buyers'))
         {
-            checked = 'checked';
+            if (itemObject['buyers'].hasOwnProperty(names[iter]))
+            {
+                checked = 'checked';
+            }
+        }
+        else
+        {
+            checked = "checked";
         }
         //var checked = "checked";
         appendValue += divForSpacer(nameToUse, number);
@@ -165,7 +190,8 @@ function appendToDiv(divId, nameToUse, number, itemNameInput, itemObject, price,
     {
         appendValue += divForSpacer(nameToUse, number);
     }
-    appendValue += "<div class='app-item-block' id='" + nameToUse + number + "'>";
+    appendValue += "<div class='app-item-block' id='" 
+                   + nameToUse + number + "' data-itemName='"+ itemNameInput +"'>";
     appendValue += divForHiddenItemName(nameToUse, number, itemNameInput);
     appendValue += divForLabel(nameToUse, number);
     appendValue += divForItem(nameToUse, number, itemNameInput);
