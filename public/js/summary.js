@@ -1,6 +1,6 @@
 $(document).ready(function(){
     var divId = "#app-summary";
-    var totalPrice = computeTotalPrice(items, svcCharge);
+    var totalPrice = computeTotalPrice(items);
     showItemSummary(divId, items, totalPrice, svcCharge);
     showPersonsSummary(divId, persons, items, totalPrice, svcCharge);
 });
@@ -19,7 +19,7 @@ function showItemSummary(divId, itemsObject, totalPrice, serviceCharge)
     }
     appendValue += divForServiceCharge(serviceCharge, false);
     appendValue += divForLine();
-    appendValue += divForTotal(totalPrice, false);
+    appendValue += divForTotal(totalPrice + serviceCharge, false);
     appendValue += "</div>";
 
     $(divId).append(appendValue);
@@ -122,7 +122,7 @@ function computeTotalPrice(itemsObject, serviceCharge)
     {
         totalPrice += itemsObject[iter]['itemPrice'];
     }
-    return totalPrice + serviceCharge;
+    return totalPrice;
 }
 
 function divForHeader(title)

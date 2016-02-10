@@ -131,11 +131,12 @@ input.app-remove, input.app-show {
 }
 
 .person-summary {
+    width: 300px;
     border-style: solid;
     border-color: gray;
     border-width: 1px;
     padding: 10px;
-    border-radius: 25px;
+    border-radius: 15px;
 }
 
 .summary-item-block {
@@ -148,6 +149,10 @@ input.app-remove, input.app-show {
     input.app-remove, input.app-show{
         margin-left: 30px;
         margin-top: 10px;
+    }
+
+    .person-summary {
+        width: 100%;
     }
 }
 
