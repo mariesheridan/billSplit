@@ -32,7 +32,7 @@ $(document).ready(function () {
         var number = checkboxDiv.data('number');
         if ($(this).find('input:checkbox').is(':checked'))
         {
-            if ($(this).data('qtyVisible') == false)
+            if (!($(this).attr('qtyVisible')) || ($(this).data('qtyVisible') == false))
             {
                 console.log('checked');
                 var qtyId = $(this).closest('.app-item-block').attr('id');
