@@ -37,11 +37,14 @@ class OrderDetailsController extends Controller
         $itemPricesJSArray = JSConverter::toJSArray($itemPrices);
         $buyers = array_column($items, 'buyers');
         $itemsJSArray = "[";
-        foreach($items as $item)
+        foreach($items as $itemName => $item)
         {
+            echo ("item: <br>");
+            print_r($item);
+            echo ("<br>---- end item ---- <br>");
             $itemsJSArray .= "{";
-            $itemsJSArray .= "itemName: '" . key($item) . "', ";
-            $itemsJSArray .= "itemPrice: '" . $item['itemPrice'] . "', ";
+            $itemsJSArray .= $itemName . ": {";
+            $itemsJSArray .= "itemPrice: " . $item['itemPrice'] . ", ";
             if (array_key_exists('buyers', $item))
             {
                 $itemsJSArray .= "buyers: [";
@@ -54,16 +57,17 @@ class OrderDetailsController extends Controller
                 }
                 $itemsJSArray .= "]";
             }
-            $itemsJSArray .= "},";
+            $itemsJSArray .= "}},";
         }
-        $itemsJSArray .= "]";
+        $itemsJSArray .= "];";
         echo "--itemsJSArray--<br>";
         print_r($itemsJSArray);
         echo "<br>--end--";
         return view('orderdetails', array('store' => $store, 
                                           'date' => $date, 
-                                          'persons' => $personsJSArray, 
+                                          'persons' => $personsJSArray,
                                           'itemNames' => $itemNamesJSArray,
+                                          'items' => $itemsJSArray,
                                           'itemPrices' => $itemPricesJSArray,
                                           'buyers' => $buyers));
     }

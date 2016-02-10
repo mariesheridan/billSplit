@@ -36,6 +36,8 @@
     var itemPrices = <?php echo $itemPrices; ?>;
     console.log("js itemNames = " + itemNames);
     console.log("js itemPrices = " + itemPrices);
+    var items = <?php echo $items; ?>;
+    console.log("js items = " + items);
 </script>
 @endsection
 
