@@ -1,10 +1,11 @@
 $(document).ready(function(){
     var divId = "#app-summary";
-    showItemSummary(divId, items);
-    showPersonsSummary(divId, persons, items);
+    var totalPrice = computeTotalPrice(items, svcCharge);
+    showItemSummary(divId, items, totalPrice, svcCharge);
+    showPersonsSummary(divId, persons, items, totalPrice, svcCharge);
 });
 
-function showItemSummary(divId, itemsObject)
+function showItemSummary(divId, itemsObject, totalPrice, serviceCharge)
 {
     var appendValue = "<div id='summary-block'>";
     appendValue += divForHeader('Overview');
@@ -16,15 +17,16 @@ function showItemSummary(divId, itemsObject)
         appendValue += divForPrice(itemsObject[iter]['itemPrice'].toFixed(2));
         appendValue += "</div>";
     }
+    appendValue += divForServiceCharge(serviceCharge, false);
     appendValue += divForLine();
     appendValue += divForItem('Total Price');
-    appendValue += divForPrice(computeTotalPrice(itemsObject).toFixed(2));
+    appendValue += divForPrice(totalPrice.toFixed(2));
     appendValue += "</div>";
 
     $(divId).append(appendValue);
 }
 
-function showPersonsSummary(divId, personsArray, itemsObject)
+function showPersonsSummary(divId, personsArray, itemsObject, totalPrice, totalSvcCharge)
 {
     computeTotalUnits(items);
     for (iter in personsArray)
@@ -34,12 +36,12 @@ function showPersonsSummary(divId, personsArray, itemsObject)
         if (isPersonPaying(name, itemsObject))
         {
             console.log("showPersonsSummary 2: " + name);
-            showPerson(divId, name, itemsObject);
+            showPerson(divId, name, itemsObject, totalPrice, totalSvcCharge);
         }
     }
 }
 
-function showPerson(divId, personName, itemsObject)
+function showPerson(divId, personName, itemsObject, totalPrice, totalSvcCharge)
 {
     var payTotal = 0;
     var appendValue = divForSpacer();
@@ -64,6 +66,9 @@ function showPerson(divId, personName, itemsObject)
             appendValue += "</div>";
         }
     }
+    var serviceCharge = (payTotal / totalPrice) * totalSvcCharge;
+    payTotal += serviceCharge;
+    appendValue += divForServiceCharge(serviceCharge, true);
     appendValue += divForLine();
     appendValue += divForItem('Total');
     appendValue += divForPlaceholder();
@@ -113,14 +118,14 @@ function computeTotalUnits(itemsObject)
     }
 }
 
-function computeTotalPrice(itemsObject)
+function computeTotalPrice(itemsObject, serviceCharge)
 {
     var totalPrice = 0;
     for (iter in itemsObject)
     {
         totalPrice += itemsObject[iter]['itemPrice'];
     }
-    return totalPrice;
+    return totalPrice + serviceCharge;
 }
 
 function divForHeader(title)
@@ -157,6 +162,23 @@ function divForLine()
     return "<div class='app-line-space'></div>"
            + "<div class='app-line'></div>"
            + "<div class='app-line-space'></div>";
+}
+
+function divForServiceCharge(serviceCharge, withPlaceholder)
+{
+    var appendValue = '';
+    if (serviceCharge > 0)
+    {
+        appendValue += "<div class='app-item-block'>";
+        appendValue += divForItem('Service Charge');
+        if (withPlaceholder)
+        {
+            appendValue += divForPlaceholder();
+        }
+        appendValue += divForPrice(serviceCharge.toFixed(2));
+        appendValue += "</div>";
+    }
+    return appendValue;
 }
 
 function divForPlaceholder()
