@@ -102,6 +102,42 @@ input.app-remove, input.app-show {
     height: 5px;
 }
 
+.summary-item-name {
+    float: left;
+    width: 80px;
+}
+
+.summary-item-price {
+    float: left;
+    width: 50px;
+    text-align: right;
+}
+
+.summary-qty {
+    float: left;
+    width: 30px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.summary-unit-price {
+    float: left;
+    width: 40px;
+}
+
+.summary-placeholder {
+    float: left;
+    width: 80px;
+}
+
+.person-summary {
+    border-style: solid;
+    border-color: gray;
+    border-width: 1px;
+    padding: 10px;
+    border-radius: 25px;
+}
+
 @media screen and (max-width: 430px) {
     input.app-remove, input.app-show{
         margin-left: 30px;
