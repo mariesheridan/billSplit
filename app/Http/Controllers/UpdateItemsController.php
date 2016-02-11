@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
+use Session;
+use App\MyLibrary\ItemBuilder;
 
 class UpdateItemsController extends Controller
 {
@@ -17,8 +19,9 @@ class UpdateItemsController extends Controller
     
     public function update(Request $request)    
     {
-        $oldItems = Session::get('items', array());
+        $oldItems = ItemBuilder::copyArray(Session::get('items', array()));
         $itemNames = array();
+        $itemKeys = array();
         foreach($request->all() as $key=>$itemName)
         {
             if(preg_match('/^item[\d]+/', $key))
@@ -26,40 +29,33 @@ class UpdateItemsController extends Controller
                 array_push($itemNames, $itemName);
             }
         }
+        echo "itemNames:<br>";
+        print_r($itemNames);
+        echo "<br>";
 
         $index = 0;
 
         // Copy old values having the current item names
         // This will remove other entries that were removed in the view
-        $items = array();
-        foreach($itemNames as $itemName)
+        $items = new ItemBuilder;
+        foreach($itemNames as $name)
         {
-            if (array_key_exists($itemName, $oldItems))
+            if ($oldItems->hasName($name))
             {
-                $items[$itemName] = $oldItems[$itemName];
+                $items->addItemArray($name, $oldItems[$name]);
             }
         }
         foreach($request->all() as $key=>$price)
         {
             if(preg_match('/^price[\d]+/', $key))
             {
-                //echo "key: " . $key . ", itemNames [" . $index . "] = " . $itemNames[$index] . "<br>";
-                if (array_key_exists($itemNames[$index], $items))
-                {
-                    //echo "exists!<br>";
-                    $items[$itemNames[$index]]['itemPrice'] = $price;
-                }
-                else
-                {
-                    //echo "does not exist!<br>";
-                    //array_push($items, array('itemName' => $itemNames[$index], 'itemPrice' => $price));
-                    $items[$itemNames[$index]] = array('itemPrice' => $price);
-                }
+                $items->addItemByName($itemNames[$index], $price);
                 $index++;
             }
         }
 
-        //print_r($items);
+        echo "items: <br>";
+        print_r($items->getItems());
 
         Session::forget('items');
         Session::set('items', $items);
@@ -70,7 +66,7 @@ class UpdateItemsController extends Controller
         if ($request->__get('next'))
         {
             echo "Next";
-            return redirect()->route('order_details');
+            //return redirect()->route('order_details');
         }
         else if ($request->__get('back'))
         {
