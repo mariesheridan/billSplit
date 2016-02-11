@@ -20,7 +20,18 @@ class JSConverter
 
     public static function toJSArray($phpArray)
     {
-        return '["' . implode('", "', $phpArray) . '"]';
+        return '["' . implode('", "', $phpArray) . '"];';
+    }
+
+    public static function toJSObject($phpAssocArray)
+    {
+        $jsObject = "{";
+        foreach ($phpAssocArray as $key => $value)
+        {
+            $jsObject .= $key . ": '" . $value . "',";
+        }
+        $jsObject .= "};";
+        return $jsObject;
     }
 
     // This is not a generic function. It is specifically designed for items array.

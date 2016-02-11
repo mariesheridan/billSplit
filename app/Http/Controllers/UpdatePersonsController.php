@@ -23,9 +23,11 @@ class UpdatePersonsController extends Controller
         {
             if(preg_match('/^person[\d]+/', $key))
             {
-                array_push($persons, $person);
+                //array_push($persons, $person);
+                $persons[str_replace(' ', '', $person)] = $person;
             }
         }
+        //print_r($persons);
         Session::forget('persons');
         Session::set('persons', $persons);
 
