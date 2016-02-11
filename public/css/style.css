@@ -69,7 +69,7 @@ input.app-remove, input.app-show {
 
 .app-name {
     float: left;
-    width: 80px;
+    width: 120px;
 }
 
 .app-qty input {

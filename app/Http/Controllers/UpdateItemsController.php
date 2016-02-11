@@ -42,7 +42,7 @@ class UpdateItemsController extends Controller
         {
             if ($oldItems->hasName($name))
             {
-                $items->addItemArray($name, $oldItems[$name]);
+                $items->addItemArray($name, $oldItems->getItem($name));
             }
         }
         foreach($request->all() as $key=>$price)
@@ -55,10 +55,10 @@ class UpdateItemsController extends Controller
         }
 
         echo "items: <br>";
-        print_r($items->getItems());
+        print_r($items->getArray());
 
         Session::forget('items');
-        Session::set('items', $items);
+        Session::set('items', $items->getArray());
 
         $svcCharge = $request->input('svc-charge');
         Session::set('svcCharge', $svcCharge);
@@ -66,7 +66,7 @@ class UpdateItemsController extends Controller
         if ($request->__get('next'))
         {
             echo "Next";
-            //return redirect()->route('order_details');
+            return redirect()->route('order_details');
         }
         else if ($request->__get('back'))
         {

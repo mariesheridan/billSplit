@@ -141,12 +141,12 @@ function divForLabel(nameToUse, number)
            + number + ".</div>";
 }
 
-function divForItem(nameToUse, number, input)
+function divForItem(nameToUse, number, key, name)
 {
     return "<div class='app-item-name' id='"
            + nameToUse + number + "ItemName' data-itemName='"
-           + input + "'>"
-           + input + "</div>";
+           + key + "'>"
+           + name + "</div>";
 }
 
 function divForPrice(nameToUse, number, input)
@@ -222,7 +222,7 @@ function appendToDiv(divId, nameToUse, number, itemNameInput, itemObject, person
                    + nameToUse + number + "' data-itemName='"+ itemNameInput +"'>";
     appendValue += divForHiddenItemName(nameToUse, number, itemNameInput);
     appendValue += divForLabel(nameToUse, number);
-    appendValue += divForItem(nameToUse, number, itemNameInput);
+    appendValue += divForItem(nameToUse, number, itemNameInput, itemObject['itemName']);
     appendValue += divForPrice(nameToUse, number, itemObject.itemPrice);
     appendValue += divForShowDetails(nameToUse, number);
     appendValue += divForPersons(nameToUse, number, itemObject, personNames);
