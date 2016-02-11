@@ -67,12 +67,17 @@ class SaveNewTransactionController extends Controller
         {
             $dbPerson = Person::create(array('transaction_id' => $dbTransaction->id,
                                              'name' => $person));
-            $svcCharge = $request->input($key . 'SvcCharge' . 'UnitPrice');
-            Order::create(array('transaction_id' => $dbTransaction->id,
-                                'person_id' => $dbPerson->id,
-                                'item_id' => $dbServiceCharge->id,
-                                'quantity' => 1,    
-                                'price' => $svcCharge));
+            // We need to check if service charge exists for a user or not
+            $svChargeKey = $key . 'SvcCharge' . 'UnitPrice';
+            if (array_key_exists($svChargeKey, $request->all()))
+            {
+                $svcCharge = $request->input($key . 'SvcCharge' . 'UnitPrice');
+                Order::create(array('transaction_id' => $dbTransaction->id,
+                                    'person_id' => $dbPerson->id,
+                                    'item_id' => $dbServiceCharge->id,
+                                    'quantity' => 1,    
+                                    'price' => $svcCharge));
+            }
         }
 
         foreach ($items->getArray() as $key=>$item)
