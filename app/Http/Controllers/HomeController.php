@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\MyLibrary\SessionDetails;
-
 use App\Http\Requests;
 use Illuminate\Http\Request;
+
+use App\MyLibrary\SessionDetails;
+use App\Transaction;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -27,6 +29,7 @@ class HomeController extends Controller
     public function index()
     {
         SessionDetails::forget();
-        return view('home');
+        $transactions = Transaction::where('user_id', '=', Auth::user()->id)->paginate(3);
+        return view('home', array("transactions" => $transactions));
     }
 }

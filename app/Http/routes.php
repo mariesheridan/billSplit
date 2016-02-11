@@ -40,4 +40,5 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/update_orders', 'UpdateOrderDetailsController@update');
     Route::get('/summary', ['as' => 'summary', 'uses' => 'SummaryController@index']);
     Route::post('/save_new_transaction', 'SaveNewTransactionController@update');
+    Route::resource('transactions', 'TransactionController');
 });

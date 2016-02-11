@@ -8,7 +8,10 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
+                    @foreach ($transactions->getCollection()->all() as $transaction)
+                        <div>{{ $transaction->id }}</div>
+                    @endforeach
+                    <div>{{ $transactions->links() }}</div>
                 </div>
             </div>
         </div>
