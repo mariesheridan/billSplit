@@ -150,6 +150,41 @@ input.app-remove, input.app-show {
     color: #a94442;
 }
 
+.app-table {
+    width: 100%;
+}
+
+.app-tr {
+    width: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+.app-td-date {
+    width: 10%;
+    vertical-align: middle;
+}
+
+.app-td-store {
+    width: 10%;
+    vertical-align: middle;
+}
+
+.app-td-persons {
+    width: 40%;
+    vertical-align: middle;
+    border-color: #ddd;
+    border-width: 1px;
+}
+
+.app-tr {
+    height: 50px;
+    border-color: #ddd;
+    border-width: 1px;
+}
+
 @media screen and (max-width: 430px) {
     input.app-remove, input.app-show{
         margin-left: 30px;

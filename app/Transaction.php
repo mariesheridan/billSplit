@@ -20,7 +20,7 @@ class Transaction extends Model
 
     public function persons()
     {
-        return $this->hasMany('App\Order');
+        return $this->hasMany('App\Person');
     }
 
     public function orders()

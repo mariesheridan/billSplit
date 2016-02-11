@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\MyLibrary\SessionDetails;
 use App\Transaction;
 use Auth;
+use HTML;
 
 class HomeController extends Controller
 {
@@ -29,7 +30,8 @@ class HomeController extends Controller
     public function index()
     {
         SessionDetails::forget();
-        $transactions = Transaction::where('user_id', '=', Auth::user()->id)->paginate(3);
+        $transactions = Transaction::where('user_id', '=', 
+                        Auth::user()->id)->orderBy('date')->simplePaginate(3);
         return view('home', array("transactions" => $transactions));
     }
 }
