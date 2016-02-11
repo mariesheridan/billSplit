@@ -122,12 +122,12 @@ input.app-remove, input.app-show {
 
 .summary-unit-price {
     float: left;
-    width: 100px;
+    width: 60px;
 }
 
 .summary-placeholder {
     float: left;
-    width: 20px;
+    width: 100px;
 }
 
 .person-summary {
@@ -140,9 +140,14 @@ input.app-remove, input.app-show {
 }
 
 .summary-item-block {
+    clear: both;
     /*display: flex;
     flex-direction: row;
     justify-content: flex-start;*/
+}
+
+.help-block {
+    color: #a94442;
 }
 
 @media screen and (max-width: 430px) {
@@ -158,6 +163,17 @@ input.app-remove, input.app-show {
     .summary-qty {
         clear: left;
     }
+
+    .summary-unit-price {
+        float: left;
+        width: 100px;
+    }
+
+    .summary-placeholder {
+        float: left;
+        width: 20px;
+    }
+
 }
 
 @media screen and (max-width: 355px) {

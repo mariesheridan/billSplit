@@ -8,9 +8,11 @@
                 <div class="panel-heading">Summary</div>
 
                 <div class="panel-body">
-                    {{ $store }}
-                    <br>
-                    {{ $date }}
+                    <h4>
+                        {{ $store }}
+                        <br>
+                        {{ $date }}
+                    </h4>
                     <div class="app-spacer"></div>
                     <form id="app-form" action="save_new_transaction" method="POST">
                         <div id="app-summary">

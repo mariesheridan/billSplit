@@ -81,14 +81,16 @@ function getValues(fromDivId)
 function checkUnique()
 {
     var inputs = [];
+    var result = {};
     $('.app-value').each(function(){
         console.log("id: " + $(this).attr('id'));
+        var id = $(this).attr('id');
         input = $(this).find('input:text').val().replace(/ /g, "").toLowerCase();
         console.log('input: ' + input);
         inputs.push(input);
     });
     var unique = true;
-    console.log('checkUnique: ' + inputs);
+
     for (iter1 in inputs)
     {
         for (iter2 in inputs)
@@ -96,6 +98,8 @@ function checkUnique()
             if ((iter1 != iter2) && (inputs[iter2] == inputs[iter1]))
             {
                 console.log("iter1: " + iter1 + ", iter2: " + iter2 + ", value= " + inputs[iter2]);
+                result['num1'] = parseInt(iter1) + 1;
+                result['num2'] = parseInt(iter2) + 1;
                 unique = false;
                 break;
             }
@@ -105,10 +109,30 @@ function checkUnique()
             break;
         }
     }
-    return unique;
+    result['isUnique'] = unique;
+    return result;
 }
 
 function getIsOneSet()
 {
     return isOneSet;
+}
+
+function divForError(num1, num2)
+{
+    return "<span class='help-block'><strong>Please put in unique values<br>Inputs " 
+           + num1 + " and " + num2 + " are the same!</strong></span>";
+}
+
+function validateForm()
+{
+    var checkResult = checkUnique();
+    $("#" + getClassName() + "-body").find('.help-block').each(function(){
+        $(this).remove();
+    });
+    if(!checkResult.isUnique)
+    {
+        $("#" + getClassName() + "-body").prepend(divForError(checkResult['num1'], checkResult['num2']));
+        event.preventDefault(); 
+    }
 }

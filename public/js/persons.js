@@ -39,11 +39,7 @@ $(document).ready(function () {
         showPreviousInputs(idToAppend, className, values);
     });
     $("#app-form").submit(function(event){
-        if(!checkUnique())
-        {
-            alert("Please enter unique names!");
-            event.preventDefault(); 
-        }
+        validateForm();
     });
 });
 

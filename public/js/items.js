@@ -26,18 +26,6 @@ $(document).ready(function () {
         });
     }
     $(document).on('click', '.app-remove', function(){
-        /*var removeId = $(this).attr('id');
-        var number = removeId.match(/\d+/);
-        removeId = "#" + removeId;
-        var labelId = "#" + className + number + "Label";
-        var valueId = "#" + className + number + "Value";
-        var spacerId = "#" + className + number + "Spacer";
-        var priceId =  "#" + className + number + "Price";
-        $(removeId).remove();
-        $(labelId).remove();
-        $(valueId).remove();
-        $(spacerId).remove();
-        $(priceId).remove();*/
         $(this).closest('.item-block').children().each(function(){
             console.log("removing " + $(this).attr('id'));
             $(this).remove();
@@ -47,11 +35,7 @@ $(document).ready(function () {
         showCurrentInputs(idToAppend, className, names, prices);
     });
     $("#app-form").submit(function(event){
-        if(!checkUnique())
-        {
-            alert("Please enter unique items!");
-            event.preventDefault(); 
-        }
+        validateForm();
     });
 });
 

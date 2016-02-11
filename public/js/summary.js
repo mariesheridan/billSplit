@@ -31,9 +31,9 @@ function showPersonsSummary(divId, personsArray, itemsObject, totalPrice, totalS
     for (iter in personsArray)
     {
         var name = personsArray[iter];
-        name = name.replace(/ /g, '');
+        name = name;
         console.log("showPersonsSummary: " + personsArray[iter]);
-        if (isPersonPaying(name, itemsObject))
+        if (isPersonPaying(name.replace(/ /g, ''), itemsObject))
         {
             console.log("showPersonsSummary 2: " + name);
             showPerson(divId, name, itemsObject, totalPrice, totalSvcCharge);
@@ -50,16 +50,16 @@ function showPerson(divId, personName, itemsObject, totalPrice, totalSvcCharge)
     appendValue += divForLine();
     for (iter in itemsObject)
     {
-        if(isPersonPayingForItem(personName, itemsObject[iter]))
+        if(isPersonPayingForItem(personName.replace(/ /g, ''), itemsObject[iter]))
         {
-            var quantity = itemsObject[iter]['buyers'][personName];
+            var quantity = itemsObject[iter]['buyers'][personName.replace(/ /g, '')];
             var totalUnits = itemsObject[iter]['totalUnits'];
             var unitPrice = itemsObject[iter]['itemPrice'] / totalUnits;
             var payPrice = unitPrice * quantity;
             payTotal += payPrice;
 
             appendValue += "<div class='summary-item-block'>";
-            appendValue += divForItem(iter);
+            appendValue += divForItem(itemsObject[iter]['itemName']);
             appendValue += divForQuantity(quantity);
             appendValue += divForUnitPrice(unitPrice.toFixed(2));
             appendValue += divForPrice(payPrice.toFixed(2));
@@ -197,14 +197,14 @@ function divForSpacer()
 
 function divForTotal(input, withPlaceholder)
 {
-    var appendValue = "<div class='summary-item-block'>";
+    var appendValue = "<div class='summary-item-block'><strong>";
     appendValue += divForItem('Total');
     if (withPlaceholder)
     {
         appendValue += divForPlaceholder();
     }
     appendValue += divForPrice(input.toFixed(2));
-    appendValue += "</div>";
+    appendValue += "</strong></div>";
 
     return appendValue;
 }
@@ -213,11 +213,11 @@ function divForHiddenInputs(personName, itemName, quantity, unitPrice)
 {
     var appendValue = "";
     appendValue += "<input type='hidden' name='" 
-                + personName + itemName 
+                + personName.replace(/ /g, '') + itemName 
                 + "Qty' value='" 
                 + quantity + "' />";
     appendValue += "<input type='hidden' name='" 
-                + personName + itemName 
+                + personName.replace(/ /g, '') + itemName 
                 + "UnitPrice' value='" 
                 + unitPrice + "' />";              
     return appendValue;

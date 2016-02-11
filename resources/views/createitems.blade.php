@@ -11,7 +11,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">What items were bought?</div>
 
-                <div class="panel-body">
+                <div class="panel-body" id="item-body">
                     {{ $store }}
                     <br>
                     {{ $date }}

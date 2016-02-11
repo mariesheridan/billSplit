@@ -171,7 +171,7 @@ function divForPersons(nameToUse, number, itemObject, names)
         console.log("names [iter] = " + names[iter]);
         if (itemObject.hasOwnProperty('buyers'))
         {
-            if (itemObject['buyers'].hasOwnProperty(names[iter]))
+            if (itemObject['buyers'].hasOwnProperty(names[iter].replace(/ /g, '')))
             {
                 checked = 'checked';
             }
