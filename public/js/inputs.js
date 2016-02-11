@@ -19,25 +19,14 @@ function getClassName()
 
 function isEmpty(inputArray)
 {
-/*    if (inputArray.length <= 0)
-    {
-        //console.log('Array is empty!')
-        return true;
-    }
-    else
-    {
-        //console.log('Array is NOT empty!')
-        return false;
-    }
-*/
     var counter = 0;
     var result = true;
     for (iter in inputArray)
     {
-        console.log('Not empty. ' + iter + " = " + inputArray[iter]);
         counter++;
+        break;
     }
-    if (counter > 1)
+    if (counter > 0)
     {
         result =  false;
     }

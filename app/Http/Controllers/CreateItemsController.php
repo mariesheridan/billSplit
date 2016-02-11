@@ -23,30 +23,11 @@ class CreateItemsController extends Controller
         $store = Session::get('store', "");
         $date = Session::get('date', "");
         $svcCharge = Session::get('svcCharge', 0);
-        //$items = Session::get('items', array());
         $items = ItemBuilder::copyArray(Session::get('items', array()));
-        //$itemNames = array_keys($items);
-        $itemNames = $items->getKeys();
-        print_r($items->getItems());
-        echo "<br> keys: <br>";
-        print_r($itemNames);
-        echo"<br>";
-        $itemPrices = array();
-        foreach ($items as $item)
-        {
-            array_push($itemPrices, $item['itemPrice']);
-        }
-        //print_r($itemPrices);
-        //echo"<br>";
-        echo "toJSObject:<br>";
-        echo $items->toJSObject();
-        $itemNamesJSArray = JSConverter::toJSArray($itemNames);
-        $itemPricesJSArray = JSConverter::toJSArray($itemPrices);
+
         return view('createitems', array('store' => $store, 
                                          'date' => $date,
                                          'svcCharge' => $svcCharge,
-                                         'itemNames' => $itemNamesJSArray,
-                                         'itemPrices' => $itemPricesJSArray,
                                          'items' => $items->toJSObject()));
     }
 }

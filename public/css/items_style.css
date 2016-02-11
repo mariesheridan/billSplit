@@ -1,0 +1,6 @@
+@media screen and (max-width: 355px) {
+    input.app-remove{
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+}

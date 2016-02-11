@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('localStyle')
+<link href="{{ asset('css/items_style.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -38,10 +42,6 @@
 <script src="{{ asset('js/items.js') }}"></script>
 <script>
     setClass('item');
-    var itemNames = <?php echo $itemNames; ?>;
-    var itemPrices = <?php echo $itemPrices; ?>;
     var items = <?php echo $items; ?>;
-    console.log("js itemNames = " + itemNames);
-    console.log("js itemPrices = " + itemPrices);
 </script>
 @endsection

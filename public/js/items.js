@@ -10,7 +10,7 @@ $(document).ready(function () {
     {
         className = getClassName();
         idToAppend = '#app-' + className + 's';
-        if (!isEmpty(itemNames))
+        if (!isEmpty(items))
         {
             //showPreviousInputs(idToAppend, className, itemNames, itemPrices);
             showPreviousInputs(idToAppend, className, items);
