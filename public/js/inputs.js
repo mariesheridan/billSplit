@@ -19,7 +19,7 @@ function getClassName()
 
 function isEmpty(inputArray)
 {
-    if (inputArray.length <= 0)
+/*    if (inputArray.length <= 0)
     {
         //console.log('Array is empty!')
         return true;
@@ -29,6 +29,19 @@ function isEmpty(inputArray)
         //console.log('Array is NOT empty!')
         return false;
     }
+*/
+    var counter = 0;
+    var result = true;
+    for (iter in inputArray)
+    {
+        console.log('Not empty. ' + iter + " = " + inputArray[iter]);
+        counter++;
+    }
+    if (counter > 1)
+    {
+        result =  false;
+    }
+    return result;
 }
 
 function divForSpacer(nameToUse, number)
@@ -104,4 +117,9 @@ function checkUnique()
         }
     }
     return unique;
+}
+
+function getIsOneSet()
+{
+    return isOneSet;
 }

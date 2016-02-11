@@ -34,6 +34,22 @@ class ItemBuilder
         return $this->items;
     }
 
+    public function getKeys()
+    {
+        /*$keys = array();
+        foreach ($this->items as $key => $value)
+        {
+            array_push($keys, $key);
+        }
+        return $keys;*/
+        $keys = array();
+        foreach ($this->items as $item)
+        {
+            $keys = array_keys($item);
+        }
+        return $keys;
+    }
+
     public function setArray($itemArray)
     {
         $this->items = $itemArray;
@@ -62,23 +78,26 @@ class ItemBuilder
     public function toJSObject()
     {
         $jsObject = "{";
-        foreach($this->items as $key => $item)
+        foreach ($this->items as $items)
         {
-            $jsObject .= $key . ": {";
-            $jsObject .= "itemName: " . $item['itemName'] . ", ";
-            $jsObject .= "itemPrice: " . $item['itemPrice'] . ", ";
-            if (array_key_exists('buyers', $item))
+            foreach ($items as $key => $item)
             {
-                $jsObject .= "buyers: {";
-                foreach ($item['buyers'] as $buyer)
+                $jsObject .= $key . ": {";
+                $jsObject .= "itemName: '" . $item['itemName'] . "', ";
+                $jsObject .= "itemPrice: " . $item['itemPrice'] . ", ";
+                if (array_key_exists('buyers', $item))
                 {
-                    $jsObject .= $buyer['name'] . ": " . $buyer['qty'] . ",";
+                    $jsObject .= "buyers: {";
+                    foreach ($item['buyers'] as $buyer)
+                    {
+                        $jsObject .= $buyer['name'] . ": " . $buyer['qty'] . ",";
+                    }
+                    $jsObject .= "}";
                 }
-                $jsObject .= "}";
+                $jsObject .= "},";
             }
-            $jsObject .= "},";
         }
-        $jsObject .= "};";
+        $jsObject .= "}";
         return $jsObject;
     }
 

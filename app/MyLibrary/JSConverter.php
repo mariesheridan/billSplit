@@ -20,7 +20,7 @@ class JSConverter
 
     public static function toJSArray($phpArray)
     {
-        return '["' . implode('", "', $phpArray) . '"];';
+        return '["' . implode('", "', $phpArray) . '"]';
     }
 
     public static function toJSObject($phpAssocArray)
@@ -30,7 +30,7 @@ class JSConverter
         {
             $jsObject .= $key . ": '" . $value . "',";
         }
-        $jsObject .= "};";
+        $jsObject .= "}";
         return $jsObject;
     }
 
@@ -40,9 +40,9 @@ class JSConverter
         $itemsJSArray = "{";
         foreach($itemObject as $itemName => $item)
         {
-            //echo ("item: <br>");
-            //print_r($item);
-            //echo ("<br>---- end item ---- <br>");
+            echo ("item: " . $itemName . " <br>");
+            print_r($item);
+            echo ("<br>---- end item ---- <br>");
               $itemsJSArray .= $itemName . ": {";
             $itemsJSArray .= "itemPrice: " . $item['itemPrice'] . ", ";
             if (array_key_exists('buyers', $item))
@@ -56,7 +56,7 @@ class JSConverter
             }
             $itemsJSArray .= "},";
         }
-        $itemsJSArray .= "};";
+        $itemsJSArray .= "}";
         return $itemsJSArray;
     }
 }

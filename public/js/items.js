@@ -12,7 +12,8 @@ $(document).ready(function () {
         idToAppend = '#app-' + className + 's';
         if (!isEmpty(itemNames))
         {
-            showPreviousInputs(idToAppend, className, itemNames, itemPrices);
+            //showPreviousInputs(idToAppend, className, itemNames, itemPrices);
+            showPreviousInputs(idToAppend, className, items);
         }
         else if(!getIsOneSet())
         {
@@ -25,7 +26,7 @@ $(document).ready(function () {
         });
     }
     $(document).on('click', '.app-remove', function(){
-        var removeId = $(this).attr('id');
+        /*var removeId = $(this).attr('id');
         var number = removeId.match(/\d+/);
         removeId = "#" + removeId;
         var labelId = "#" + className + number + "Label";
@@ -36,10 +37,14 @@ $(document).ready(function () {
         $(labelId).remove();
         $(valueId).remove();
         $(spacerId).remove();
-        $(priceId).remove();
+        $(priceId).remove();*/
+        $(this).closest('.item-block').children().each(function(){
+            console.log("removing " + $(this).attr('id'));
+            $(this).remove();
+        });
         var names = getValues('.app-value');
         var prices = getValues('.app-price');
-        showPreviousInputs(idToAppend, className, names, prices);
+        showCurrentInputs(idToAppend, className, names, prices);
     });
     $("#app-form").submit(function(event){
         if(!checkUnique())
@@ -52,19 +57,26 @@ $(document).ready(function () {
 
 function setOne(id, nameToUse)
 {
-    var appendValue = divForLabel(nameToUse, 1);
+    var appendValue = "<div class='item-block' data-number='" + 1 + "'>";
+    appendValue += divForLabel(nameToUse, 1);
     appendValue += divForValue(nameToUse, 1);
+    appendValue += divForPrice(nameToUse, 1);
+    appendValue += "</div>";
     $(id).append(appendValue);
     isOneSet = true;
 }
 
 function appendToDiv(divId, nameToUse, number)
 {
-    var appendValue = '';
     if (number === 2)
     {
-        appendValue += divForRemove(nameToUse, number-1);
+        $(".item-block").append(divForRemove(className, counter-1));
     }
+    var appendValue = "<div class='item-block' data-number='" + number + "'>";
+    /*if (number === 2)
+    {
+        appendValue += divForRemove(nameToUse, number-1);
+    }*/
     if (number > 1)
     {
         appendValue += divForSpacer(nameToUse, number);
@@ -76,13 +88,27 @@ function appendToDiv(divId, nameToUse, number)
     {
         appendValue += divForRemove(nameToUse, number);
     }
+    appendValue += "</div>";
     $(divId).append(appendValue);
 }
 
-function showPreviousInputs(divId, nameToUse, names, prices)
+function showPreviousInputs(divId, nameToUse, inputs)
 {
-    console.log("showPreviousInputs names: " + names);
-    console.log("showPreviousInputs prices: " + prices);
+    $(divId).empty();
+    counter = 0;
+    for (iter in inputs)
+    {
+        counter++;
+        appendToDiv(divId, nameToUse, counter);
+        $('#' + nameToUse + counter + 'Value input').val(inputs[iter]['itemName']);
+        $('#' + nameToUse + counter + 'Price input').val(inputs[iter]['itemPrice']);
+    }
+}
+
+function showCurrentInputs(divId, nameToUse, names, prices)
+{
+    console.log("showCurrentInputs names: " + names);
+    console.log("showCurrentInputs prices: " + prices);
     $(divId).empty();
     counter = 0;
     for (var iter in names)

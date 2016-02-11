@@ -83,6 +83,7 @@ function showPreviousInputs(divId, nameToUse, inputs)
     for (var iter in inputs)
     {
         counter++;
+        console.log(iter + " = " + inputs[iter]);
         appendToDiv(divId, nameToUse, counter);
         $('#' + nameToUse + counter + 'Value input').val(inputs[iter]);
     }

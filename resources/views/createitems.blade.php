@@ -40,6 +40,7 @@
     setClass('item');
     var itemNames = <?php echo $itemNames; ?>;
     var itemPrices = <?php echo $itemPrices; ?>;
+    var items = <?php echo $items; ?>;
     console.log("js itemNames = " + itemNames);
     console.log("js itemPrices = " + itemPrices);
 </script>
