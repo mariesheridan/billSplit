@@ -27,7 +27,7 @@ class SaveNewTransactionController extends Controller
         {
             echo "Next";
             $this->saveToDB($request);
-            //return redirect()->route('home');
+            return redirect()->route('home');
         }
         else if ($request->__get('back'))
         {
@@ -48,13 +48,13 @@ class SaveNewTransactionController extends Controller
         $items = ItemBuilder::copyArray(Session::get('items'));
         $totalServiceCharge = Session::get('svcCharge');
 
-        echo ($store . "<br>");
+        /*echo ($store . "<br>");
         echo ($date . "<br>");
         print_r($persons);
         echo ("<br>");
         print_r($items->getArray());
         echo ("<br>");
-        echo ($totalServiceCharge . "<br>");
+        echo ($totalServiceCharge . "<br>");*/
 
 
         $dbTransaction = Transaction::create(array('user_id' => $request->user()->id,
@@ -86,10 +86,10 @@ class SaveNewTransactionController extends Controller
                 $dbPerson = Person::where('transaction_id', '=', $dbTransaction->id)
                                   ->where('name', '=', $buyer['name'])
                                   ->first();
-                echo ("transaction_id: " . $dbTransaction->id . "<br>");
-                echo ("person_name: " . $buyer['name'] . "<br>");
-                echo ("person_id: " . $dbPerson->id . "<br>");
-                echo ("item_id: " . $dbItem->id . "<br>");
+                //echo ("transaction_id: " . $dbTransaction->id . "<br>");
+                //echo ("person_name: " . $buyer['name'] . "<br>");
+                //echo ("person_id: " . $dbPerson->id . "<br>");
+                //echo ("item_id: " . $dbItem->id . "<br>");
                 $unitPrice = $request->input($buyerKey . $key . 'UnitPrice');
                 Order::create(array('transaction_id' => $dbTransaction->id,
                                     'person_id' => $dbPerson->id,

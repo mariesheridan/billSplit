@@ -24,7 +24,7 @@ class UpdateOrderDetailsController extends Controller
 
         foreach($request->all() as $key=>$nameArray)
         {
-            echo ("key: " . $key) . "<br>";
+            //echo ("key: " . $key) . "<br>";
             if(preg_match('/^order[\d]+Name$/', $key))
             {
                 //echo "items[$index]: <br>"; 
@@ -38,15 +38,15 @@ class UpdateOrderDetailsController extends Controller
                 {
                     $qtyName = 'order' . ($index + 1) . str_replace(' ', '', $name);
                     $qty = $request->input($qtyName);
-                    echo "qtyName = " . $qtyName . ", qty = " . $qty . "<br>";
+                    //echo "qtyName = " . $qtyName . ", qty = " . $qty . "<br>";
                     $items->addBuyer($itemName, $name, $qty);
                 }
                 $index++;
             }
         }
 
-        echo "items: <br>";
-        print_r($items->getArray());
+        //echo "items: <br>";
+        //print_r($items->getArray());
 
         Session::forget('items');
         Session::set('items', $items->getArray());

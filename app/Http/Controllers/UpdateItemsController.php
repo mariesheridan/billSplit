@@ -29,9 +29,9 @@ class UpdateItemsController extends Controller
                 array_push($itemNames, $itemName);
             }
         }
-        echo "itemNames:<br>";
-        print_r($itemNames);
-        echo "<br>";
+        //echo "itemNames:<br>";
+        //print_r($itemNames);
+        //echo "<br>";
 
         $index = 0;
 
@@ -54,8 +54,8 @@ class UpdateItemsController extends Controller
             }
         }
 
-        echo "items: <br>";
-        print_r($items->getArray());
+        //echo "items: <br>";
+        //print_r($items->getArray());
 
         Session::forget('items');
         Session::set('items', $items->getArray());
