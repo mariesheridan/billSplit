@@ -16,6 +16,11 @@ use App\MyLibrary\ItemBuilder;
 
 class SaveNewTransactionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
    public function update(Request $request)    
     {
         if ($request->__get('next'))
