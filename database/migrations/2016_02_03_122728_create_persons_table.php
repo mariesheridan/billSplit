@@ -14,12 +14,17 @@ class CreatePersonsTable extends Migration
     {
         Schema::create('persons', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned()->nullable();
             $table->integer('transaction_id')->unsigned();
             $table->string('name');
             $table->timestamps();
         });
 
         Schema::table('persons', function($table) {
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('set null');
             $table->foreign('transaction_id')
                   ->references('id')
                   ->on('transactions')

@@ -31,7 +31,7 @@ class HomeController extends Controller
     {
         SessionDetails::forget();
         $transactions = Transaction::where('user_id', '=', 
-                        Auth::user()->id)->orderBy('date')->simplePaginate(3);
+                        Auth::user()->id)->orderBy('date')->simplePaginate(10);
         return view('home', array("transactions" => $transactions));
     }
 }

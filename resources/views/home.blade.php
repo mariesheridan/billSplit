@@ -28,6 +28,9 @@
                             </td>
                         </tr>
                     @endforeach
+                    @if ($transactions->getCollection()->count() == 0)
+                         You don't have any transactions! 
+                    @endif
                     </table>
                     <div class='app-spacer'></div>
                     </div>
