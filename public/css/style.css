@@ -127,7 +127,7 @@ input.app-remove, input.app-show {
 
 .summary-placeholder {
     float: left;
-    width: 14x0px;
+    width: 20px;
 }
 
 .person-summary {
@@ -140,9 +140,9 @@ input.app-remove, input.app-show {
 }
 
 .summary-item-block {
-    display: flex;
+    /*display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: flex-start;*/
 }
 
 @media screen and (max-width: 430px) {
@@ -153,6 +153,10 @@ input.app-remove, input.app-show {
 
     .person-summary {
         width: 100%;
+    }
+
+    .summary-qty {
+        clear: left;
     }
 }
 

@@ -17,7 +17,7 @@ function showItemSummary(divId, itemsObject, totalPrice, serviceCharge)
         appendValue += divForPrice(itemsObject[iter]['itemPrice'].toFixed(2));
         appendValue += "</div>";
     }
-    appendValue += divForServiceCharge(serviceCharge, false);
+    appendValue += divForServiceCharge('', serviceCharge, false);
     appendValue += divForLine();
     appendValue += divForTotal(totalPrice + serviceCharge, false);
     appendValue += "</div>";
@@ -176,7 +176,10 @@ function divForServiceCharge(personName, serviceCharge, withPlaceholder)
             appendValue += divForPlaceholder();
         }
         appendValue += divForPrice(serviceCharge.toFixed(2));
-        appendValue += divForHiddenInputs(personName, 'SvcCharge', 1, serviceCharge);
+        if (withPlaceholder)
+        {
+            appendValue += divForHiddenInputs(personName, 'SvcCharge', 1, serviceCharge);
+        }
         appendValue += "</div>";
     }
     return appendValue;

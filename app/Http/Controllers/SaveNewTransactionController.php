@@ -12,6 +12,7 @@ use App\Person;
 use App\Item;
 use App\Order;
 use Session;
+use App\MyLibrary\ItemBuilder;
 
 class SaveNewTransactionController extends Controller
 {
@@ -39,14 +40,14 @@ class SaveNewTransactionController extends Controller
         $store = Session::get('store');
         $date = Session::get('date');
         $persons = Session::get('persons');
-        $items = Session::get('items');
+        $items = ItemBuilder::copyArray(Session::get('items'));
         $totalServiceCharge = Session::get('svcCharge');
 
         echo ($store . "<br>");
         echo ($date . "<br>");
         print_r($persons);
         echo ("<br>");
-        print_r($items);
+        print_r($items->getArray());
         echo ("<br>");
         echo ($totalServiceCharge . "<br>");
 
@@ -57,11 +58,11 @@ class SaveNewTransactionController extends Controller
         $dbServiceCharge = Item::create(array('transaction_id' => $dbTransaction->id,
                                               'name' => 'SvcCharge',
                                               'price' => $totalServiceCharge));
-        foreach ($persons as $person)
+        foreach ($persons as $key=>$person)
         {
             $dbPerson = Person::create(array('transaction_id' => $dbTransaction->id,
                                              'name' => $person));
-            $svcCharge = $request->input($person . 'SvcCharge' . 'UnitPrice');
+            $svcCharge = $request->input($key . 'SvcCharge' . 'UnitPrice');
             Order::create(array('transaction_id' => $dbTransaction->id,
                                 'person_id' => $dbPerson->id,
                                 'item_id' => $dbServiceCharge->id,
@@ -69,13 +70,13 @@ class SaveNewTransactionController extends Controller
                                 'price' => $svcCharge));
         }
 
-        foreach ($items as $key=>$item)
+        foreach ($items->getArray() as $key=>$item)
         {
             $dbItem = Item::create(array('transaction_id' => $dbTransaction->id,
                                          'name' => $key,
                                          'price' => $item['itemPrice']));
 
-            foreach ($item['buyers'] as $buyer)
+            foreach ($item['buyers'] as $buyerKey=>$buyer)
             {
                 $dbPerson = Person::where('transaction_id', '=', $dbTransaction->id)
                                   ->where('name', '=', $buyer['name'])
@@ -84,7 +85,7 @@ class SaveNewTransactionController extends Controller
                 echo ("person_name: " . $buyer['name'] . "<br>");
                 echo ("person_id: " . $dbPerson->id . "<br>");
                 echo ("item_id: " . $dbItem->id . "<br>");
-                $unitPrice = $request->input($buyer['name'] . $key . 'UnitPrice');
+                $unitPrice = $request->input($buyerKey . $key . 'UnitPrice');
                 Order::create(array('transaction_id' => $dbTransaction->id,
                                     'person_id' => $dbPerson->id,
                                     'item_id' => $dbItem->id,
