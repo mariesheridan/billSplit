@@ -28,8 +28,8 @@ class OrderDetailsController extends Controller
         $items = ItemBuilder::copyArray(Session::get('items', array()));
         //$itemNames = array_keys($items);
         $itemNames = $items->getKeys();
-        print_r($itemNames);
-        echo"<br>";
+        //print_r($itemNames);
+        //echo"<br>";
         $itemNamesJSArray = JSConverter::toJSArray($itemNames);
         //$itemsJSArray = JSConverter::toJSItemObject($items);
         //echo "--itemsJSArray--<br>";

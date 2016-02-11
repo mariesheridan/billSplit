@@ -54,25 +54,6 @@ $(document).ready(function () {
 
     // Require at least one checkbox checked per group
     $(document).on('click', '.app-checkbox', function(){
-    /*
-        var requiredCheckboxes = $(this).closest('div.person-checkbox').find('input:checkbox');
-        var atLeastOneChecked = false;
-        requiredCheckboxes.each(function(){
-            console.log("val: " + $(this).val());
-            if ($(this).is(':checked'))
-            {
-                atLeastOneChecked = true;
-            }
-        });
-        if (atLeastOneChecked)
-        {
-            requiredCheckboxes.removeAttr('required');
-        }
-        else
-        {
-            requiredCheckboxes.attr('required', 'required');
-        }
-    */
         requireCheckboxPerGroup($(this));
     });
 
@@ -185,12 +166,16 @@ function divForPersons(nameToUse, number, itemObject, names)
         appendValue += "<div class='app-checkbox' id='" 
                        + nameToUse + number + names[iter] + "' data-name='"
                        + names[iter].replace(/ /g, '') + "' data-number='"
-                       + number + "'><div class='app-name' id='" 
+                       + number + "'>" 
+                       + "<div class='app-name' id='" 
                        + nameToUse + number + names[iter] 
-                       + "Checkbox'><input type='checkbox' name='"
+                       + "Checkbox'>" 
+                       + "<input type='checkbox' id='cb" 
+                       + nameToUse + number + names[iter] + "' name='"
                        + nameToUse + number 
                        + "Name[]' value='" + names[iter] + "' required " + checked + "/>"
-                       + names[iter] + "</div></div>";
+                       + "<label for='cb" + nameToUse + number + names[iter] + "'>" + names[iter] 
+                       + "</label></div></div>";
     }
     appendValue += "</div>";
     return appendValue;
