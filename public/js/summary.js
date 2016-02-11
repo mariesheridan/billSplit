@@ -13,7 +13,7 @@ function showItemSummary(divId, itemsObject, totalPrice, serviceCharge)
     for (iter in itemsObject)
     {
         appendValue += "<div class='summary-item-block'>";
-        appendValue += divForItem(iter);
+        appendValue += divForItem(itemsObject[iter]['itemName']);
         appendValue += divForPrice(itemsObject[iter]['itemPrice'].toFixed(2));
         appendValue += "</div>";
     }
@@ -31,6 +31,7 @@ function showPersonsSummary(divId, personsArray, itemsObject, totalPrice, totalS
     for (iter in personsArray)
     {
         var name = personsArray[iter];
+        name = name.replace(/ /g, '');
         console.log("showPersonsSummary: " + personsArray[iter]);
         if (isPersonPaying(name, itemsObject))
         {
@@ -79,6 +80,7 @@ function showPerson(divId, personName, itemsObject, totalPrice, totalSvcCharge)
 function isPersonPaying(personName, itemsObject)
 {
     var personIsPaying = false;
+
     for (iter in itemsObject)
     {
         if (itemsObject[iter]['buyers'].hasOwnProperty(personName))

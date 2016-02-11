@@ -90,9 +90,9 @@ class ItemBuilder
             if (array_key_exists('buyers', $item))
             {
                 $jsObject .= "buyers: {";
-                foreach ($item['buyers'] as $buyer)
+                foreach ($item['buyers'] as $buyerKey=>$buyer)
                 {
-                    $jsObject .= $buyer['name'] . ": " . $buyer['qty'] . ",";
+                    $jsObject .= $buyerKey . ": " . $buyer['qty'] . ",";
                 }
                 $jsObject .= "}";
             }
