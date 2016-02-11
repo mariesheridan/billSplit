@@ -184,7 +184,7 @@ function divForPersons(nameToUse, number, itemObject, names)
         appendValue += divForSpacer(nameToUse, number);
         appendValue += "<div class='app-checkbox' id='" 
                        + nameToUse + number + names[iter] + "' data-name='"
-                       + names[iter] + "' data-number='"
+                       + names[iter].replace(/ /g, '') + "' data-number='"
                        + number + "'><div class='app-name' id='" 
                        + nameToUse + number + names[iter] 
                        + "Checkbox'><input type='checkbox' name='"
