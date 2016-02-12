@@ -7,7 +7,7 @@ use Session;
 class SessionDetails
 {
     private static $initialized = false;
-    private static $sessionVars = array('store', 'date', 'persons', 'items', 'svcCharge');
+    private static $sessionVars = array('store', 'date', 'persons', 'items', 'svcCharge', 'tempIds');
 
     private function __construct() {}
 

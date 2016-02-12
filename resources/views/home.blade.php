@@ -14,7 +14,7 @@
                         <tr class='app-tr'>
                             <td class='app-td-date'>{{ $transaction->date }}</td>
                             <td class='app-td-store'>
-                                {!! HTML::linkRoute('transactions.show', $transaction->store, $transaction->id) !!}
+                                {!! HTML::linkRoute('transactions.show', $transaction->store, $tempIds[$transaction->id]) !!}
                             </td>
                             <td class='app-td-persons'>
                                 <?php 

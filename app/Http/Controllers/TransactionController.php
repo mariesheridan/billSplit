@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Transaction;
+use Session;
 
 class TransactionController extends Controller
 {
@@ -54,7 +55,8 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        $transaction = Transaction::find($id);
+        $tempIds = array_flip(Session::get('tempIds', array()));
+        $transaction = Transaction::find($tempIds[$id]);
         $store = $transaction->store;
         $date = $transaction->date;
         $svcCharge = 3;

@@ -9,6 +9,7 @@ use App\MyLibrary\SessionDetails;
 use App\Transaction;
 use Auth;
 use HTML;
+use Session;
 
 class HomeController extends Controller
 {
@@ -32,7 +33,16 @@ class HomeController extends Controller
         SessionDetails::forget();
         $transactions = Transaction::where('user_id', '=', 
                         Auth::user()->id)->orderBy('date')->simplePaginate(10);
-        return view('home', array("transactions" => $transactions));
+
+        $tempIds = array();
+        $counter = 0;
+        foreach ($transactions as $trans)
+        {
+            $counter++;
+            $tempIds[$trans->id] = $counter;
+        }
+        Session::set('tempIds', $tempIds);
+        return view('home', array("transactions" => $transactions, "tempIds" => $tempIds));
     }
 
     public function back()
