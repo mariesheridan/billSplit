@@ -3,6 +3,7 @@
 namespace App\MyLibrary;
 
 use App\Transaction;
+use App\Order;
 use App\Item;
 use App\MyLibrary\ItemBuilder;
 use App\MyLibrary\JSConverter;
@@ -31,7 +32,7 @@ class TransactionDetails
 
     public function getSvcCharge()
     {
-        $svcCharge = Item::transId($this->id)->svcCharge()->first();
+        $svcCharge = Item::forTransaction($this->id)->svcCharge()->first();
 
         return $svcCharge->price;
     }
@@ -45,6 +46,25 @@ class TransactionDetails
             $list->add($person->name);
         }
         return $list->toJSObject();
+    }
+
+    public function getItems()
+    {
+        $items = Item::forTransaction($this->id)->excludeSvcCharge()->get();
+
+        $itemList = new ItemBuilder();
+        foreach ($items as $item)
+        {
+            $itemList->addItemByName($item->name, $item->price);
+            //echo "name: " . $item->name . ", price: " . $item->price . "<br>";
+            $orders = Order::forItem($item->id)->get();
+            foreach ($orders as $order)
+            {
+                $itemList->addBuyer($item->name, $order->person->name, $order->quantity);
+                //echo "person: " . $order->person->name . ", qty: " . $order->quantity . "<br>";
+            }
+        }
+        return $itemList->toJSObject();
     }
 
 }

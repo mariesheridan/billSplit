@@ -22,4 +22,9 @@ class Order extends Model
     {
         return $this->belongsTo('App\item');
     }
+
+    public function scopeForItem($query, $id)
+    {
+        return $query->where('item_id', $id);
+    }
 }

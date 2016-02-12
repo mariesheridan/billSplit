@@ -72,10 +72,11 @@ class ItemBuilder
         return $this;
     }
 
-    public function addBuyer($key, $buyerName, $quantity)
+    public function addBuyer($itemName, $buyerName, $quantity)
     {
+        $itemKey = $this->removeSpaces($itemName);
         $buyerKey = $this->removeSpaces($buyerName);
-        $this->items[$key]['buyers'][$buyerKey] = array('name' => $buyerName, 'qty' => $quantity);
+        $this->items[$itemKey]['buyers'][$buyerKey] = array('name' => $buyerName, 'qty' => $quantity);
         return $this;
     }
 

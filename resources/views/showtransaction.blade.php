@@ -10,7 +10,8 @@
                 <div class="panel-body">
                     <h4>
                         {{ $store }}
-                        <br>
+                    </h4>
+                    <h4>
                         {{ $date }}
                     </h4>
                     <div class="app-spacer"></div>

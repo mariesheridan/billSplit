@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->integer('transaction_id')->unsigned();
             $table->integer('person_id')->unsigned();
             $table->integer('item_id')->unsigned();
-            $table->integer('quantity');
+            $table->decimal('quantity');
             $table->decimal("price");
             $table->timestamps();
         });

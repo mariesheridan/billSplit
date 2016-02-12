@@ -23,8 +23,13 @@ class Item extends Model
         return $query->where('name', 'svcCharge');
     }
 
-    public function scopeTransId($query, $id)
+    public function scopeForTransaction($query, $id)
     {
         return $query->where('transaction_id', $id);
+    }
+
+    public function scopeExcludeSvcCharge($query)
+    {
+        return $query->where('name', '!=', 'svcCharge');
     }
 }

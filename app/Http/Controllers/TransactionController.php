@@ -69,7 +69,7 @@ class TransactionController extends Controller
 
         //$persons = array();
         $persons = $transaction->getPersonNames();
-        $items = "{}";
+        $items = $transaction->getItems();
         $itemNames = "[]";
         return view('showtransaction', array('store' => $store,
                                      'date' => $date,
