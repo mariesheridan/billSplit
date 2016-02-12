@@ -17,4 +17,14 @@ class Item extends Model
     {
         return $this->hasMany('App\Order');
     }
+
+    public function scopeSvcCharge($query)
+    {
+        return $query->where('name', 'svcCharge');
+    }
+
+    public function scopeTransId($query, $id)
+    {
+        return $query->where('transaction_id', $id);
+    }
 }

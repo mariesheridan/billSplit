@@ -3,15 +3,18 @@
 namespace App\MyLibrary;
 
 use App\Transaction;
-use App\ItemBuilder;
-use App\JSConverter;
+use App\Item;
+use App\MyLibrary\ItemBuilder;
+use App\MyLibrary\JSConverter;
 
 class TransactionDetails
 {
     private $transactions;
+    private $id = 0;
 
     public function __construct($id)
     {
+        $this->id = $id;
         $this->transaction = Transaction::find($id);
     }
 
@@ -27,10 +30,9 @@ class TransactionDetails
 
     public function getSvcCharge()
     {
-        $item = $this->transaction->items;
-        $svcCharge = $item->where('name', '=', 'SvcCharge');
-        $price = $svcCharge->isEmpty() ? 0 : $svcCharge->price;
-        return $price;
+        $svcCharge = Item::transId($this->id)->svcCharge()->first();
+
+        return $svcCharge->price;
     }
 
 }
