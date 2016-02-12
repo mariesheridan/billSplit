@@ -68,7 +68,7 @@ class TransactionController extends Controller
         $svcCharge = $transaction->getSvcCharge();
 
         //$persons = array();
-        $persons = "[]";
+        $persons = $transaction->getPersonNames();
         $items = "{}";
         $itemNames = "[]";
         return view('showtransaction', array('store' => $store,
