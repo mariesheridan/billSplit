@@ -34,4 +34,9 @@ class HomeController extends Controller
                         Auth::user()->id)->orderBy('date')->simplePaginate(10);
         return view('home', array("transactions" => $transactions));
     }
+
+    public function back()
+    {
+        return $this->index();
+    }
 }

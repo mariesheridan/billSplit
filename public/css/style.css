@@ -163,16 +163,19 @@ table {
 }
 
 .app-td-date {
+    padding: 10px 0px;
     width: 10%;
     vertical-align: middle;
 }
 
 .app-td-store {
+    padding: 10px 0px;
     width: 10%;
     vertical-align: middle;
 }
 
 .app-td-persons {
+    padding: 10px 0px;
     width: 40%;
     vertical-align: middle;
     border-color: #ddd;
@@ -180,9 +183,26 @@ table {
 }
 
 .app-tr {
-    height: 50px;
     border-color: #ddd;
     border-width: 1px;
+}
+
+.myButton {
+    display: inline-block;
+    background-color: buttonface;
+    -webkit-appearance: button;
+    cursor: pointer;
+    border: 2px outset buttonface;
+    padding: 2px 10px;
+    color: buttontext;
+    box-sizing: border-box;
+}
+
+.myButton:hover,
+.myButton:active,
+.myButton:visited {
+    color: buttontext;
+    text-decoration: none;
 }
 
 @media screen and (max-width: 430px) {

@@ -7,8 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Transaction;
+
 class TransactionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -48,7 +54,19 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        //
+        $transaction = Transaction::find($id);
+        $store = $transaction->store;
+        $date = $transaction->date;
+        $svcCharge = 3;
+        $persons = "{}";
+        $items = "{}";
+        $itemNames = "[]";
+        return view('showtransaction', array('store' => $store,
+                                     'date' => $date,
+                                     'svcCharge' => $svcCharge,
+                                     'persons' => $persons,
+                                     'items' => $items,
+                                     'itemNames' => $itemNames));
     }
 
     /**
