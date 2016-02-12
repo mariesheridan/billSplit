@@ -34,6 +34,7 @@ class HomeController extends Controller
         $transactions = Transaction::where('user_id', '=', 
                         Auth::user()->id)->orderBy('date')->simplePaginate(10);
 
+        // This is important, so that transaction id will not be shown in the URL
         $tempIds = array();
         $counter = 0;
         foreach ($transactions as $trans)

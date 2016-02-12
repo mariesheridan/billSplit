@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Transaction;
+use App\MyLibrary\TransactionDetails;
 use Session;
 
 class TransactionController extends Controller
@@ -56,11 +57,18 @@ class TransactionController extends Controller
     public function show($id)
     {
         $tempIds = array_flip(Session::get('tempIds', array()));
-        $transaction = Transaction::find($tempIds[$id]);
-        $store = $transaction->store;
-        $date = $transaction->date;
-        $svcCharge = 3;
-        $persons = "{}";
+        //$transaction = Transaction::find($tempIds[$id]);
+        $transaction = new TransactionDetails($tempIds[$id]);
+        //$store = $transaction->store;
+        //$date = $transaction->date;
+        //$svcCharge = 3;
+
+        $store = $transaction->getStore();
+        $date = $transaction->getDate();
+        $svcCharge = $transaction->getSvcCharge();
+
+        //$persons = array();
+        $persons = "[]";
         $items = "{}";
         $itemNames = "[]";
         return view('showtransaction', array('store' => $store,
