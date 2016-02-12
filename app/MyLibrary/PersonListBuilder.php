@@ -18,6 +18,11 @@ class PersonListBuilder
         ($this->persons)[str_replace(' ', '', $name)] = $name;
     }
 
+    public function getArray()
+    {
+        return $this->persons;
+    }
+
     public function toJSObject()
     {
         return JSConverter::toJSObject($this->persons);

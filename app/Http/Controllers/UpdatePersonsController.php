@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
 use Illuminate\Routing\Redirector;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
+use Session;
+use App\MyLibrary\PersonListBuilder;
 
 class UpdatePersonsController extends Controller
 {
@@ -18,18 +20,20 @@ class UpdatePersonsController extends Controller
     
     public function update(Request $request)    
     {
-        $persons = array();
+        //$persons = array();
+        $persons = new PersonListBuilder;
         foreach($request->all() as $key=>$person)
         {
             if(preg_match('/^person[\d]+/', $key))
             {
                 //array_push($persons, $person);
-                $persons[str_replace(' ', '', $person)] = $person;
+                //$persons[str_replace(' ', '', $person)] = $person;
+                $persons->add($person);
             }
         }
         //print_r($persons);
         Session::forget('persons');
-        Session::set('persons', $persons);
+        Session::set('persons', $persons->getArray());
 
         if ($request->__get('next'))
         {
