@@ -51,12 +51,14 @@ input.app-remove, input.app-show {
     float: left;
     width: 100px;
     margin-right: 10px;
+    vertical-align: middle;
 }
 
 .app-item-price {
     float: left;
     width: 120px;
     margin-left: 10px;
+    vertical-align: middle;
 }
 
 .app-total-price {
@@ -111,12 +113,15 @@ input.app-remove, input.app-show {
 .summary-item-name {
     float: left;
     width: 120px;
+    vertical-align: middle;
 }
 
 .summary-item-price {
     float: left;
     width: 50px;
     text-align: right;
+    vertical-align: middle;
+    height: 100%;
 }
 
 .summary-qty {
@@ -147,9 +152,7 @@ input.app-remove, input.app-show {
 
 .summary-item-block {
     clear: both;
-    /*display: flex;
-    flex-direction: row;
-    justify-content: flex-start;*/
+    box-sizing: border-box;
 }
 
 .help-block {
@@ -215,6 +218,10 @@ table {
     clear: both;
 }
 
+.clear-both {
+    clear: both;
+}
+
 @media screen and (max-width: 430px) {
     input.app-remove, input.app-show{
         margin-left: 30px;
@@ -227,6 +234,7 @@ table {
 
     .summary-qty {
         clear: left;
+        margin-left: 30px;
     }
 
     .summary-unit-price {
@@ -236,7 +244,7 @@ table {
 
     .summary-placeholder {
         float: left;
-        width: 20px;
+        width: 50px;
     }
 
 }

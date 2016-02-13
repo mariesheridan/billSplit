@@ -15,11 +15,13 @@ function showItemSummary(divId, itemsObject, totalPrice, serviceCharge)
         appendValue += "<div class='summary-item-block'>";
         appendValue += divForItem(itemsObject[iter]['itemName']);
         appendValue += divForPrice(itemsObject[iter]['itemPrice'].toFixed(2));
+        appendValue += divForClearBoth();
         appendValue += "</div>";
     }
     appendValue += divForServiceCharge('', serviceCharge, false);
     appendValue += divForLine();
     appendValue += divForTotal(totalPrice + serviceCharge, false);
+
     appendValue += "</div>";
 
     $(divId).append(appendValue);
@@ -64,6 +66,7 @@ function showPerson(divId, personName, itemsObject, totalPrice, totalSvcCharge)
             appendValue += divForUnitPrice(unitPrice.toFixed(2));
             appendValue += divForPrice(payPrice.toFixed(2));
             appendValue += divForHiddenInputs(personName, iter, quantity, unitPrice);
+            appendValue += divForClearBoth();
             appendValue += "</div>";
         }
     }
@@ -126,6 +129,11 @@ function computeTotalPrice(itemsObject, serviceCharge)
         totalPrice += itemsObject[iter]['itemPrice'];
     }
     return totalPrice;
+}
+
+function divForClearBoth()
+{
+    return "<div class='clear-both'></div>";
 }
 
 function divForHeader(title)
