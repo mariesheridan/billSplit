@@ -14,15 +14,15 @@
                     <div class="app-spacer"></div>
                     <div class="app-total-block">
                         <div class="app-item-name">Subtotal:</div>
-                        <div class="app-item-price">{{ $subtotal }}</div>
+                        <div class="app-total-price">{{ $subtotal }}</div>
                     </div>
                     <div class="app-total-block">
                         <div class="app-item-name">Service Charge:</div>
-                        <div class="app-item-price">{{ $svcCharge }}</div>
+                        <div class="app-total-price">{{ $svcCharge }}</div>
                     </div>
                     <div class="app-total-block">
                         <div class="app-item-name">Total:</div>
-                        <div class="app-item-price">{{ $subtotal + $svcCharge }}</div>
+                        <div class="app-total-price">{{ $subtotal + $svcCharge }}</div>
                     </div>
                     <div class="app-spacer"></div>
                     <form id="app-form" action="update_orders" method="POST">

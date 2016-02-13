@@ -27,47 +27,25 @@ $(document).ready(function () {
 
     // Show or hide the quantity textbox
     $(document).on('click', 'input:checkbox', function(){
-        var nameDiv = $(this).closest('.app-name');
-        var checkboxDiv = $(this).closest('.app-checkbox');
-        var personName = checkboxDiv.data('name');
-        var number = checkboxDiv.data('number');
-        //if ($(this).find('input:checkbox').is(':checked'))
-        if ($(this).is(':checked'))
+        if (!$(this).hasClass('check-all'))
         {
-            //if (!($(this).attr('qtyVisible')) || ($(this).data('qtyVisible') == false))
-            if (!(nameDiv.attr('qtyVisible')) || (nameDiv.data('qtyVisible') == false))
-            {
-                var qtyId = nameDiv.closest('.app-item-block').attr('id');
-                var itemName = nameDiv.closest('.app-item-block').data('itemname');
-                var qtyValue = getQuantity(items, itemName, personName);
-                checkboxDiv.append(divForQuantity(qtyId, personName, qtyValue));
-                nameDiv.data('qtyVisible', true);
-            }
+            showOrHideQty($(this));
+            requireCheckboxPerGroup($(this));
         }
         else
         {
-            checkboxDiv.find('div.app-qty').remove();
-            nameDiv.data('qtyVisible', false);
+            var status = $(this).is(':checked');
+            $('input:checkbox', $(this).parent('.checkbox-area')).prop('checked', status);
+            $(this).siblings('.person-checkbox').find('input:checkbox').each(function(){
+                showOrHideQty($(this));
+                requireCheckboxPerGroup($(this));
+            });
         }
-    });
-
-    // Require at least one checkbox checked per group
-    $(document).on('click', '.app-checkbox', function(){
-        requireCheckboxPerGroup($(this));
     });
 
     // At the beginning, add quantity beside checked checkboxes
     $('.app-checkbox').each(function(){
-        var number = $(this).data('number');
-        var personName =$(this).data('name');
-        var checkbox = $(this).find('input:checkbox');
-        var itemName = $(this).closest('.app-item-block').data('itemname');
-        if (checkbox.is(':checked'))
-        {
-            var qtyId = $(this).closest('.app-item-block').attr('id');
-            var qtyValue = getQuantity(items, itemName, personName);
-            $(this).append(divForQuantity(qtyId, personName, qtyValue));
-        }
+        showQuantity($(this), items);
     });
 
     $("#app-form").submit(function(event){
@@ -76,10 +54,65 @@ $(document).ready(function () {
  
 });
 
+function showQuantity(object, itemsArray)
+{
+    var number = object.data('number');
+    var personName = object.data('name');
+    var checkbox = object.find('input:checkbox');
+    var itemName = object.closest('.app-item-block').data('itemname');
+    if (checkbox.is(':checked'))
+    {
+        var qtyId = object.closest('.app-item-block').attr('id');
+        var qtyValue = getQuantity(itemsArray, itemName, personName);
+        object.append(divForQuantity(qtyId, personName, qtyValue));
+    }
+}
 
+function showOrHideQty(object)
+{
+    var nameDiv = object.closest('.app-name');
+    var checkboxDiv = object.closest('.app-checkbox');
+    var personName = checkboxDiv.data('name');
+    var number = checkboxDiv.data('number');
+    console.log('id: ' + object.attr('id'));
+    var id = object.attr('id');
+    if (object.hasClass('check-all'))
+    {
+        return;
+    }
+    if (object.is(':checked'))
+    {
+        if (!(nameDiv.attr('qtyVisible')) || (nameDiv.data('qtyVisible') == 'false'))
+        {
+            var qtyId = nameDiv.closest('.app-item-block').attr('id');
+            var itemName = nameDiv.closest('.app-item-block').data('itemname');
+            console.log('item: ' + items);
+            console.log('itemName: ' + itemName);
+            console.log('namediv id: ' + nameDiv.attr('id'));
+            var qtyValue = getQuantity(items, itemName, personName);
+            checkboxDiv.append(divForQuantity(qtyId, personName, qtyValue));
+            nameDiv.data('qtyVisible', 'true');
+        }
+    }
+    else
+    {
+        checkboxDiv.find('div.app-qty').remove();
+        nameDiv.data('qtyVisible', 'false');
+    }
+}
+
+// Require at least one checkbox checked per group
 function requireCheckboxPerGroup(object)
 {
-    var requiredCheckboxes = object.closest('div.person-checkbox').find('input:checkbox');
+    var requiredCheckboxes;
+    if (object.hasClass('check-all'))
+    {
+        requiredCheckboxes = object.siblings('.person-checkbox').find('input:checkbox');
+    }
+    else
+    {
+        requiredCheckboxes = object.closest('.person-checkbox').find('input:checkbox');
+    }
     var atLeastOneChecked = false;
     requiredCheckboxes.each(function(){
         if ($(this).is(':checked'))
@@ -89,13 +122,13 @@ function requireCheckboxPerGroup(object)
     });
     if (atLeastOneChecked)
     {
-        //requiredCheckboxes.removeAttr('required');
         requiredCheckboxes.data('checkNeeded', false);
+        object.closest('.checkbox-area').children('.check-all').prop('checked', true);
     }
     else
     {
-        //requiredCheckboxes.attr('required', 'required');
         requiredCheckboxes.data('checkNeeded', true);
+        object.closest('.checkbox-area').children('.check-all').prop('checked', false);
     }
 }
 
@@ -147,7 +180,10 @@ function divForShowDetails(nameToUse, number)
 
 function divForPersons(nameToUse, number, itemObject, names)
 {
-    var appendValue = "<div class='hide person-checkbox' id='buyers" + number +"'>";
+    var appendValue = "<div class='hide checkbox-area' id='buyers" + number +"'>";
+    appendValue += divForSpacer(nameToUse, number);
+    appendValue += divForAll(number);
+    appendValue += "<div class='person-checkbox'>";
     for (iter in names)
     {
         var checked = '';
@@ -174,13 +210,19 @@ function divForPersons(nameToUse, number, itemObject, names)
                        + "<input type='checkbox' id='cb" 
                        + nameToUse + number + names[iter] + "' name='"
                        + nameToUse + number 
-                       //+ "Name[]' value='" + names[iter] + "' required " + checked + "/>"
                        + "Name[]' value='" + names[iter] + "'" + checked + "/>"
                        + "<label for='cb" + nameToUse + number + names[iter] + "'>" + names[iter] 
                        + "</label></div></div>";
     }
-    appendValue += "</div>";
+    appendValue += "</div></div>";
     return appendValue;
+}
+
+function divForAll(number)
+{
+    return "<input class='check-all' type='checkbox' name='all" 
+           + number + "' id='all" + number + "Id' checked/> <label for='all" 
+           + number + "Id'>Check All</label>";
 }
 
 function divForQuantity(nameToUse, personName, value)
@@ -239,7 +281,7 @@ function listItems(divId, nameToUse, itemsArray, personNames)
         counter++;
         appendToDiv(divId, nameToUse, counter, iter, itemsArray[iter], personNames);
     }
-    $('.app-checkbox').each(function(){
+    $('input:checkbox').each(function(){
         requireCheckboxPerGroup($(this));
     });
 }

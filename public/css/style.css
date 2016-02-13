@@ -59,7 +59,13 @@ input.app-remove, input.app-show {
     margin-left: 10px;
 }
 
-.person-checkbox {
+.app-total-price {
+    float: left;
+    width: 120px;
+    margin-left: 10px;
+}
+
+.checkbox-area {
     clear:both;
     margin-left: 30px;
 }
