@@ -29,11 +29,6 @@ class SummaryController extends Controller
         $itemNames = $items->getKeys();
         $itemNamesJSArray = JSConverter::toJSArray($itemNames);
 
-        //echo "items:<br>";
-        //print_r($items->getArray());
-        //echo "<br>itemsJS<br>";
-        //print_r($items->toJSObject());
-
         return view('summary', array('store' => $store,
                                      'date' => $date,
                                      'svcCharge' => $svcCharge,

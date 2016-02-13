@@ -34,12 +34,10 @@ class UpdatePersonsController extends Controller
 
         if ($request->__get('next'))
         {
-            echo "Next";
             return redirect()->route('create_items');
         }
         else if ($request->__get('back'))
         {
-            echo "Back";
             return redirect()->route('create_transaction');
         }
         else
