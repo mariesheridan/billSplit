@@ -7,7 +7,7 @@ var idToAppend = '';
 $(document).ready(function () {
 
     idToAppend = '#app-orders';
-    listItems(idToAppend, 'order', itemNames, items, persons);
+    listItems(idToAppend, 'order', items, persons);
 
     $(document).on('click', '.app-show', function(){
         var showId = $(this).attr('id');
@@ -37,7 +37,6 @@ $(document).ready(function () {
             //if (!($(this).attr('qtyVisible')) || ($(this).data('qtyVisible') == false))
             if (!(nameDiv.attr('qtyVisible')) || (nameDiv.data('qtyVisible') == false))
             {
-                console.log('checked');
                 var qtyId = nameDiv.closest('.app-item-block').attr('id');
                 var itemName = nameDiv.closest('.app-item-block').data('itemname');
                 var qtyValue = getQuantity(items, itemName, personName);
@@ -61,10 +60,8 @@ $(document).ready(function () {
     $('.app-checkbox').each(function(){
         var number = $(this).data('number');
         var personName =$(this).data('name');
-        console.log('name = ' + personName);
         var checkbox = $(this).find('input:checkbox');
         var itemName = $(this).closest('.app-item-block').data('itemname');
-        console.log('itemName = ' + itemName);
         if (checkbox.is(':checked'))
         {
             var qtyId = $(this).closest('.app-item-block').attr('id');
@@ -81,7 +78,6 @@ function requireCheckboxPerGroup(object)
     var requiredCheckboxes = object.closest('div.person-checkbox').find('input:checkbox');
     var atLeastOneChecked = false;
     requiredCheckboxes.each(function(){
-        console.log("val: " + $(this).val());
         if ($(this).is(':checked'))
         {
             atLeastOneChecked = true;
@@ -149,10 +145,9 @@ function divForPersons(nameToUse, number, itemObject, names)
     for (iter in names)
     {
         var checked = '';
-        console.log("names [iter] = " + names[iter]);
         if (itemObject.hasOwnProperty('buyers'))
         {
-            if (itemObject['buyers'].hasOwnProperty(names[iter].replace(/ /g, '')))
+            if (itemObject['buyers'].hasOwnProperty(names[iter].replace(/[^a-zA-Z0-9]/g, '')))
             {
                 checked = 'checked';
             }
@@ -165,7 +160,7 @@ function divForPersons(nameToUse, number, itemObject, names)
         appendValue += divForSpacer(nameToUse, number);
         appendValue += "<div class='app-checkbox' id='" 
                        + nameToUse + number + names[iter] + "' data-name='"
-                       + names[iter].replace(/ /g, '') + "' data-number='"
+                       + names[iter].replace(/[^a-zA-Z0-9]/g, '') + "' data-number='"
                        + number + "'>" 
                        + "<div class='app-name' id='" 
                        + nameToUse + number + names[iter] 
@@ -228,18 +223,14 @@ function findPriceForItem(itemName, priceList)
     return "";
 }
 
-function listItems(divId, nameToUse, itemNamesInput, itemsArray, personNames)
+function listItems(divId, nameToUse, itemsArray, personNames)
 {
-    console.log("itemNamesInput = " + itemNamesInput);
-    console.log("items = " + items);
     $(divId).empty();
     counter = 0;
-    for (var iter in itemNamesInput)
+    for (var iter in itemsArray)
     {
         counter++;
-        var itemObject = itemsArray[itemNamesInput[iter]];
-        console.log("itemObject[" + itemNamesInput[iter] + "] = " + itemObject);
-        appendToDiv(divId, nameToUse, counter, itemNamesInput[iter], itemObject, personNames);
+        appendToDiv(divId, nameToUse, counter, iter, itemsArray[iter], personNames);
     }
     $('.app-checkbox').each(function(){
         requireCheckboxPerGroup($(this));

@@ -111,6 +111,16 @@ class ItemBuilder
 
     private function removeSpaces($input)
     {
-        return str_replace(' ', '', $input);
+        return preg_replace('/[^a-zA-Z0-9]/', '', $input);
+    }
+
+    public function getSubtotal()
+    {
+        $subtotal = 0;
+        foreach ($this->items as $item)
+        {
+            $subtotal += $item['itemPrice'];
+        }
+        return $subtotal;
     }
 }

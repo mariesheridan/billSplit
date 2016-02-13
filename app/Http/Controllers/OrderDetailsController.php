@@ -26,20 +26,15 @@ class OrderDetailsController extends Controller
         $persons = Session::get('persons', array());
         $personsJSObject = JSConverter::toJSObject($persons);
         $items = ItemBuilder::copyArray(Session::get('items', array()));
-        //$itemNames = array_keys($items);
         $itemNames = $items->getKeys();
-        //print_r($itemNames);
-        //echo"<br>";
         $itemNamesJSArray = JSConverter::toJSArray($itemNames);
-        //$itemsJSArray = JSConverter::toJSItemObject($items);
-        //echo "--itemsJSArray--<br>";
-        //print_r($itemsJSArray);
-        //echo "<br>--end--";
+        $subtotal = $items->getSubtotal();
+
         return view('orderdetails', array('store' => $store, 
                                           'date' => $date,
                                           'svcCharge' => $svcCharge,
                                           'persons' => $personsJSObject,
-                                          'itemNames' => $itemNamesJSArray,
+                                          'subtotal' => $subtotal,
                                           'items' => $items->toJSObject()));
     }
 }

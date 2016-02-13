@@ -33,7 +33,7 @@ function showPersonsSummary(divId, personsArray, itemsObject, totalPrice, totalS
         var name = personsArray[iter];
         name = name;
         console.log("showPersonsSummary: " + personsArray[iter]);
-        if (isPersonPaying(name.replace(/ /g, ''), itemsObject))
+        if (isPersonPaying(name.replace(/[^a-zA-Z0-9]/g, ''), itemsObject))
         {
             console.log("showPersonsSummary 2: " + name);
             showPerson(divId, name, itemsObject, totalPrice, totalSvcCharge);
@@ -50,9 +50,9 @@ function showPerson(divId, personName, itemsObject, totalPrice, totalSvcCharge)
     appendValue += divForLine();
     for (iter in itemsObject)
     {
-        if(isPersonPayingForItem(personName.replace(/ /g, ''), itemsObject[iter]))
+        if(isPersonPayingForItem(personName.replace(/[^a-zA-Z0-9]/g, ''), itemsObject[iter]))
         {
-            var quantity = itemsObject[iter]['buyers'][personName.replace(/ /g, '')];
+            var quantity = itemsObject[iter]['buyers'][personName.replace(/[^a-zA-Z0-9]/g, '')];
             var totalUnits = itemsObject[iter]['totalUnits'];
             var unitPrice = itemsObject[iter]['itemPrice'] / totalUnits;
             var payPrice = unitPrice * quantity;
@@ -213,11 +213,11 @@ function divForHiddenInputs(personName, itemName, quantity, unitPrice)
 {
     var appendValue = "";
     appendValue += "<input type='hidden' name='" 
-                + personName.replace(/ /g, '') + itemName 
+                + personName.replace(/[^a-zA-Z0-9]/g, '') + itemName 
                 + "Qty' value='" 
                 + quantity + "' />";
     appendValue += "<input type='hidden' name='" 
-                + personName.replace(/ /g, '') + itemName 
+                + personName.replace(/[^a-zA-Z0-9]/g, '') + itemName 
                 + "UnitPrice' value='" 
                 + unitPrice + "' />";              
     return appendValue;

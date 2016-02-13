@@ -83,7 +83,7 @@ class SaveNewTransactionController extends Controller
         foreach ($items->getArray() as $key=>$item)
         {
             $dbItem = Item::create(array('transaction_id' => $dbTransaction->id,
-                                         'name' => $key,
+                                         'name' => $item['itemName'],
                                          'price' => $item['itemPrice']));
 
             foreach ($item['buyers'] as $buyerKey=>$buyer)

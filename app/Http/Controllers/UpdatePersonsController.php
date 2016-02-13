@@ -20,18 +20,15 @@ class UpdatePersonsController extends Controller
     
     public function update(Request $request)    
     {
-        //$persons = array();
         $persons = new PersonListBuilder;
         foreach($request->all() as $key=>$person)
         {
             if(preg_match('/^person[\d]+/', $key))
             {
-                //array_push($persons, $person);
-                //$persons[str_replace(' ', '', $person)] = $person;
                 $persons->add($person);
             }
         }
-        //print_r($persons);
+
         Session::forget('persons');
         Session::set('persons', $persons->getArray());
 

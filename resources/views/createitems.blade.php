@@ -20,11 +20,11 @@
                         <div id="app-items">
                         </div>
                         <div class="app-spacer"></div>
+                        <input type="button" id="addRow" value="Add" />
+                        <div class="app-spacer"></div>
                         <div id="svc-charge-price">
                             Service Charge: <input type="number" step="0.01" name="svc-charge" value='{{ $svcCharge }}' required="">
                         </div>
-                        <div class="app-spacer"></div>
-                        <input type="button" id="addRow" value="Add" />
                         <div class="app-spacer"></div>
                         <input type="hidden" name="_token" value={{ csrf_token() }}>
                         <div class="app-button"><input type="submit" name="back" value="<< Back"></div>

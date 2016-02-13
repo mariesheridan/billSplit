@@ -85,7 +85,7 @@ function checkUnique()
     $('.app-value').each(function(){
         console.log("id: " + $(this).attr('id'));
         var id = $(this).attr('id');
-        input = $(this).find('input:text').val().replace(/ /g, "").toLowerCase();
+        input = $(this).find('input:text').val().replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
         console.log('input: ' + input);
         inputs.push(input);
     });
