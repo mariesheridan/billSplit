@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Session;
 use App\Transaction;
 use App\Person;
+use App\User;
 use App\MyLibrary\TransactionDetails;
 use App\MyLibrary\PersonListBuilder;
 
@@ -38,11 +39,28 @@ class TagController extends Controller
         Session::set('personsWithEmail', $personsWithEmail);
 
         return view('tag', array('store' => $store,
-                                     'date' => $date,
-                                     'persons' => $personsWithEmail));
+                                 'date' => $date,
+                                 'persons' => $personsWithEmail));
     }
 
     public function save(Request $request)
+    {
+        if ($request->__get('next'))
+        {
+            $this->updateDB($request);
+            return redirect()->route('home');
+        }
+        else if ($request->__get('back'))
+        {
+            return redirect()->route('home');
+        }
+        else
+        {
+            echo "Ooops.. Please go back";
+        }
+    }
+
+    private function updateDB(Request $request)
     {
         $transactionId = Session::get('transactionId', 0);
         $personsWithEmail = Session::get('personsWithEmail', array());
@@ -59,26 +77,18 @@ class TagController extends Controller
         foreach($personsWithEmail as $person)
         {
             $buyer = Person::forTransaction($transactionId)->withName($person['name'])->first();
-
+            $user = User::withEmail($person['email'])->first();
             if ($buyer)
             {
                 $buyer->email = $person['email'];
+
+                if ($user)
+                {
+                    $buyer->user_id = $user->id;
+                }
+
                 $buyer->save();
             }
-
-        }
-
-        if ($request->__get('next'))
-        {
-            return redirect()->route('home');
-        }
-        else if ($request->__get('back'))
-        {
-            return redirect()->route('home');
-        }
-        else
-        {
-            echo "Ooops.. Please go back";
         }
     }
 }

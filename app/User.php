@@ -33,4 +33,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Transaction');
     }
+
+    public function scopeWithEmail($query, $email)
+    {
+        return $query->where('email', $email);
+    }
 }
