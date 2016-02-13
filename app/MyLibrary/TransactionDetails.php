@@ -48,6 +48,17 @@ class TransactionDetails
         return $list->toJSObject();
     }
 
+    public function getPersonList()
+    {
+        $persons = $this->transaction->persons;
+        $list = new PersonListBuilder();
+        foreach ($persons as $person)
+        {
+            $list->addWithEmail($person->name, $person->email);
+        }
+        return $list->getEmailArray();
+    }
+
     public function getItems()
     {
         $items = Item::forTransaction($this->id)->excludeSvcCharge()->get();

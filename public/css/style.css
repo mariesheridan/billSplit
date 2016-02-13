@@ -187,8 +187,12 @@ table {
     padding: 10px 0px;
     width: 40%;
     vertical-align: middle;
-    border-color: #ddd;
-    border-width: 1px;
+}
+
+.app-td-tag {
+    padding: 10px 0px;
+    width: 5%;
+    vertical-align: middle;
 }
 
 .app-tr {
@@ -220,6 +224,19 @@ table {
 
 .clear-both {
     clear: both;
+}
+
+.tag-block {
+    clear: both;
+}
+
+.tag-person-name {
+    width: 100px;
+    float: left;
+}
+
+.tag-email {
+    float: left;
 }
 
 @media screen and (max-width: 430px) {

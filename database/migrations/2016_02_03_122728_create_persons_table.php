@@ -17,6 +17,7 @@ class CreatePersonsTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('transaction_id')->unsigned();
             $table->string('name');
+            $table->string('email');
             $table->timestamps();
         });
 

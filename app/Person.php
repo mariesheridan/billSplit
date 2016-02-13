@@ -24,4 +24,14 @@ class Person extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function scopeForTransaction($query, $id)
+    {
+        return $query->where('transaction_id', $id);
+    }
+
+    public function scopeWithName($query, $name)
+    {
+        return $query->where('name', $name);
+    }
 }

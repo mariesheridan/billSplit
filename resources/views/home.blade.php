@@ -26,6 +26,9 @@
                                     echo implode(", ", $personsList);
                                 ?>
                             </td>
+                            <td class='app-td-tag'>
+                                {!! HTML::linkRoute('tag', 'Tag', $tempIds[$transaction->id]) !!}
+                            </td>
                         </tr>
                     @endforeach
                     @if ($transactions->getCollection()->count() == 0)
