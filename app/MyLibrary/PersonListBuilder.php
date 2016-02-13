@@ -16,6 +16,7 @@ class PersonListBuilder
     public function add($name)
     {
         $this->persons[preg_replace('/[^a-zA-Z0-9]/', '', $name)] = $name;
+        asort($this->persons);
     }
 
     public function getArray()
