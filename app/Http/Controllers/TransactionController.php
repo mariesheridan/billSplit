@@ -58,6 +58,10 @@ class TransactionController extends Controller
     {
         $tempIds = array_flip(Session::get('tempIds', array()));
         //$transaction = Transaction::find($tempIds[$id]);
+        if ($id > count($tempIds))
+        {
+            return view('transactionnotfound');
+        }
         $transaction = new TransactionDetails($tempIds[$id]);
         //$store = $transaction->store;
         //$date = $transaction->date;
