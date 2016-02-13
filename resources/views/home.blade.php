@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Receivables</div>
 
                 <div class="panel-body">
                     <div class='app-table'>
@@ -43,4 +43,35 @@
         </div>
     </div>
 </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">Payables</div>
+
+                <div class="panel-body">
+                    <div class='app-table'>
+                    <table>
+                    @foreach ($payables->getCollection()->all() as $payable)
+                        <tr class='app-tr'>
+                            <td class='app-td-date'>{{ $payable->date }}</td>
+                            <td class='app-td-store'>
+                                {!! HTML::linkRoute('transactions.show', $payable->store, $tempIds[$payable->id]) !!}
+                            </td>
+                        </tr>
+                    @endforeach
+                    @if ($payables->getCollection()->count() == 0)
+                         You don't have any payables! 
+                    @endif
+                    </table>
+                    <div class='app-spacer'></div>
+                    </div>
+                    <div>{{ $payables->links() }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection

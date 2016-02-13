@@ -32,7 +32,7 @@ class HomeController extends Controller
     {
         SessionDetails::forget();
         $transactions = Transaction::where('user_id', '=', 
-                        Auth::user()->id)->orderBy('date')->simplePaginate(10);
+                        Auth::user()->id)->orderBy('date')->simplePaginate(5);
 
         // This is important, so that transaction id will not be shown in the URL
         $tempIds = array();
@@ -42,8 +42,23 @@ class HomeController extends Controller
             $counter++;
             $tempIds[$trans->id] = $counter;
         }
+
+        $payables = Transaction::whereHas('persons', function($query){ 
+                      $query->where('user_id', '=', Auth::user()->id);
+               })
+               ->where('user_id', '!=', Auth::user()->id)
+               ->orderBy('date')
+               ->simplePaginate(5);
+
+        foreach ($payables as $pay)
+        {
+            $counter++;
+            $tempIds[$pay->id] = $counter;
+        }
+
         Session::set('tempIds', $tempIds);
-        return view('home', array("transactions" => $transactions, "tempIds" => $tempIds));
+
+        return view('home', array("transactions" => $transactions, "tempIds" => $tempIds, "payables" => $payables));
     }
 
     public function back()
