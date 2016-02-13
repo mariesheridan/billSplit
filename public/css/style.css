@@ -205,6 +205,10 @@ table {
     text-decoration: none;
 }
 
+.app-total-block {
+    clear: both;
+}
+
 @media screen and (max-width: 430px) {
     input.app-remove, input.app-show{
         margin-left: 30px;

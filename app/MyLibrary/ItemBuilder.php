@@ -61,7 +61,8 @@ class ItemBuilder
 
     public function addItemArray($key, $itemArray)
     {
-        $this->items[$key] = $itemArray;
+        $newKey = $this->removeSpaces($key);
+        $this->items[$newKey] = $itemArray;
     }
 
     public function addItemByName($itemName, $itemPrice)
@@ -122,5 +123,13 @@ class ItemBuilder
             $subtotal += $item['itemPrice'];
         }
         return $subtotal;
+    }
+
+    public function resetBuyers()
+    {
+        foreach (array_keys($this->items) as $key)
+        {
+            unset($this->items[$key]['buyers']);
+        }
     }
 }

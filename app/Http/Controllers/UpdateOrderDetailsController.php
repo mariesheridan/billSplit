@@ -21,6 +21,7 @@ class UpdateOrderDetailsController extends Controller
     {
         $index = 0;
         $items = ItemBuilder::copyArray(Session::get('items'));
+        $items->resetBuyers();
 
         foreach($request->all() as $key=>$nameArray)
         {

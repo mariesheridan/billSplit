@@ -69,6 +69,10 @@ $(document).ready(function () {
             $(this).append(divForQuantity(qtyId, personName, qtyValue));
         }
     });
+
+    $("#app-form").submit(function(event){
+        validateForm();
+    });
  
 });
 
@@ -85,11 +89,13 @@ function requireCheckboxPerGroup(object)
     });
     if (atLeastOneChecked)
     {
-        requiredCheckboxes.removeAttr('required');
+        //requiredCheckboxes.removeAttr('required');
+        requiredCheckboxes.data('checkNeeded', false);
     }
     else
     {
-        requiredCheckboxes.attr('required', 'required');
+        //requiredCheckboxes.attr('required', 'required');
+        requiredCheckboxes.data('checkNeeded', true);
     }
 }
 
@@ -168,7 +174,8 @@ function divForPersons(nameToUse, number, itemObject, names)
                        + "<input type='checkbox' id='cb" 
                        + nameToUse + number + names[iter] + "' name='"
                        + nameToUse + number 
-                       + "Name[]' value='" + names[iter] + "' required " + checked + "/>"
+                       //+ "Name[]' value='" + names[iter] + "' required " + checked + "/>"
+                       + "Name[]' value='" + names[iter] + "'" + checked + "/>"
                        + "<label for='cb" + nameToUse + number + names[iter] + "'>" + names[iter] 
                        + "</label></div></div>";
     }
@@ -237,3 +244,47 @@ function listItems(divId, nameToUse, itemsArray, personNames)
     });
 }
 
+function validateForm()
+{
+    var checkResult = checkInputs();
+    $("#order-body").find('.help-block').each(function(){
+        $(this).remove();
+    });
+    if(checkResult > 0)
+    {
+        $("#order-body").prepend(divForError(checkResult));
+        event.preventDefault(); 
+    }
+}
+
+function checkInputs()
+{
+    var result = 0;
+    $(".app-item-block").each(function(){
+        var id = $(this).attr('id');
+        console.log('id: ' + id)
+        var number = id.match(/\d+/);
+        var breakFromLoop = false;
+        $(this).find("input:checkbox").each(function(){
+            //if ($(this).prop('required'))
+            if ($(this).data('checkNeeded'))
+            {
+                result = number;
+                breakFromLoop = true;
+                return false;
+            }
+        });
+        if (breakFromLoop)
+        {
+            return false;
+        }
+    });
+    console.log("checkinputs");
+    return result;
+}
+
+function divForError(num)
+{
+    return "<span class='help-block'><strong>Please check at least one box in item " 
+           + num + "!</strong></span>";
+}
