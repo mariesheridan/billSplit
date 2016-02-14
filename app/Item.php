@@ -30,6 +30,6 @@ class Item extends Model
 
     public function scopeExcludeSvcCharge($query)
     {
-        return $query->where('name', '!=', 'svcCharge');
+        return $query->where('name', '!=', 'SvcCharge');
     }
 }

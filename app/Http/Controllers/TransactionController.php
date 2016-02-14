@@ -70,12 +70,14 @@ class TransactionController extends Controller
         $persons = $transaction->getPersonNames()->toJSObject();
         $items = $transaction->getItems()->toJSObject();
         $itemNames = "[]";
-        return view('showtransaction', array('store' => $store,
-                                     'date' => $date,
-                                     'svcCharge' => $svcCharge,
-                                     'persons' => $persons,
-                                     'items' => $items,
-                                     'itemNames' => $itemNames));
+        $dbTransaction = Transaction::find($tempIds[$id]);
+        return view('showtransaction', array(//'store' => $store,
+                                     //'date' => $date,
+                                     //'svcCharge' => $svcCharge,
+                                     //'persons' => $persons,
+                                     //'items' => $items,
+                                     //'itemNames' => $itemNames,
+                                     'dbTransaction' => $dbTransaction));
     }
 
     /**

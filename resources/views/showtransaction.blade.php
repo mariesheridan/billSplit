@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@inject('items', 'App\MyLibrary\ItemsForTransaction')
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -9,13 +11,40 @@
 
                 <div class="panel-body">
                     <h4>
-                        {{ $store }}
+                        {{ $dbTransaction->store }}
                     </h4>
                     <h4>
-                        {{ $date }}
+                        {{ $dbTransaction->date }}
                     </h4>
                     <div class="app-spacer"></div>
                     <div id="app-summary">
+                        <div id='summary-block'>
+                            <h4>Overview</h4>
+                            <div class='app-line-space'></div>
+                            <div class='app-line'></div>
+                            <div class='app-line-space'></div>
+                            {{ $items->setId($dbTransaction->id) }}
+                            @foreach ($items->getItems() as $item)
+                                <div class='summary-item-block'>
+                                    <div class='summary-item-name'>{{ $item['name'] }}</div>
+                                    <div class='summary-item-price'>{{ number_format($item['price'], 2) }}</div>
+                                    <div class='clear-both'></div>
+                                </div>
+                            @endforeach
+                            @if ($items->getSvcCharge() != 0)
+                                <div class='summary-item-block'>
+                                    <div class='summary-item-name'>Service Charge</div>
+                                    <div class='summary-item-price'>{{ number_format($items->getSvcCharge(), 2) }}</div>
+                                </div>
+                            @endif
+                            <div class='app-line-space'></div>
+                            <div class='app-line'></div>
+                            <div class='app-line-space'></div>
+                            <div class='summary-item-block'><strong>
+                                <div class='summary-item-name'>Total</div>
+                                <div class='summary-item-price'>{{ number_format($items->getTotal(), 2) }}</div>
+                            </strong></div>
+                        </div>
                     </div>
                     <div class="app-spacer"></div>
                     <div class="app-spacer"></div>
@@ -29,17 +58,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section ('localScript')
-<script src="{{ asset('js/summary.js') }}"></script>
-<script>
-    var persons = <?php echo $persons; ?>;
-    console.log("js persons = " + persons);
-    var itemNames = <?php echo $itemNames; ?>;
-    console.log("js itemNames = " + itemNames);
-    var items = <?php echo $items; ?>;
-    console.log("js items = " + items);
-    var svcCharge = {{ $svcCharge }};
-</script>
 @endsection
