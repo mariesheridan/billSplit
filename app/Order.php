@@ -27,4 +27,18 @@ class Order extends Model
     {
         return $query->where('item_id', $id);
     }
+
+    public function scopeExcludeSvcCharge($query)
+    {
+        return $query->whereHas('item', function($q){
+            $q->where('name', '!=', 'SvcCharge');
+        });
+    }
+
+    public function scopeSvcCharge($query)
+    {
+        return $query->whereHas('item', function($q){
+            $q->where('name', 'SvcCharge');
+        });
+    }
 }

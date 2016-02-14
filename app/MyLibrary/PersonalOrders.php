@@ -3,6 +3,7 @@
 namespace App\MyLibrary;
 
 use App\Order;
+use App\Person;
 
 class PersonalOrders
 {
@@ -15,13 +16,22 @@ class PersonalOrders
 
     }
 
-    public function setIds($transId, $payId)
+    public function setUserId($transId, $userId)
     {
         $this->transactionId = $transId;
-        $this->payerId = $payId;
+        $this->payerId = $userId;
         $this->orders = Order::whereHas('person', function($query){
             $query->where('user_id', $this->payerId);
         })->where('transaction_id', $this->transactionId)->get();
+    }
+
+    public function setPersonId($transId, $personId)
+    {
+        $this->transactionId = $transId;
+        $this->payerId = $personId;
+        $this->orders = Order::whereHas('person', function($query){
+            $query->where('id', $this->payerId);
+        })->where('transaction_id', $this->transactionId)->get();   
     }
 
     public function getTotal()
@@ -33,5 +43,31 @@ class PersonalOrders
         }
 
         return $price;
+    }
+
+    public function getOrders()
+    {
+        $orderList = Order::whereHas('person', function($query){
+            $query->where('id', $this->payerId);
+        })->whereHas('item', function($query){
+            $query->where('name', '!=', 'SvcCharge');
+        })->where('transaction_id', $this->transactionId)->get();
+        return $orderList;
+    }
+
+    public function getSvcCharge()
+    {
+        $svcCharge = 0;
+        $orderList = Order::whereHas('person', function($query){
+            $query->where('id', $this->payerId);
+        })->whereHas('item', function($query){
+            $query->where('name', 'SvcCharge');
+        })->where('transaction_id', $this->transactionId)->first();
+
+        if ($orderList)
+        {
+            $svcCharge = $orderList->price;
+        }
+        return $svcCharge;
     }
 }

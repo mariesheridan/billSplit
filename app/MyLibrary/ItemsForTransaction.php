@@ -23,18 +23,18 @@ class ItemsForTransaction
     public function getItems()
     {
         $items = Item::forTransaction($this->transactionId)->excludeSvcCharge()->get();
-        $itemsArray = array();
-        foreach ($items as $item)
-        {
-            array_push($itemsArray, array('name' => $item->name, 'price' => $item->price));
-        }
-        return $itemsArray;
+        return $items;
     }
 
     public function getSvcCharge()
     {
+        $svcCharge = 0;
         $item = Item::forTransaction($this->transactionId)->svcCharge()->first();
-        return $item->price;
+        if ($item)
+        {
+            $svcCharge = $item->price;
+        }
+        return $svcCharge;
     }
 
     public function getTotal()

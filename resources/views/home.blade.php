@@ -64,7 +64,7 @@
                             </div>
                             <div class='app-td-pay-to app-column'>Pay to: {!! $payable->user->name !!}</div>
                             <div class='app-td-price app-column'>
-                                {!! $personalOrder->setIds($payable->id, Auth::user()->id) !!}
+                                {!! $personalOrder->setUserId($payable->id, Auth::user()->id) !!}
                                 {{ $personalOrder->getTotal() }}
                             </div>
                             <div class='app-spacer'></div>
