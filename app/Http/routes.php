@@ -28,7 +28,8 @@ Route::group(['middleware' => 'web'], function () {
 //    Route::get('/', function () {
 //        return view('welcome');
 //    });
-    Route::get('/', 'WelcomeController@index');
+    //Route::get('/', 'WelcomeController@index');
+    Route::get('/', 'HomeController@index');
     Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@index']);
     Route::get('/create_transaction', ['as' => 'create_transaction', 'uses' => 'CreateTransactionController@index']);
     Route::post('/update_transaction', 'UpdateTransactionController@update');

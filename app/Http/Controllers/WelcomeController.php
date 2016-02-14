@@ -17,6 +17,6 @@ class WelcomeController extends Controller
     public function index()
     {
         SessionDetails::forget();
-        return view('home');
+        return view('welcome');
     }
 }
