@@ -33,7 +33,7 @@ class HomeController extends Controller
     {
         SessionDetails::forget();
         $transactions = Transaction::where('user_id', '=', 
-                        Auth::user()->id)->orderBy('date')->simplePaginate(5);
+                        Auth::user()->id)->orderBy('date', 'desc')->simplePaginate(5);
 
         // This is important, so that transaction id will not be shown in the URL
         $tempIds = array();
