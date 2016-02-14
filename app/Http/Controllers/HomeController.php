@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\MyLibrary\SessionDetails;
 use App\Transaction;
+use App\Person;
 use Auth;
 use HTML;
 use Session;
@@ -43,6 +44,8 @@ class HomeController extends Controller
             $tempIds[$trans->id] = $counter;
         }
 
+        $this->updateUserIdInPersonsTable();
+
         $payables = Transaction::whereHas('persons', function($query){ 
                       $query->where('user_id', '=', Auth::user()->id);
                })
@@ -59,6 +62,16 @@ class HomeController extends Controller
         Session::set('tempIds', $tempIds);
 
         return view('home', array("transactions" => $transactions, "tempIds" => $tempIds, "payables" => $payables));
+    }
+
+    public function updateUserIdInPersonsTable()
+    {
+        $persons = Person::withEmail(Auth::user()->email)->get();
+        foreach ($persons as $person)
+        {
+            $person->user_id = Auth::user()->id;
+            $person->save();
+        }
     }
 
     public function back()

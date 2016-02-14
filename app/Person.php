@@ -34,4 +34,9 @@ class Person extends Model
     {
         return $query->where('name', $name);
     }
+
+    public function scopeWithEmail($query, $email)
+    {
+        return $query->where('email', $email);
+    }
 }
