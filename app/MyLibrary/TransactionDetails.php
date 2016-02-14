@@ -48,7 +48,7 @@ class TransactionDetails
         return $list;   
     }
 
-    public function getPersonList()
+    public function getPersonsEmailList()
     {
         $persons = $this->transaction->persons;
         $list = new PersonListBuilder();

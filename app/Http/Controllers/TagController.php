@@ -33,7 +33,7 @@ class TagController extends Controller
 
         $store = $transaction->getStore();
         $date = $transaction->getDate();
-        $personsWithEmail = $transaction->getPersonList();
+        $personsWithEmail = $transaction->getPersonsEmailList();
 
         Session::set('transactionId', $tempIds[$id]);
         Session::set('personsWithEmail', $personsWithEmail);

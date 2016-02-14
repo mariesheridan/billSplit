@@ -13,6 +13,7 @@ use App\Item;
 use App\Order;
 use Session;
 use App\MyLibrary\ItemBuilder;
+use App\MyLibrary\TransactionDetails;
 
 class SaveNewTransactionController extends Controller
 {
@@ -46,6 +47,7 @@ class SaveNewTransactionController extends Controller
         $persons = Session::get('persons');
         $items = ItemBuilder::copyArray(Session::get('items'));
         $totalServiceCharge = Session::get('svcCharge');
+        $personsWithEmail = array();
 
         if ($transactionId == 0)
         {
@@ -58,6 +60,8 @@ class SaveNewTransactionController extends Controller
             // If transaction exists because this is just the edit page, 
             //     we should delete the existing relations from db and create new ones.
             $dbTransaction = Transaction::find($transactionId);
+            $transaction = new TransactionDetails($transactionId);
+            $personsWithEmail = $transaction->getPersonsEmailList();
             foreach ($dbTransaction->orders as $order)
             {
                 $order->delete();
@@ -77,8 +81,15 @@ class SaveNewTransactionController extends Controller
                                               'price' => $totalServiceCharge));
         foreach ($persons as $key=>$person)
         {
+            $email = '';
+            if (array_key_exists($key, $personsWithEmail))
+            {
+                $email = $personsWithEmail[$key]['email'];
+
+            }
             $dbPerson = Person::create(array('transaction_id' => $dbTransaction->id,
-                                             'name' => $person));
+                                             'name' => $person,
+                                             'email' => $email));
             // We need to check if service charge exists for a user or not
             $svChargeKey = $key . 'SvcCharge' . 'UnitPrice';
             if (array_key_exists($svChargeKey, $request->all()))

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
 {
-    protected $fillable = ['transaction_id', 'name'];
+    protected $fillable = ['transaction_id', 'name', 'email'];
 
     protected $table = "persons";
     
