@@ -13,11 +13,11 @@
                     <div class='app-table'>
                     @foreach ($transactions->getCollection()->all() as $transaction)
                         <div class='app-tr'>
-                            <div class='app-td-date' class="app-column">{{ $transaction->date }}</div>
-                            <div class='app-td-store' class="app-column">
+                            <div class='app-td-date app-column'>{{ $transaction->date }}</div>
+                            <div class='app-td-store app-column'>
                                 {!! HTML::linkRoute('transactions.show', $transaction->store, $tempIds[$transaction->id]) !!}
                             </div>
-                            <div class='app-td-persons' class="app-column">
+                            <div class='app-td-persons app-column'>
                                 <?php 
                                     $personsList = [];
                                     foreach ($transaction->persons as $person)
@@ -27,7 +27,7 @@
                                     echo implode(", ", $personsList);
                                 ?>
                             </div>
-                            <div class='app-td-tag' class="app-column">
+                            <div class='app-td-tag app-column'>
                                 {!! HTML::linkRoute('tag', 'Tag', $tempIds[$transaction->id]) !!}
                             </div>
 
@@ -55,14 +55,14 @@
                     <div class='app-table'>
                     @foreach ($payables->getCollection()->all() as $payable)
                         <div class='app-tr'>
-                            <div class='app-td-date' class="app-column">
+                            <div class='app-td-date app-column'>
                                 {{ $payable->date }}
                             </div>
-                            <div class='app-td-store' class="app-column">
+                            <div class='app-td-store app-column'>
                                 {!! HTML::linkRoute('transactions.show', $payable->store, $tempIds[$payable->id]) !!}
                             </div>
-                            <div class='app-td-pay-to' class="app-column">Pay to: {!! $payable->user->name !!}</div>
-                            <div class='app-td-price' class="app-column">
+                            <div class='app-td-pay-to app-column'>Pay to: {!! $payable->user->name !!}</div>
+                            <div class='app-td-price app-column'>
                                 {{ $personalOrder->setIds($payable->id, Auth::user()->id) }}
                                 {{ $personalOrder->getTotal() }}
                             </div>

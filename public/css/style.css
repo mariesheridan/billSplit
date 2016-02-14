@@ -165,6 +165,14 @@ input.app-remove, input.app-show {
     padding: 20px;
 }
 
+.app-column {
+    display: inline-block;
+    float: left;
+    padding: 10px 0px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
 .app-td-date {
     width: 10%;
 }
@@ -187,13 +195,6 @@ input.app-remove, input.app-show {
 
 .app-td-price {
     width: 5%;
-}
-
-.app-column {
-    float: left;
-    padding: 10px 0px;
-    margin-right: 10px;
-    vertical-align: middle;
 }
 
 .myButton {
@@ -268,6 +269,7 @@ input.app-remove, input.app-show {
     .app-column {
         padding: 0px;
         clear: both;
+        margin: 0px;
     }
 
     .app-td-date {
