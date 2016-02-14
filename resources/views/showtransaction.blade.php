@@ -49,7 +49,11 @@
                     </div>
                     <div class="app-spacer"></div>
                     @foreach ($dbTransaction->persons as $person)
-                        <div class='person-summary'>
+                        @if ($person->user_id == Auth::user()->id)
+                            <div class='person-summary my-order'>
+                        @else
+                            <div class='person-summary'>
+                        @endif
                             <h4>{{ $person->name }}</h4>
                             <div class='app-line-space'></div>
                             <div class='app-line'></div>
