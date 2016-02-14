@@ -99,12 +99,15 @@ class TransactionController extends Controller
         $svcCharge = $transaction->getSvcCharge();
         $persons = $transaction->getPersonNames()->getArray();
         $items = $transaction->getItems()->getArray();
+        $transactionId = $transaction->getTransactionId();
+
 
         Session::set('store', $store);
         Session::set('date', $date);
         Session::set('svcCharge', $svcCharge);
         Session::set('persons', $persons);
         Session::set('items', $items);
+        Session::set('transactionId', $transactionId);
 
         return redirect()->route('create_transaction');
     }

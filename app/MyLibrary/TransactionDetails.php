@@ -78,4 +78,8 @@ class TransactionDetails
         return $itemList;
     }
 
+    public function getTransactionId()
+    {
+        return $this->transaction->id;
+    }
 }

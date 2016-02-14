@@ -40,15 +40,38 @@ class SaveNewTransactionController extends Controller
 
     private function saveToDB(Request $request)
     {
+        $transactionId = Session::get('transactionId', 0);
         $store = Session::get('store');
         $date = Session::get('date');
         $persons = Session::get('persons');
         $items = ItemBuilder::copyArray(Session::get('items'));
         $totalServiceCharge = Session::get('svcCharge');
 
-        $dbTransaction = Transaction::create(array('user_id' => $request->user()->id,
+        if ($transactionId == 0)
+        {
+            $dbTransaction = Transaction::create(array('user_id' => $request->user()->id,
                                                    'date' => $date,
                                                    'store' => $store));
+        }
+        else
+        {
+            // If transaction exists because this is just the edit page, 
+            //     we should delete the existing relations from db and create new ones.
+            $dbTransaction = Transaction::find($transactionId);
+            foreach ($dbTransaction->orders as $order)
+            {
+                $order->delete();
+            }
+            foreach ($dbTransaction->persons as $person)
+            {
+                $person->delete();
+            }
+            foreach ($dbTransaction->items as $item)
+            {
+                $item->delete();
+            }
+        }
+
         $dbServiceCharge = Item::create(array('transaction_id' => $dbTransaction->id,
                                               'name' => 'SvcCharge',
                                               'price' => $totalServiceCharge));
