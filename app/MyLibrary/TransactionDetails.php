@@ -45,7 +45,7 @@ class TransactionDetails
         {
             $list->add($person->name);
         }
-        return $list->toJSObject();
+        return $list;   
     }
 
     public function getPersonList()
@@ -75,7 +75,7 @@ class TransactionDetails
                 //echo "person: " . $order->person->name . ", qty: " . $order->quantity . "<br>";
             }
         }
-        return $itemList->toJSObject();
+        return $itemList;
     }
 
 }

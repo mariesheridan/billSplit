@@ -27,8 +27,9 @@
                                     echo implode(", ", $personsList);
                                 ?>
                             </div>
-                            <div class='app-td-tag app-column'>
-                                {!! HTML::linkRoute('tag', 'Tag', $tempIds[$transaction->id]) !!}
+                            <div class='app-column'>
+                                <div class="app-td-tag">{!! HTML::linkRoute('tag', 'Tag', $tempIds[$transaction->id]) !!}</div>
+                                <div class="app-td-tag">{!! HTML::linkRoute('transactions.edit', 'Edit', $tempIds[$transaction->id]) !!}</div>
                             </div>
 
                             <div class='app-spacer'></div>
@@ -63,7 +64,7 @@
                             </div>
                             <div class='app-td-pay-to app-column'>Pay to: {!! $payable->user->name !!}</div>
                             <div class='app-td-price app-column'>
-                                {{ $personalOrder->setIds($payable->id, Auth::user()->id) }}
+                                {!! $personalOrder->setIds($payable->id, Auth::user()->id) !!}
                                 {{ $personalOrder->getTotal() }}
                             </div>
                             <div class='app-spacer'></div>

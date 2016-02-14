@@ -186,7 +186,8 @@ input.app-remove, input.app-show {
 }
 
 .app-td-tag {
-    width: 5%;
+    display: inline-block;
+    margin-right: 10px;
 }
 
 .app-td-pay-to {
@@ -278,6 +279,7 @@ input.app-remove, input.app-show {
     }
 
     .app-td-store {
+        font-size: 1.2em;
         width: 100%;
     }
 

@@ -63,17 +63,12 @@ class TransactionController extends Controller
             return view('transactionnotfound');
         }
         $transaction = new TransactionDetails($tempIds[$id]);
-        //$store = $transaction->store;
-        //$date = $transaction->date;
-        //$svcCharge = 3;
 
         $store = $transaction->getStore();
         $date = $transaction->getDate();
         $svcCharge = $transaction->getSvcCharge();
-
-        //$persons = array();
-        $persons = $transaction->getPersonNames();
-        $items = $transaction->getItems();
+        $persons = $transaction->getPersonNames()->toJSObject();
+        $items = $transaction->getItems()->toJSObject();
         $itemNames = "[]";
         return view('showtransaction', array('store' => $store,
                                      'date' => $date,
@@ -91,7 +86,27 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tempIds = array_flip(Session::get('tempIds', array()));
+        //$transaction = Transaction::find($tempIds[$id]);
+        if ($id > count($tempIds))
+        {
+            return view('transactionnotfound');
+        }
+        $transaction = new TransactionDetails($tempIds[$id]);
+
+        $store = $transaction->getStore();
+        $date = $transaction->getDate();
+        $svcCharge = $transaction->getSvcCharge();
+        $persons = $transaction->getPersonNames()->getArray();
+        $items = $transaction->getItems()->getArray();
+
+        Session::set('store', $store);
+        Session::set('date', $date);
+        Session::set('svcCharge', $svcCharge);
+        Session::set('persons', $persons);
+        Session::set('items', $items);
+
+        return redirect()->route('create_transaction');
     }
 
     /**
