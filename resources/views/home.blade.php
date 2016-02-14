@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@inject('personalOrder', 'App\MyLibrary\PersonalOrders')
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -61,6 +63,10 @@
                             </td>
                             <td class='app-td-pay-to'>
                                 Pay to: {!! $payable->user->name !!}
+                            </td>
+                            <td class='app-td-price'>
+                                {{ $personalOrder->setIds($payable->id, Auth::user()->id) }}
+                                {{ $personalOrder->getTotal() }}
                             </td>
                         </tr>
                     @endforeach
