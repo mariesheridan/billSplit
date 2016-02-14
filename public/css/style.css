@@ -160,50 +160,40 @@ input.app-remove, input.app-show {
 }
 
 .app-table {
+    clear: both;
     width: 100%;
-}
-
-.app-tr {
-    width: 100%;
-}
-
-table {
-    width: 100%;
+    padding: 20px;
 }
 
 .app-td-date {
-    padding: 10px 0px;
     width: 10%;
-    vertical-align: middle;
 }
 
 .app-td-store {
-    padding: 10px 0px;
     width: 10%;
-    vertical-align: middle;
 }
 
 .app-td-persons {
-    padding: 10px 0px;
-    width: 40%;
-    vertical-align: middle;
+    width: 50%;
 }
 
 .app-td-tag {
-    padding: 10px 0px;
     width: 5%;
-    vertical-align: middle;
 }
 
 .app-td-pay-to {
-    padding: 10px 0px;
-    width: 10%;
-    vertical-align: middle;
+    width: 30%;
 }
 
-.app-tr {
-    border-color: #ddd;
-    border-width: 1px;
+.app-td-price {
+    width: 5%;
+}
+
+.app-column {
+    float: left;
+    padding: 10px 0px;
+    margin-right: 10px;
+    vertical-align: middle;
 }
 
 .myButton {
@@ -271,6 +261,36 @@ table {
         width: 50px;
     }
 
+    .app-table {
+        padding: 5px;
+    }
+
+    .app-column {
+        padding: 0px;
+        clear: both;
+    }
+
+    .app-td-date {
+        width: 35%;
+        font-weight: bold;
+    }
+
+    .app-td-store {
+        width: 100%;
+    }
+
+    .app-td-persons {
+        width: 100%;
+    }
+
+    .app-td-pay-to {
+        width: 100%;
+        margin: 0px;
+    }
+
+    .app-td-price {
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 355px) {

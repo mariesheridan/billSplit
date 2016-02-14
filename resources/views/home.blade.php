@@ -11,14 +11,13 @@
 
                 <div class="panel-body">
                     <div class='app-table'>
-                    <table>
                     @foreach ($transactions->getCollection()->all() as $transaction)
-                        <tr class='app-tr'>
-                            <td class='app-td-date'>{{ $transaction->date }}</td>
-                            <td class='app-td-store'>
+                        <div class='app-tr'>
+                            <div class='app-td-date' class="app-column">{{ $transaction->date }}</div>
+                            <div class='app-td-store' class="app-column">
                                 {!! HTML::linkRoute('transactions.show', $transaction->store, $tempIds[$transaction->id]) !!}
-                            </td>
-                            <td class='app-td-persons'>
+                            </div>
+                            <div class='app-td-persons' class="app-column">
                                 <?php 
                                     $personsList = [];
                                     foreach ($transaction->persons as $person)
@@ -27,17 +26,17 @@
                                     }
                                     echo implode(", ", $personsList);
                                 ?>
-                            </td>
-                            <td class='app-td-tag'>
+                            </div>
+                            <div class='app-td-tag' class="app-column">
                                 {!! HTML::linkRoute('tag', 'Tag', $tempIds[$transaction->id]) !!}
-                            </td>
-                        </tr>
+                            </div>
+
+                            <div class='app-spacer'></div>
+                        </div>
                     @endforeach
                     @if ($transactions->getCollection()->count() == 0)
                          You don't have any transactions! 
                     @endif
-                    </table>
-                    <div class='app-spacer'></div>
                     </div>
                     <div>{{ $transactions->links() }}</div>
                 </div>
@@ -45,7 +44,7 @@
         </div>
     </div>
 </div>
-
+<div class='app-spacer'></div>
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -54,27 +53,25 @@
 
                 <div class="panel-body">
                     <div class='app-table'>
-                    <table>
                     @foreach ($payables->getCollection()->all() as $payable)
-                        <tr class='app-tr'>
-                            <td class='app-td-date'>{{ $payable->date }}</td>
-                            <td class='app-td-store'>
+                        <div class='app-tr'>
+                            <div class='app-td-date' class="app-column">
+                                {{ $payable->date }}
+                            </div>
+                            <div class='app-td-store' class="app-column">
                                 {!! HTML::linkRoute('transactions.show', $payable->store, $tempIds[$payable->id]) !!}
-                            </td>
-                            <td class='app-td-pay-to'>
-                                Pay to: {!! $payable->user->name !!}
-                            </td>
-                            <td class='app-td-price'>
+                            </div>
+                            <div class='app-td-pay-to' class="app-column">Pay to: {!! $payable->user->name !!}</div>
+                            <div class='app-td-price' class="app-column">
                                 {{ $personalOrder->setIds($payable->id, Auth::user()->id) }}
                                 {{ $personalOrder->getTotal() }}
-                            </td>
-                        </tr>
+                            </div>
+                            <div class='app-spacer'></div>
+                        </div>
                     @endforeach
                     @if ($payables->getCollection()->count() == 0)
                          You don't have any payables! 
                     @endif
-                    </table>
-                    <div class='app-spacer'></div>
                     </div>
                     <div>{{ $payables->links() }}</div>
                 </div>
