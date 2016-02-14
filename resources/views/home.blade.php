@@ -59,6 +59,9 @@
                             <td class='app-td-store'>
                                 {!! HTML::linkRoute('transactions.show', $payable->store, $tempIds[$payable->id]) !!}
                             </td>
+                            <td class='app-td-pay-to'>
+                                Pay to: {!! $payable->user->name !!}
+                            </td>
                         </tr>
                     @endforeach
                     @if ($payables->getCollection()->count() == 0)

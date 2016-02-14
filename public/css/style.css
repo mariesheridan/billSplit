@@ -195,6 +195,12 @@ table {
     vertical-align: middle;
 }
 
+.app-td-pay-to {
+    padding: 10px 0px;
+    width: 10%;
+    vertical-align: middle;
+}
+
 .app-tr {
     border-color: #ddd;
     border-width: 1px;
@@ -238,6 +244,7 @@ table {
 .tag-email {
     float: left;
 }
+
 
 @media screen and (max-width: 430px) {
     input.app-remove, input.app-show{
