@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @inject('personalOrder', 'App\MyLibrary\PersonalOrders')
+@inject('transactionHelper', 'App\MyLibrary\TransactionHelper')
+@inject('statusClass', 'App\MyLibrary\StatusClassResolver')
 
 @section('content')
 <div class="container">
@@ -26,6 +28,13 @@
                                     }
                                     echo implode(", ", $personsList);
                                 ?>
+                            </div>
+                            <div class='app-td-price app-column'>
+                                {!! $transactionHelper->setId($transaction->id) !!}
+                                {{ number_format($transactionHelper->getTotal(), 2) }}
+                            </div>
+                            <div class='app-td-status app-column {{ $statusClass->getStatusClass($transactionHelper->getStatus()) }}'>
+                                {{ $transactionHelper->getStatus() }}                            
                             </div>
                             <div class='app-column'>
                                 <div class="app-td-tag">{!! HTML::linkRoute('tag', 'Tag', $tempIds[$transaction->id]) !!}</div>
@@ -67,23 +76,7 @@
                                 {!! $personalOrder->setUserId($payable->id, Auth::user()->id) !!}
                                 {{ number_format($personalOrder->getTotal(), 2) }}
                             </div>
-                            <?php 
-                                $status = $personalOrder->getStatus();
-                                $statusClass = "";
-                                if ($status == 'Unpaid')
-                                {
-                                    $statusClass = "my-order-unpaid";
-                                }
-                                elseif ($status == "Verifying")
-                                {
-                                    $statusClass = "my-order-verifying";
-                                }
-                                elseif ($status == 'Paid')
-                                {
-                                    $statusClass = "my-order-paid";
-                                }
-                            ?>
-                            <div class='app-td-status app-column {{ $statusClass }}'>
+                            <div class='app-td-status app-column {{ $statusClass->getStatusClass($personalOrder->getStatus()) }}'>
                                 {{ $personalOrder->getStatus() }}                            
                             </div>
                             <div class='app-spacer'></div>

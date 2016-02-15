@@ -178,11 +178,11 @@ input.app-remove, input.app-show {
 }
 
 .app-td-store {
-    width: 20%;
+    width: 15%;
 }
 
 .app-td-persons {
-    width: 50%;
+    width: 30%;
 }
 
 .app-td-tag {
@@ -375,6 +375,7 @@ input.app-remove, input.app-show {
 
     .app-td-price {
         width: 100%;
+        text-align: left;
     }
 }
 
