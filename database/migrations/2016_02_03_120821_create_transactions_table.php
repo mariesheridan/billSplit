@@ -17,6 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('date', 10);
             $table->string('store');
+            $table->string('status')->default('Unpaid');
             $table->timestamps();
         });
 

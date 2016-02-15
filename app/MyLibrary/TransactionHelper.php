@@ -20,6 +20,12 @@ class TransactionHelper
         $this->transaction = Transaction::find($id); 
     }
 
+    public function getTransaction($id)
+    {
+        $this->setId($id);
+        return $this;
+    }
+
     public function getTotal()
     {
         $items = $this->transaction->items;

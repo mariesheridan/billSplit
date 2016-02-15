@@ -6,6 +6,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 
 use App\MyLibrary\SessionDetails;
+use App\MyLibrary\TransactionHelper;
 use App\Transaction;
 use App\Person;
 use Auth;
@@ -32,8 +33,11 @@ class HomeController extends Controller
     public function index()
     {
         SessionDetails::forget();
-        $transactions = Transaction::where('user_id', '=', 
-                        Auth::user()->id)->orderBy('date', 'desc')->simplePaginate(5);
+
+        $this->updateStatusInTransactionsTable();
+        $transactions = Transaction::where('user_id', '=', Auth::user()->id)
+                        ->orderByRaw("CASE status WHEN 'Verifying' THEN 0 WHEN 'Unpaid' THEN 1 WHEN 'Paid' THEN 2 ELSE status END")
+                        ->orderBy('date', 'desc')->simplePaginate(5);
 
         // This is important, so that transaction id will not be shown in the URL
         $tempIds = array();
@@ -50,6 +54,7 @@ class HomeController extends Controller
                       $query->where('user_id', '=', Auth::user()->id);
                })
                ->where('user_id', '!=', Auth::user()->id)
+               ->orderByRaw("CASE status WHEN 'Unpaid' THEN 0 WHEN 'Verifying' THEN 1 WHEN 'Paid' THEN 2 ELSE status END")
                ->orderBy('date', 'desc')
                ->simplePaginate(5);
 
@@ -71,6 +76,18 @@ class HomeController extends Controller
         {
             $person->user_id = Auth::user()->id;
             $person->save();
+        }
+    }
+
+    public function updateStatusInTransactionsTable()
+    {
+        $transactions = Transaction::where('user_id', '=', Auth::user()->id)->get();
+        foreach ($transactions as $transaction)
+        {
+            $helper = new TransactionHelper();
+            $status = $helper->getTransaction($transaction->id)->getStatus();
+            $transaction->status = $status;
+            $transaction->save();
         }
     }
 
