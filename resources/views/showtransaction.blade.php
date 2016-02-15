@@ -50,11 +50,20 @@
                     <div class="app-spacer"></div>
                     @foreach ($dbTransaction->persons as $person)
                         @if ($person->user_id == Auth::user()->id)
-                            <div class='person-summary my-order'>
+                        <div class='person-summary my-order'>
                         @else
-                            <div class='person-summary'>
+                        <div class='person-summary'>
                         @endif
-                            <h4>{{ $person->name }}</h4>
+                            <div class="order-header">
+                                <div class="person-header"><h4>{{ $person->name }}</h4></div>
+                                @if ( $person->user_id == Auth::user()->id )
+                                <div class="person-status">
+                                    <div class="status">{{ $person->status }}</div>
+                                    <div class="status">Pay</div>
+                                </div>
+                                <div class="clear-both"></div>
+                                @endif
+                            </div>
                             <div class='app-line-space'></div>
                             <div class='app-line'></div>
                             <div class='app-line-space'></div>

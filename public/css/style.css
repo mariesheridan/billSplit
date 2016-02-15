@@ -241,6 +241,28 @@ input.app-remove, input.app-show {
     background-color: #b3ffd9;
 }
 
+.order-header {
+    /*display: inline-flex;*/
+}
+
+.person-header {
+    display: inline-block;
+    height: 100%;
+    width: 60%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.person-status {
+    display: inline-block;
+    float: right;
+}
+
+.status {
+    clear: both;
+    float: right;
+}
+
 @media screen and (max-width: 430px) {
     input.app-remove, input.app-show{
         margin-left: 30px;

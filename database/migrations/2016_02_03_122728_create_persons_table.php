@@ -18,6 +18,7 @@ class CreatePersonsTable extends Migration
             $table->integer('transaction_id')->unsigned();
             $table->string('name');
             $table->string('email');
+            $table->string('status')->default('Unpaid');
             $table->timestamps();
         });
 
