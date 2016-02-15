@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 function showItemSummary(divId, itemsObject, totalPrice, serviceCharge)
 {
-    var appendValue = "<div id='summary-block'>";
+    var appendValue = "<div class='summary-block'>";
     appendValue += divForHeader('Overview');
     appendValue += divForLine();
     for (iter in itemsObject)
@@ -21,6 +21,7 @@ function showItemSummary(divId, itemsObject, totalPrice, serviceCharge)
     appendValue += divForServiceCharge('', serviceCharge, false);
     appendValue += divForLine();
     appendValue += divForTotal(totalPrice + serviceCharge, false);
+    appendValue += divForClearBoth();
 
     appendValue += "</div>";
 

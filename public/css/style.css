@@ -117,7 +117,7 @@ input.app-remove, input.app-show {
 }
 
 .summary-item-price {
-    float: left;
+    float: right;
     width: 50px;
     text-align: right;
     vertical-align: middle;
@@ -237,30 +237,62 @@ input.app-remove, input.app-show {
     float: left;
 }
 
-.my-order {
+.my-order-unpaid {
+    background-color: #ff99e6;
+}
+
+.my-order-verifying {
+    background-color: #ffff99;
+}
+
+.my-order-paid {
     background-color: #b3ffd9;
 }
 
 .order-header {
-    /*display: inline-flex;*/
+    display: flex;
+    flex-direction: row;
+    -webkit-justify-content: space-between;;
+            justify-content: space-between;
+    align-items: center;
 }
 
 .person-header {
+    /*
     display: inline-block;
     height: 100%;
     width: 60%;
     margin-top: auto;
     margin-bottom: auto;
+    */
+    width: 60%;
 }
 
 .person-status {
+    /*
     display: inline-block;
+    height: 100%;
     float: right;
+    margin-top: auto;
+    margin-bottom: auto;
+    */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
 }
 
-.status {
-    clear: both;
-    float: right;
+.status-value {
+    align-self: flex-start;
+}
+
+.status-action {
+    align-self: flex-end;
+}
+
+.summary-block {
+    width: 300px;
+    padding: 10px;
 }
 
 @media screen and (max-width: 430px) {

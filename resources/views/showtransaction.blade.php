@@ -19,7 +19,7 @@
                     </h4>
                     <div class="app-spacer"></div>
                     <div id="app-summary">
-                        <div id='summary-block'>
+                        <div class='summary-block'>
                             <h4>Overview</h4>
                             <div class='app-line-space'></div>
                             <div class='app-line'></div>
@@ -45,12 +45,21 @@
                                 <div class='summary-item-name'>Total</div>
                                 <div class='summary-item-price'>{{ number_format($items->getTotal(), 2) }}</div>
                             </strong></div>
+                            <div class='clear-both'></div>
                         </div>
                     </div>
                     <div class="app-spacer"></div>
                     @foreach ($dbTransaction->persons as $person)
                         @if ($person->user_id == Auth::user()->id)
-                        <div class='person-summary my-order'>
+                            @if ($person->status == "Unpaid")
+                        <div class='person-summary my-order-unpaid'>
+                            @elseif ($person->status == "Verifying")
+                        <div class='person-summary my-order-verifying'>
+                            @elseif ($person->status == "Paid")
+                        <div class='person-summary my-order-paid'>
+                            @else
+                        <div class='person-summary'>   
+                            @endif
                         @else
                         <div class='person-summary'>
                         @endif
@@ -58,10 +67,11 @@
                                 <div class="person-header"><h4>{{ $person->name }}</h4></div>
                                 @if ( $person->user_id == Auth::user()->id )
                                 <div class="person-status">
-                                    <div class="status">{{ $person->status }}</div>
-                                    <div class="status">Pay</div>
+                                    <div class="status-value">{{ $person->status }}</div>
+                                    @if ($person->status == "Unpaid")
+                                    <div class="status-action">Pay</div>
+                                    @endif
                                 </div>
-                                <div class="clear-both"></div>
                                 @endif
                             </div>
                             <div class='app-line-space'></div>
