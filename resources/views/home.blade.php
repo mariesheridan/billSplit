@@ -34,7 +34,7 @@
                                 {{ number_format($transactionHelper->getTotal(), 2) }}
                             </div>
                             <div class='app-td-status app-column {{ $statusClass->getStatusClass($transactionHelper->getStatus()) }}'>
-                                {{ $transactionHelper->getStatus() }}                            
+                                {{ $transaction->status }}                            
                             </div>
                             <div class='app-column'>
                                 <div class="app-td-tag">{!! HTML::linkRoute('tag', 'Tag', $tempIds[$transaction->id]) !!}</div>
