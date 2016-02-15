@@ -1,13 +1,20 @@
 @foreach ($dbTransaction->persons as $person)
-    @if ($person->status == "Unpaid")
-    <div class='person-summary my-order-unpaid'>
-    @elseif ($person->status == "Verifying")
-    <div class='person-summary my-order-verifying'>
-    @elseif ($person->status == "Paid")
-    <div class='person-summary my-order-paid'>
-    @else
-    <div class='person-summary'>   
-        @endif
+     <?php 
+        $statusClass = "";
+        if ($person->status == 'Unpaid')
+        {
+            $statusClass = "my-order-unpaid";
+        }
+        elseif ($person->status == "Verifying")
+        {
+            $statusClass = "my-order-verifying";
+        }
+        elseif ($person->status == 'Paid')
+        {
+            $statusClass = "my-order-paid";
+        }
+    ?>
+    <div class='person-summary {{ $statusClass }}'>
         <div class="order-header">
             <div class="person-header"><h4>{{ $person->name }}</h4></div>
             <div class="person-status">
