@@ -44,5 +44,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/save_the_tag', 'TagController@save');
     Route::post('/save_new_transaction', 'SaveNewTransactionController@update');
     Route::post('/setVerifying', 'PersonStatusController@setVerifying');
+    Route::post('/setUnpaid', 'PersonStatusController@setUnpaid');
+    Route::post('/setPaid', 'PersonStatusController@setPaid');
     Route::resource('transactions', 'TransactionController');
 });

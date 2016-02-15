@@ -28,6 +28,39 @@ class PersonStatusController extends Controller
             $person->save();
         }
 
+        return redirect()->route('transactions.show', array('id' => $this->getTempId()));
+    }
+
+    public function setUnpaid(Request $request)
+    {
+        $id = $request->input("person_id");
+
+        $person = Person::find($id);
+        if ($person)
+        {
+            $person->status = "Unpaid";
+            $person->save();
+        }
+
+        return redirect()->route('transactions.show', array('id' => $this->getTempId()));
+    }
+
+    public function setPaid(Request $request)
+    {
+        $id = $request->input("person_id");
+
+        $person = Person::find($id);
+        if ($person)
+        {
+            $person->status = "Paid";
+            $person->save();
+        }
+
+        return redirect()->route('transactions.show', array('id' => $this->getTempId()));
+    }
+
+    public function getTempId()
+    {
         $transactionId = Session::get('transactionId', 0);
 
         // This is necessary because of the workaround for hiding the real transaction ID in URL
@@ -39,6 +72,6 @@ class PersonStatusController extends Controller
             $tempId = $tempIds[$transactionId];
         }
 
-        return redirect()->route('transactions.show', array('id' => $tempId));
+        return $tempId;
     }
 }
