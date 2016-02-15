@@ -76,7 +76,7 @@
                                 {{ number_format($personalOrder->getTotal(), 2) }}
                             </div>
                             <div class='app-td-status app-column {{ $statusClass->getStatusClass($personalOrder->getStatus()) }}'>
-                                {{ $payable->status }}                            
+                                {{ $personalOrder->getStatus() }}                            
                             </div>
                             <div class='app-spacer'></div>
                         </div>
