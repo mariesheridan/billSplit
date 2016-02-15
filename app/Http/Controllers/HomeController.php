@@ -37,7 +37,7 @@ class HomeController extends Controller
         $this->updateStatusInTransactionsTable();
         $transactions = Transaction::where('user_id', '=', Auth::user()->id)
                         ->orderByRaw("CASE status WHEN 'Verifying' THEN 0 WHEN 'Unpaid' THEN 1 WHEN 'Paid' THEN 2 ELSE status END")
-                        ->orderBy('date', 'desc')->simplePaginate(5);
+                        ->orderBy('date', 'desc')->paginate(5);
 
         // This is important, so that transaction id will not be shown in the URL
         $tempIds = array();
