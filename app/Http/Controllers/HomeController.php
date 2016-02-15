@@ -34,7 +34,10 @@ class HomeController extends Controller
     {
         SessionDetails::forget();
 
-        $this->updateStatusInTransactionsTable();
+        $this->updateStatusOfReceivables();
+        $this->updateStatusOfPayables();
+        $this->updateUserIdInPersonsTable();
+
         $transactions = Transaction::where('user_id', '=', Auth::user()->id)
                         ->orderByRaw("CASE status WHEN 'Verifying' THEN 0 WHEN 'Unpaid' THEN 1 WHEN 'Paid' THEN 2 ELSE status END")
                         ->orderBy('date', 'desc')->paginate(5);
@@ -47,8 +50,6 @@ class HomeController extends Controller
             $counter++;
             $tempIds[$trans->id] = $counter;
         }
-
-        $this->updateUserIdInPersonsTable();
 
         $payables = Transaction::whereHas('persons', function($query){ 
                       $query->where('user_id', '=', Auth::user()->id);
@@ -79,7 +80,7 @@ class HomeController extends Controller
         }
     }
 
-    public function updateStatusInTransactionsTable()
+    public function updateStatusOfReceivables()
     {
         $transactions = Transaction::where('user_id', '=', Auth::user()->id)->get();
         foreach ($transactions as $transaction)
@@ -89,6 +90,20 @@ class HomeController extends Controller
             $transaction->status = $status;
             $transaction->save();
         }
+    }
+
+    public function updateStatusOfPayables()
+    {
+        $transactions = Transaction::whereHas('persons', function($query){ 
+                            $query->where('user_id', '=', Auth::user()->id);
+                        })->where('user_id', '!=', Auth::user()->id)->get();
+        foreach ($transactions as $transaction)
+        {
+            $helper = new TransactionHelper();
+            $status = $helper->getTransaction($transaction->id)->getStatus();
+            $transaction->status = $status;
+            $transaction->save();
+        }   
     }
 
     public function back()
