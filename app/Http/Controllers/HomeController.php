@@ -12,6 +12,7 @@ use App\Person;
 use Auth;
 use HTML;
 use Session;
+use DB;
 
 class HomeController extends Controller
 {
@@ -51,18 +52,17 @@ class HomeController extends Controller
             $tempIds[$trans->id] = $counter;
         }
 
-        $payables = Transaction::whereHas('persons', function($query){ 
-                      $query->where('user_id', '=', Auth::user()->id);
-               })
-               ->where('user_id', '!=', Auth::user()->id)
-               ->orderByRaw("CASE status WHEN 'Unpaid' THEN 0 WHEN 'Verifying' THEN 1 WHEN 'Paid' THEN 2 ELSE status END")
-               ->orderBy('date', 'desc')
-               ->paginate(5);
+        $payables = Person::join('transactions', DB::raw('persons.transaction_id'), '=', Db::raw('transactions.id'))
+                    ->where(DB::raw('persons.user_id'), '=', Auth::user()->id)
+                    ->where(DB::raw('transactions.user_id'), '!=', Auth::user()->id)
+                    ->orderByRaw("CASE persons.status WHEN 'Unpaid' THEN 0 WHEN 'Verifying' THEN 1 WHEN 'Paid' THEN 2 ELSE persons.status END")
+                    ->orderBy(DB::raw('transactions.date'), 'desc')
+                    ->paginate(5);
 
         foreach ($payables as $pay)
         {
             $counter++;
-            $tempIds[$pay->id] = $counter;
+            $tempIds[$pay->transaction->id] = $counter;
         }
 
         Session::set('tempIds', $tempIds);

@@ -65,14 +65,14 @@
                     @foreach ($payables->getCollection()->all() as $payable)
                         <div class='app-tr'>
                             <div class='app-td-date app-column'>
-                                {{ $payable->date }}
+                                {{ $payable->transaction->date }}
                             </div>
                             <div class='app-td-store app-column'>
-                                {!! HTML::linkRoute('transactions.show', $payable->store, $tempIds[$payable->id]) !!}
+                                {!! HTML::linkRoute('transactions.show', $payable->transaction->store, $tempIds[$payable->transaction->id]) !!}
                             </div>
-                            <div class='app-td-pay-to app-column'>Pay to: {!! $payable->user->name !!}</div>
+                            <div class='app-td-pay-to app-column'>Pay to: {!! $payable->transaction->user->name !!}</div>
                             <div class='app-td-price app-column'>
-                                {!! $personalOrder->setUserId($payable->id, Auth::user()->id) !!}
+                                {!! $personalOrder->setUserId($payable->transaction->id, Auth::user()->id) !!}
                                 {{ number_format($personalOrder->getTotal(), 2) }}
                             </div>
                             <div class='app-td-status app-column {{ $statusClass->getStatusClass($personalOrder->getStatus()) }}'>
