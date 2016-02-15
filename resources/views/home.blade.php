@@ -30,8 +30,7 @@
                                 ?>
                             </div>
                             <div class='app-td-price app-column'>
-                                {!! $transactionHelper->setId($transaction->id) !!}
-                                {{ number_format($transactionHelper->getTotal(), 2) }}
+                                {{ number_format($transactionHelper->getTransaction($transaction->id)->getTotal(), 2) }}
                             </div>
                             <div class='app-td-status app-column {{ $statusClass->getStatusClass($transactionHelper->getStatus()) }}'>
                                 {{ $transaction->status }}                            
