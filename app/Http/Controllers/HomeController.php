@@ -50,7 +50,7 @@ class HomeController extends Controller
                       $query->where('user_id', '=', Auth::user()->id);
                })
                ->where('user_id', '!=', Auth::user()->id)
-               ->orderBy('date')
+               ->orderBy('date', 'desc')
                ->simplePaginate(5);
 
         foreach ($payables as $pay)
