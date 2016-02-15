@@ -57,7 +57,7 @@ class TransactionController extends Controller
     public function show($id)
     {
         $tempIds = array_flip(Session::get('tempIds', array()));
-        //$transaction = Transaction::find($tempIds[$id]);
+
         if ($id > count($tempIds))
         {
             return view('transactionnotfound');
@@ -71,13 +71,10 @@ class TransactionController extends Controller
         $items = $transaction->getItems()->toJSObject();
         $itemNames = "[]";
         $dbTransaction = Transaction::find($tempIds[$id]);
-        return view('showtransaction', array(//'store' => $store,
-                                     //'date' => $date,
-                                     //'svcCharge' => $svcCharge,
-                                     //'persons' => $persons,
-                                     //'items' => $items,
-                                     //'itemNames' => $itemNames,
-                                     'dbTransaction' => $dbTransaction));
+
+        Session::set('transactionId', $transaction->getId());
+
+        return view('showtransaction', array('dbTransaction' => $dbTransaction));
     }
 
     /**

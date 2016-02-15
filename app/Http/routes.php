@@ -43,5 +43,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/tag/{id}', ['as' => 'tag', 'uses' => 'TagController@index']);
     Route::post('/save_the_tag', 'TagController@save');
     Route::post('/save_new_transaction', 'SaveNewTransactionController@update');
+    Route::post('/setVerifying', 'PersonStatusController@setVerifying');
     Route::resource('transactions', 'TransactionController');
 });

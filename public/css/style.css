@@ -295,6 +295,20 @@ input.app-remove, input.app-show {
     padding: 10px;
 }
 
+.text_submit {
+    vertical-align: bottom;
+    background-color: transparent;
+    overflow: visible;
+    font-size: 1em;
+    display: inline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid blue; 
+    color: blue; 
+    cursor: pointer;"
+}
+
 @media screen and (max-width: 430px) {
     input.app-remove, input.app-show{
         margin-left: 30px;

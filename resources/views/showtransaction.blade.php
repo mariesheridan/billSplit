@@ -69,7 +69,13 @@
                                 <div class="person-status">
                                     <div class="status-value">{{ $person->status }}</div>
                                     @if ($person->status == "Unpaid")
-                                    <div class="status-action">Pay</div>
+                                    <div class="status-action">
+                                        <form action="/setVerifying" method="POST">
+                                            <input type="hidden" name="person_id" value={{ $person->id }}>
+                                            <input type="hidden" name="_token" value={{ csrf_token() }}>
+                                            <input type="submit" value="Pay" class="text_submit">
+                                        </form>
+                                    </div>
                                     @endif
                                 </div>
                                 @endif

@@ -30,6 +30,11 @@ class TransactionDetails
         return $this->transaction->date;
     }
 
+    public function getId()
+    {
+        return $this->transaction->id;
+    }
+
     public function getSvcCharge()
     {
         $svcCharge = Item::forTransaction($this->id)->svcCharge()->first();
