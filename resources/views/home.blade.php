@@ -65,7 +65,26 @@
                             <div class='app-td-pay-to app-column'>Pay to: {!! $payable->user->name !!}</div>
                             <div class='app-td-price app-column'>
                                 {!! $personalOrder->setUserId($payable->id, Auth::user()->id) !!}
-                                {{ $personalOrder->getTotal() }}
+                                {{ number_format($personalOrder->getTotal(), 2) }}
+                            </div>
+                            <?php 
+                                $status = $personalOrder->getStatus();
+                                $statusClass = "";
+                                if ($status == 'Unpaid')
+                                {
+                                    $statusClass = "my-order-unpaid";
+                                }
+                                elseif ($status == "Verifying")
+                                {
+                                    $statusClass = "my-order-verifying";
+                                }
+                                elseif ($status == 'Paid')
+                                {
+                                    $statusClass = "my-order-paid";
+                                }
+                            ?>
+                            <div class='app-td-status app-column {{ $statusClass }}'>
+                                {{ $personalOrder->getStatus() }}                            
                             </div>
                             <div class='app-spacer'></div>
                         </div>

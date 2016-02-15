@@ -70,4 +70,9 @@ class PersonalOrders
         }
         return $svcCharge;
     }
+
+    public function getStatus()
+    {
+        return $this->orders->first()->person->status;
+    }
 }

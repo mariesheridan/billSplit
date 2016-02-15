@@ -195,7 +195,8 @@ input.app-remove, input.app-show {
 }
 
 .app-td-price {
-    width: 5%;
+    width: 10%;
+    text-align: right;
 }
 
 .myButton {
@@ -308,6 +309,14 @@ input.app-remove, input.app-show {
     border-bottom: 1px solid blue; 
     color: blue; 
     cursor: pointer;"
+}
+
+.app-td-status {
+    width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 @media screen and (max-width: 430px) {
