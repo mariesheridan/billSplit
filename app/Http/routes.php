@@ -47,4 +47,5 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/setUnpaid', 'PersonStatusController@setUnpaid');
     Route::post('/setPaid', 'PersonStatusController@setPaid');
     Route::resource('transactions', 'TransactionController');
+    Route::resource('/tutorial', 'TutorialController@index');
 });

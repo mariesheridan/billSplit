@@ -321,6 +321,63 @@ input.app-remove, input.app-show {
     text-transform: uppercase;
 }
 
+#tutorial01 {
+    width: 100%;
+    max-width: 100%;
+    content: url('../img/Tutorial01.PNG');
+}
+
+#tutorial02 {
+    width: 100%;
+    max-width: 100%;
+    content: url('../img/Tutorial02.PNG');
+}
+
+#tutorial03 {
+    max-width: 100%;
+    content: url('../img/Tutorial03.PNG');
+}
+
+#tutorial04 {
+    max-width: 100%;
+    content: url('../img/Tutorial04.PNG');
+}
+
+#tutorial05 {
+    max-width: 100%;
+    content: url('../img/Tutorial05.PNG');
+}
+
+#tutorial06 {
+    max-width: 100%;
+    content: url('../img/Tutorial06.PNG');
+}
+
+#tutorial07 {
+    max-width: 100%;
+    content: url('../img/Tutorial07.PNG');
+}
+
+#tutorial08 {
+    max-width: 100%;
+    content: url('../img/Tutorial08.PNG');
+}
+
+#tutorial09 {
+    max-width: 100%;
+    content: url('../img/Tutorial09.PNG');
+}
+
+#tutorial10 {
+    max-width: 100%;
+    content: url('../img/Tutorial10.PNG');
+}
+
+#tutorial11 {
+    max-width: 100%;
+    content: url('../img/Tutorial11.PNG');
+}
+
 @media screen and (max-width: 430px) {
     input.app-remove, input.app-show{
         margin-left: 30px;

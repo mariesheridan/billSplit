@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Dutch Treat Calculator</title>
+    <title>Bill Split</title>
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
@@ -43,7 +43,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Dutch Treat Calculator
+                    Bill Split
                 </a>
             </div>
 
@@ -54,6 +54,7 @@
                         <li><a href="{{ url('/home') }}">Home</a></li>
                         <li><a href="{{ url('/create_transaction') }}">Create</a></li>
                     @endif
+                    <li><a href="{{ url('/tutorial') }}", target="_blank">Tutorial</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
