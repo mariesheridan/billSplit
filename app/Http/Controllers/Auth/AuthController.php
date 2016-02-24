@@ -91,4 +91,19 @@ class AuthController extends Controller
 
         return redirect($this->redirectPath());
     }
+
+    /**
+     * Overridden from Illuminate\Foundation\Auth\AuthenticateUsers.php
+     */
+    protected function getCredentials(Request $request)
+    {
+        $usernameLabel = $this->loginUsername();
+        $credentials = array();
+        $credentials[$usernameLabel] = $request[$usernameLabel];
+        $credentials['password'] = $request['password'];
+        $credentials['confirmed'] = 1;
+        return $credentials;
+    }
+
+
 }
