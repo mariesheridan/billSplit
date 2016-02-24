@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Session;
+use App\User;
 
 class ValidateEmailController extends Controller
 {
@@ -23,9 +24,9 @@ class ValidateEmailController extends Controller
     {
         $message = "";
         $user = User::withConfirmationCode($confirmationCode)->first();
-        if (!user)
+        if (!$user)
         {
-            $message = "Sorry, wrong verification link!"
+            $message = "Sorry, wrong verification link!";
         }
         else
         {
