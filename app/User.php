@@ -38,4 +38,9 @@ class User extends Authenticatable
     {
         return $query->where('email', $email);
     }
+
+    public function scopeWithConfirmationCode($query, $confirmationCode)
+    {
+        return $query->where('confirmation_code', $confirmationCode);
+    }
 }
