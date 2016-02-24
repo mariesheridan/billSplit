@@ -8,6 +8,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
+use Session;
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
+use Mail;
+
 class AuthController extends Controller
 {
     /*
@@ -56,17 +62,33 @@ class AuthController extends Controller
     }
 
     /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
+     * Overridden from Illuminate\Foundation\Auth\RegisterUsers.php
      */
-    protected function create(array $data)
+    public function register(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+        $this->redirectPath = 'verificationemailsent';
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        Session::set('verifyEmail', $request['email']);
+        $code = str_random(15);
+        User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+            'confirmation_code' => $code,
         ]);
+
+        Mail::send('auth.emails.verify', array('confirmation_code' => $code), function($message) use ($request) {
+            $message->from('noreply@billsplit.mstuazon.com', 'BillSplit');
+            $message->to($request['email'], $request['name'])->subject('Verify your email address');
+        });
+
+        return redirect($this->redirectPath());
     }
 }
