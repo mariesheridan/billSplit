@@ -236,6 +236,7 @@ input.app-remove, input.app-show {
 
 .tag-email {
     float: left;
+    margin-right: 10px;
 }
 
 .my-order-unpaid {

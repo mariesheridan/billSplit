@@ -13,13 +13,14 @@
                         <div class="tag-block">
                             <div class='tag-person-name'>{{ $person['name'] }}</div>
                             <div class='tag-email'><input type='text' name='tag_{{$key}}' value="{{$person['email']}}"></div>
+                            <div class='app-checkbox'><input type='checkbox' name='send_{{$key}}' checked>Send Notification</div>
                             <div class='app-spacer'></div>
                         </div>
                         @endforeach
                         <div class="app-spacer"></div>
                         <input type="hidden" name="_token" value={{ csrf_token() }}>
                         <div class="app-button"><input type="submit" name="back" value="<< Back"></div>
-                        <div class="app-button"><input type="submit" name="next" value="Save"></div>
+                        <div class="app-button"><input type="submit" name="next" value="Save & Send"></div>
                     </form>
                 </div>
             </div>

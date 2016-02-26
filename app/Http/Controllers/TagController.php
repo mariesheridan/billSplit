@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Mail;
 use Session;
 use App\Transaction;
 use App\Person;
@@ -65,16 +66,31 @@ class TagController extends Controller
         $transactionId = Session::get('transactionId', 0);
         $personsWithEmail = Session::get('personsWithEmail', array());
         $transaction = Transaction::find($transactionId);
-        foreach($request->all() as $key=>$email)
+        foreach ($request->all() as $key=>$email)
         {
-            if(preg_match('/^tag_(.*)/', $key))
+            if (preg_match('/^tag_(.*)/', $key))
             {
-                $name = substr($key, strpos($key, "_") + 1);    
+                $name = substr($key, strpos($key, "_") + 1);
+                $actualName = $personsWithEmail[$name]['name'];
                 $personsWithEmail[$name]['email'] = $email;
+
+                // Send email only to entries with email addresses
+                if (($email != '') && ($request->input('send_' . $name)))
+                {
+                    $person = Person::forTransaction($transactionId)->withName($personsWithEmail[$name]['name'])->first();
+                    Mail::send('emails.personalbill', 
+                                array('dbTransaction' => $transaction, 'person' => $person), 
+                                function($message) use ($email, $actualName, $transaction) 
+                    {
+                        $message->from('noreply@billsplit.mstuazon.com', 'BillSplit');
+                        $message->to($email, $actualName)->subject('Here is you bill from ' . $transaction->store . " on " . $transaction->date);
+                    });
+                }
             }
         }
 
-        foreach($personsWithEmail as $person)
+        // Save the email to DB so when the person logs in, they will see the transaction in payables section
+        foreach ($personsWithEmail as $person)
         {
             $buyer = Person::forTransaction($transactionId)->withName($person['name'])->first();
             $user = User::withEmail($person['email'])->first();
