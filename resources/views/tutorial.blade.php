@@ -52,6 +52,7 @@
                             <li><a href="#howtoassignstatuses">How can I assign statuses to the transaction?</a></li>
                             <li><a href="#servicechargeexplained">What is the service charge?</a></li>
                             <li><a href="#taggingexplained">How does tagging work?</a></li>
+                            <li><a href="#sendingnotification">How do I an send email notification to my friends? What does the notification contain?</a></li>
                         </ol>
                     </div>
                 </div>
@@ -276,12 +277,28 @@
                         <ol>
                             <li>Click on the "Tag" link in the <i>Receivables</i> section.</li>
                             <li>Type the person's email beside their name.<div><img id="tutorial10"></div> </li>
-                            <li>Click the Save button.</li>
+                            <li>Click the Save & Send button.</li>
                         </ol>
                         <p>
                             Marie logs in with marie@yahoo.com, and she can see the transaction in her <i>Payables</i> section. When she goes to the transaction details, she can see the status of the item where she is tagged, but she won't see the status of the others.
                             <div><img id="tutorial11"></div>
                         </p>
+                        <a href="#top">Back to Top</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="sendingnotification">How do I an send email notification to my friends? What does the notification contain?</div>
+                    <div class="panel-body">
+                        <p>To send an email notification, just check the Send Notification box beside the name of the person in the Tag page, and click on Save & Send.</p>
+                        <p>The notification contains details of the transaction and to whom the person should pay the amount.</p>
+                        <div><img id="tutorial12"></div>
                         <a href="#top">Back to Top</a>
                     </div>
                 </div>
