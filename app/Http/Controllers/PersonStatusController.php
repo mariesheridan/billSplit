@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Person;
 use Session;
+use Mail;
 
 class PersonStatusController extends Controller
 {
@@ -26,6 +27,18 @@ class PersonStatusController extends Controller
         {
             $person->status = "Verifying";
             $person->save();
+
+            $email = $person->transaction->user->email;
+            $name = $person->transaction->user->name;
+            $transaction = $person->transaction;
+            $payerName = $person->name;
+            Mail::send('emails.paymentnotification', 
+                        array('person' => $person), 
+                        function($message) use ($email, $name, $transaction, $payerName) 
+            {
+                $message->from('noreply@billsplit.mstuazon.com', 'BillSplit');
+                $message->to($email, $name)->subject('Payment made by ' . $payerName . ' for transaction at ' . $transaction->store . " on " . $transaction->date);
+            });
         }
 
         return redirect()->route('transactions.show', array('id' => $this->getTempId()));

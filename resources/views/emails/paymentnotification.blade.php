@@ -72,12 +72,14 @@
 <body>
     @inject('orders', 'App\MyLibrary\PersonalOrders')
 
-    <p>Hi {{ $person->name }},</p>
+    <p>Hi {{ $person->transaction->user->name }},</p>
     <div class='app-spacer'></div>
-    <p>Here are the details of your purchase at {{ $dbTransaction->store }} on {{ $dbTransaction->date }}.</p>
+    <p>Please verify if you have received {{ $person->name }}'s payment for the transaction at {{ $person->transaction->store }} on {{ $person->transaction->date }}.</p>
+    <div class='app-spacer'></div>
+    <p>Here are the details for {{ $person->name }}'s purchase:</p>
     <div class='app-spacer'></div>
     <div class='person-summary'>
-        {!! $orders->setPersonId($dbTransaction->id, $person->id) !!}
+        {!! $orders->setPersonId($person->transaction->id, $person->id) !!}
         @foreach ($orders->getOrders() as $order)
             <div class='summary-item-block'>
                 <div class='summary-item-name'>{{ $order->item->name }}</div>
@@ -106,18 +108,9 @@
     </div>
     <div class='app-spacer'></div>
 
-    <p>Your status:  {{ $person->status }}</p>
+    <p>Once verified, please set the status as Paid in you Receivables section in the Bill Split app. Thank you!</p>
     <div class='app-spacer'></div>
-    @if ($person->status == 'Unpaid')
-        <p>Please pay this amount to {{ $dbTransaction->user->name }}. Thank you!</p>
-    @elseif ($person->status == 'Verifying')
-        <p>Your payment is being verified by {{ $dbTransaction->user->name }}. Thank you!</p>
-    @elseif ($person->status == 'Paid')
-        <p>Your payment has been received by {{ $dbTransaction->user->name }}. Thank you!</p>
-    @endif
-
-    <div class='app-spacer'></div>
-    <p>To access your payables, go to: <a href="{{ $link = url('login') }}"> {{ $link }} </a></p>
+    <p>Go to: <a href="{{ $link = url('login') }}"> {{ $link }} </a></p>
 
 </body>
 </html>
