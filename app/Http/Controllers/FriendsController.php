@@ -65,7 +65,7 @@ class FriendsController extends Controller
         return redirect()->route('friends_list');
     }
 
-    public function include(Request $request)
+    public function includeFriend(Request $request)
     {
         $persons = new PersonListBuilder;
         $persons->copyArrayWithEmail(Session::get('persons', array()));
