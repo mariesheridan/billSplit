@@ -102,6 +102,12 @@ class FriendsController extends Controller
             }
         }
 
+        $email = $request->input('friendemail');
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+        {
+            $friendsError = "Invalid email format!"; 
+        }
+
         if ($friendsError == "")
         {
             $friend = new Friend();
