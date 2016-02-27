@@ -329,6 +329,11 @@ input.app-remove, input.app-show {
     justify-content: flex-start;
     align-items: center;
     align-content: center;
+    height: 2em;
+}
+
+.friend-num {
+    width: 30px;
 }
 
 .friend-name {
@@ -337,6 +342,10 @@ input.app-remove, input.app-show {
 
 .friend-email {
     width: 30%;
+}
+
+.collapsing-spacer {
+    height: 0;
 }
 
 #tutorial01 {
@@ -458,6 +467,32 @@ input.app-remove, input.app-show {
     .app-td-price {
         width: 100%;
         text-align: left;
+    }
+
+    .friend {
+        display: inline-block;
+    }
+
+    .friend-num {
+        float: left;
+    }
+
+    .friend-name {
+        float: left;
+    }
+
+    .friend-email {
+        clear: both;
+        width: 100%;
+    }
+
+    .friend-delete {
+        clear: both;
+    }
+
+    .collapsing-spacer {
+        clear: both;
+        height: 10px;
     }
 }
 

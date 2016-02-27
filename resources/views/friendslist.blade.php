@@ -38,10 +38,11 @@
                         @foreach ($friends->getCollection()->all() as $friend)
                             <?php $counter += 1; ?>
                             <div class='friend'>
-                                <div class='app-label'>{{ $counter }}.</div>
-                                <div class='friend-name app-column'>{{ $friend->name }}</div>
-                                <div class='friend-email app-column'>{{ $friend->email }}</div>
-                                <div class="app-td-tag">{!! HTML::linkRoute('delete_friend', 'Delete', $tempFriendsIds[$friend->id]) !!}</div>
+                                <div class='friend-num'>{{ $counter }}.</div>
+                                <div class='friend-name'>{{ $friend->name }}</div>
+                                <div class='friend-email'>{{ $friend->email }}</div>
+                                <div class="friend-delete">{!! HTML::linkRoute('delete_friend', 'Delete', $tempFriendsIds[$friend->id]) !!}</div>
+                                <div class="collapsing-spacer">&nbsp</div>
                             </div>
                         @endforeach
                         @if ($friends->getCollection()->count() == 0)
