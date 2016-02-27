@@ -64,20 +64,20 @@ class FriendsController extends Controller
     public function include(Request $request)
     {
         $persons = new PersonListBuilder;
-        $savedPersons = Session::get('persons', array());
+        $persons->copyArrayWithEmail(Session::get('persons', array()));
         foreach ($request->all() as $key=>$friendIds)
         {
             if (preg_match('/^friends$/', $key))
             {
-                echo $key . "<br>";
                 foreach ($friendIds as $friendId)
                 {
-                    echo $friendId . "<br>";
+                    $friend = Friend::find($friendId);
+                    $persons->addWithEmail($friend->name, $friend->email);                    
                 }
             }
         }
 
-
+        Session::set('persons', $persons->getEmailArray());
 
         return redirect()->route('create_persons');
     }

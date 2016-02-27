@@ -21,16 +21,17 @@ class UpdatePersonsController extends Controller
     public function update(Request $request)    
     {
         $persons = new PersonListBuilder;
+        $savedPersons = new PersonListBuilder;
+        $savedPersons->copyArrayWithEmail(Session::get('persons', array()));
         foreach($request->all() as $key=>$person)
         {
             if(preg_match('/^person[\d]+/', $key))
             {
-                $persons->add($person);
+                $persons->addWithEmail($person, $savedPersons->getEmail($person));
             }
         }
 
-        Session::forget('persons');
-        Session::set('persons', $persons->getArray());
+        Session::set('persons', $persons->getEmailArray());
 
         if ($request->__get('next'))
         {

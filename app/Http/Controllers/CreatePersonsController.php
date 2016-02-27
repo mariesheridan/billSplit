@@ -22,11 +22,9 @@ class CreatePersonsController extends Controller
     public function index(){
         $store = Session::get('store');
         $date = Session::get('date');
-        //$persons = Session::get('persons', array());
-        //$personsJSObject = JSConverter::toJSObject($persons);
         $persons = new PersonListBuilder;
         $persons->copyArrayWithEmail(Session::get('persons', array()));
-        $personsJSObject = $persons->toJSObject();
+        $personsJSObject = $persons->namesToJSObject();
         return view('createpersons', array('store' => $store, 'date' => $date, 'persons' => $personsJSObject));
     }
 }

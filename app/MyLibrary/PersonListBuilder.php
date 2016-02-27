@@ -6,7 +6,6 @@ use App\MyLibrary\JSConverter;
 
 class PersonListBuilder
 {
-    private $persons = array();
     private $personsWithEmail = array();
 
     public function __construct()
@@ -14,30 +13,20 @@ class PersonListBuilder
 
     }
 
-    public function add($name)
-    {
-        $key = $this->removeSpaces($name);
-        $this->persons[$key] = $name;
-        asort($this->persons);
-    }
-
-    public function getArray()
-    {
-        return $this->persons;
-    }
-
     public function copyArrayWithEmail($arrayWithEmail)
     {
         $this->personsWithEmail = $arrayWithEmail;
-        foreach ($arrayWithEmail as $person)
-        {
-                $this->add($person['name']);
-        }
+        asort($this->personsWithEmail);
     }
 
-    public function toJSObject()
+    public function namesToJSObject()
     {
-        return JSConverter::toJSObject($this->persons);
+        $persons = array();
+        foreach ($this->personsWithEmail as $key => $person)
+        {
+            $persons[$key] = $person['name'];
+        }
+        return JSConverter::toJSObject($persons);
     }
 
     public function addWithEmail($name, $email)
@@ -51,6 +40,17 @@ class PersonListBuilder
     public function getEmailArray()
     {
         return $this->personsWithEmail;
+    }
+
+    public function getEmail($name)
+    {
+        $email = '';
+        $key = $this->removeSpaces($name);
+        if (array_key_exists($key, $this->personsWithEmail))
+        {
+            $email = $this->personsWithEmail[$key];
+        }
+        return $email;
     }
 
     public function removeSpaces($string)
