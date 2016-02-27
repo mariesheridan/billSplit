@@ -26,6 +26,15 @@ class PersonListBuilder
         return $this->persons;
     }
 
+    public function copyArrayWithEmail($arrayWithEmail)
+    {
+        $this->personsWithEmail = $arrayWithEmail;
+        foreach ($arrayWithEmail as $person)
+        {
+                $this->add($person['name']);
+        }
+    }
+
     public function toJSObject()
     {
         return JSConverter::toJSObject($this->persons);

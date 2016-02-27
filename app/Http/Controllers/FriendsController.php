@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Session;
 use App\Friend;
+use App\MyLibrary\PersonListBuilder;
 
 class FriendsController extends Controller
 {
@@ -62,13 +63,21 @@ class FriendsController extends Controller
 
     public function include(Request $request)
     {
-        foreach ($request->all() as $key=>$checkedFriend)
+        $persons = new PersonListBuilder;
+        $savedPersons = Session::get('persons', array());
+        foreach ($request->all() as $key=>$friendIds)
         {
-            if (preg_match('/^friend_(.*)/', $key))
+            if (preg_match('/^friends$/', $key))
             {
                 echo $key . "<br>";
+                foreach ($friendIds as $friendId)
+                {
+                    echo $friendId . "<br>";
+                }
             }
         }
+
+
 
         return redirect()->route('create_persons');
     }

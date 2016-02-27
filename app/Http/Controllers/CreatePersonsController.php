@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
-use App\Transaction;
-use App\MyLibrary\JSConverter;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
+use Session;
+use App\Transaction;
+use App\MyLibrary\JSConverter;
+use App\MyLibrary\PersonListBuilder;
 
 class CreatePersonsController extends Controller
 {
@@ -20,8 +22,11 @@ class CreatePersonsController extends Controller
     public function index(){
         $store = Session::get('store');
         $date = Session::get('date');
-        $persons = Session::get('persons', array());
-        $personsJSObject = JSConverter::toJSObject($persons);
+        //$persons = Session::get('persons', array());
+        //$personsJSObject = JSConverter::toJSObject($persons);
+        $persons = new PersonListBuilder;
+        $persons->copyArrayWithEmail(Session::get('persons', array()));
+        $personsJSObject = $persons->toJSObject();
         return view('createpersons', array('store' => $store, 'date' => $date, 'persons' => $personsJSObject));
     }
 }

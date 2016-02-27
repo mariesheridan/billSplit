@@ -96,7 +96,7 @@ class TransactionController extends Controller
         $store = $transaction->getStore();
         $date = $transaction->getDate();
         $svcCharge = $transaction->getSvcCharge();
-        $persons = $transaction->getPersonNames()->getArray();
+        $persons = $transaction->getPersonsEmailList();
         $items = $transaction->getItems()->getArray();
         $transactionId = $transaction->getTransactionId();
 

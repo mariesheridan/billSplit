@@ -12,12 +12,15 @@
                     <form id="app-form" action="include_friends" method="POST">
                         <div id="app-persons">
                             @foreach ($friends->getCollection()->all() as $friend)
-                                <div class='app-checkbox'><input type='checkbox' id='friend_{{ $friend->id }}' name='friend_{{ $friend->id }}' checked>Send Notification</div>
-                                <label for='friend_{{ $friend->id }}'>
-                                    <div class='tag-person-name'>{{ $friend->name }}</div>
-                                    <div class='tag-email'>{{ $friend->email }}</div>
-                                </label>
-                                <div class='app-spacer'></div>
+                            <div class='friend'>
+                                <span class='friend-name'>
+                                    <input type='checkbox' id='friend_{{ $friend->id }}' name='friends[]' value='{{ $friend->id }}'>
+                                    <label for='friend_{{ $friend->id }}'>
+                                        {{ $friend->name }}
+                                    </label>
+                                </span>
+                                <span class='friend-email'>{{ $friend->email }}</span>
+                            </div>
                             @endforeach
                             @if ($friends->getCollection()->count() == 0)
                                  Your friends list is still empty!
