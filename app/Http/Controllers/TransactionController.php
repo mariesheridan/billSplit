@@ -64,12 +64,6 @@ class TransactionController extends Controller
         }
         $transaction = new TransactionDetails($tempIds[$id]);
 
-        $store = $transaction->getStore();
-        $date = $transaction->getDate();
-        $svcCharge = $transaction->getSvcCharge();
-        $persons = $transaction->getPersonNames()->toJSObject();
-        $items = $transaction->getItems()->toJSObject();
-        $itemNames = "[]";
         $dbTransaction = Transaction::find($tempIds[$id]);
 
         Session::set('transactionId', $transaction->getId());

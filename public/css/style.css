@@ -38,6 +38,10 @@ input.app-remove, input.app-show {
     margin-top: 0px;
 }
 
+label {
+    font-size: 1em;
+}
+
 .app-price {
     float: left;
 }

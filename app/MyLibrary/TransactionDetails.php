@@ -42,17 +42,6 @@ class TransactionDetails
         return $svcCharge->price;
     }
 
-    public function getPersonNames()
-    {
-        $persons = $this->transaction->persons;
-        $list = new PersonListBuilder();
-        foreach ($persons as $person)
-        {
-            $list->add($person->name);
-        }
-        return $list;   
-    }
-
     public function getPersonsEmailList()
     {
         $persons = $this->transaction->persons;
