@@ -31,25 +31,41 @@ Route::group(['middleware' => 'web'], function () {
     //Route::get('/', 'WelcomeController@index');
     Route::get('/', 'HomeController@index');
     Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@index']);
+
     Route::get('/create_transaction', ['as' => 'create_transaction', 'uses' => 'CreateTransactionController@index']);
     Route::post('/update_transaction', 'UpdateTransactionController@update');
+
     Route::get('/create_persons', ['as' => 'create_persons', 'uses' => 'CreatePersonsController@index']);
     Route::post('/update_persons', 'UpdatePersonsController@update');
+
     Route::get('/create_items', ['as' => 'create_items', 'uses' => 'CreateItemsController@index']);
     Route::post('/update_items', 'UpdateItemsController@update');
+
     Route::get('/order_details', ['as' => 'order_details', 'uses' => 'OrderDetailsController@index']);
     Route::post('/update_orders', 'UpdateOrderDetailsController@update');
+
     Route::get('/summary', ['as' => 'summary', 'uses' => 'SummaryController@index']);
+
     Route::get('/tag/{id}', ['as' => 'tag', 'uses' => 'TagController@index']);
     Route::post('/save_the_tag', 'TagController@save');
+
     Route::post('/save_new_transaction', 'SaveNewTransactionController@update');
+
     Route::post('/setVerifying', 'PersonStatusController@setVerifying');
     Route::post('/setUnpaid', 'PersonStatusController@setUnpaid');
     Route::post('/setPaid', 'PersonStatusController@setPaid');
+
     Route::resource('transactions', 'TransactionController');
+
     Route::get('/tutorial', 'TutorialController@index');
+
     Route::get('/verificationemailsent', ['as' => 'verificationemailsent', 'uses' => 'ValidateEmailController@index']);
     Route::get('register/verify/{confirmationCode}', ['as' => 'confirmation_path', 'uses' => 'ValidateEmailController@confirm']);
+
     Route::get('friends_checkbox', ['as' => 'friends_checkbox', 'uses' => 'FriendsController@checkbox']);
+    Route::get('friends_list', ['as' => 'friends_list', 'uses' => 'FriendsController@view']);
     Route::post('include_friends', 'FriendsController@include');
+    Route::post('delete_friend/{id}', 'FriendsController@delete');
+    Route::post('add_friend', 'FriendsController@add');
+
 });

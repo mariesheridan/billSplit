@@ -17,6 +17,7 @@
                                     <div class='tag-person-name'>{{ $friend->name }}</div>
                                     <div class='tag-email'>{{ $friend->email }}</div>
                                 </label>
+                                <div class='app-spacer'></div>
                             @endforeach
                             @if ($friends->getCollection()->count() == 0)
                                  Your friends list is still empty!

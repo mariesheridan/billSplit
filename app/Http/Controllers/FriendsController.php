@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Auth;
+use Session;
 use App\Friend;
 
 class FriendsController extends Controller
@@ -23,6 +24,40 @@ class FriendsController extends Controller
                         ->orderBy('name', 'asc')->paginate(100);
 
         return view('friendscheckbox', array('friends' => $friends));
+    }
+
+    public function view()
+    {
+        $friends = Friend::where('user_id', '=', Auth::user()->id)
+                        ->orderBy('name', 'asc')->paginate(100);
+
+        // This is important, so that friends id will not be shown in the URL
+        $tempFriendsIds = array();
+        $counter = 0;
+        foreach ($friends as $friend)
+        {
+            $counter++;
+            $tempFriendsIds[$friend->id] = $counter;
+        }
+
+        Session::set('tempFriendsIds', $tempFriendsIds);
+
+        return view('friendslist', array('friends' => $friends, 'tempFriendsIds' => $tempFriendsIds));
+    }
+
+    public function delete($id)
+    {
+        $flippedIds = array_flip(Session::get('tempFriendsIds', array()));
+        //$transaction = Transaction::find($tempIds[$id]);
+        if ($id > count($flippedIds))
+        {
+            return view('friendnotfound');
+        }
+
+        $friend = Friend::find($flippedIds[$id]);
+        $friend->delete();
+
+        return redirect()->route('friends_list');
     }
 
     public function include(Request $request)

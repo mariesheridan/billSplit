@@ -8,7 +8,7 @@ class SessionDetails
 {
     private static $initialized = false;
     private static $sessionVars = array('store', 'date', 'persons', 'items', 
-        'svcCharge', 'tempIds', 'personsWithEmail', 'transactionId');
+        'svcCharge', 'tempIds', 'personsWithEmail', 'transactionId', 'tempFriendsIds');
 
     private function __construct() {}
 
