@@ -10,19 +10,19 @@ use App\Http\Controllers\Controller;
 use Auth;
 use App\Friend;
 
-class AddressBookController extends Controller
+class FriendsController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    public function view()
+    public function checkbox()
     {
         $friends = Friend::where('user_id', '=', Auth::user()->id)
                         ->orderBy('name', 'asc')->paginate(100);
 
-        return view('addressbook', array('friends' => $friends));
+        return view('friendscheckbox', array('friends' => $friends));
     }
 
     public function include(Request $request)
@@ -34,5 +34,7 @@ class AddressBookController extends Controller
                 echo $key . "<br>";
             }
         }
+
+        return redirect()->route('create_persons');
     }
 }

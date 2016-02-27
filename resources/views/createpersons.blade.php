@@ -18,7 +18,7 @@
                         <div class="app-spacer"></div>
                         <input type="button" id="addRow" value="Add" />
                         <div class="app-spacer"></div>
-                        <div class="app-button"><input type="submit" name="addressbook" value="Add From Address Book"></div>
+                        <div class="app-button"><input type="submit" name="addressbook" value="Add From Friends List"></div>
                         <div class="app-spacer"></div>
                         <input type="hidden" name="_token" value={{ csrf_token() }}>
                         <div class="app-button"><input type="submit" name="back" value="<< Back"></div>

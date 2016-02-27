@@ -53,6 +53,7 @@
                     @if (!Auth::guest())
                         <li><a href="{{ url('/home') }}">Home</a></li>
                         <li><a href="{{ url('/create_transaction') }}">Create</a></li>
+                        <li><a href="{{ url('/friends_list') }}">Friends</a></li>
                     @endif
                     <li><a href="{{ url('/tutorial') }}", target="_blank">Tutorial</a></li>
                 </ul>

@@ -42,7 +42,7 @@ class UpdatePersonsController extends Controller
         }
         else if ($request->__get('addressbook'))
         {
-            return redirect()->route('view_address_book');
+            return redirect()->route('friends_checkbox');
         }
         else
         {

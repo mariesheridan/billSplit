@@ -50,6 +50,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/tutorial', 'TutorialController@index');
     Route::get('/verificationemailsent', ['as' => 'verificationemailsent', 'uses' => 'ValidateEmailController@index']);
     Route::get('register/verify/{confirmationCode}', ['as' => 'confirmation_path', 'uses' => 'ValidateEmailController@confirm']);
-    Route::get('view_address_book', ['as' => 'view_address_book', 'uses' => 'AddressBookController@view']);
-    Route::post('include_friends', 'AddressBookController@include');
+    Route::get('friends_checkbox', ['as' => 'friends_checkbox', 'uses' => 'FriendsController@checkbox']);
+    Route::post('include_friends', 'FriendsController@include');
 });

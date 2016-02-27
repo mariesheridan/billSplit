@@ -19,7 +19,7 @@
                                 </label>
                             @endforeach
                             @if ($friends->getCollection()->count() == 0)
-                                 Your address book is still empty!
+                                 Your friends list is still empty!
                             @endif
                         </div>
                         <div class="app-spacer"></div>
