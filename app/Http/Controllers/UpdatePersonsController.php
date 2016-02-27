@@ -40,6 +40,10 @@ class UpdatePersonsController extends Controller
         {
             return redirect()->route('create_transaction');
         }
+        else if ($request->__get('addressbook'))
+        {
+            return redirect()->route('view_address_book');
+        }
         else
         {
             echo "Ooops.. Please go back";
