@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Session;
 use App\MyLibrary\JSConverter;
 use App\MyLibrary\ItemBuilder;
+use App\MyLibrary\PersonListBuilder;
 
 class OrderDetailsController extends Controller
 {
@@ -23,8 +24,9 @@ class OrderDetailsController extends Controller
         $store = Session::get('store', "");
         $date = Session::get('date', "");
         $svcCharge = Session::get('svcCharge', 0);
-        $persons = Session::get('persons', array());
-        $personsJSObject = JSConverter::toJSObject($persons);
+        $persons = new PersonListBuilder;
+        $persons->copyArrayWithEmail(Session::get('persons', array()));
+        $personsJSObject = $persons->namesToJSObject();
         $items = ItemBuilder::copyArray(Session::get('items', array()));
         $itemNames = $items->getKeys();
         $itemNamesJSArray = JSConverter::toJSArray($itemNames);
