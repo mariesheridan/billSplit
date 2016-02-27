@@ -10,7 +10,9 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Session;
 use App\Friend;
+use App\User;
 use App\MyLibrary\PersonListBuilder;
+use App\MyLibrary\Tools;
 
 class FriendsController extends Controller
 {
@@ -29,9 +31,9 @@ class FriendsController extends Controller
 
     public function view()
     {
+        $friendsError = Session::get('friendsError', "");
         $friends = Friend::where('user_id', '=', Auth::user()->id)
                         ->orderBy('name', 'asc')->paginate(100);
-
         // This is important, so that friends id will not be shown in the URL
         $tempFriendsIds = array();
         $counter = 0;
@@ -43,7 +45,9 @@ class FriendsController extends Controller
 
         Session::set('tempFriendsIds', $tempFriendsIds);
 
-        return view('friendslist', array('friends' => $friends, 'tempFriendsIds' => $tempFriendsIds));
+        return view('friendslist', array('friends' => $friends, 
+                                         'tempFriendsIds' => $tempFriendsIds, 
+                                         'friendsError' => $friendsError));
     }
 
     public function delete($id)
@@ -84,12 +88,30 @@ class FriendsController extends Controller
 
     public function add(Request $request)
     {
-        $friend = new Friend();
+        $name = Tools::removeSpaces($request->input('friendname'));
+        $friendsError = "";
 
-        $friend->user_id = Auth::user()->id;
-        $friend->name = $request->input('friendname');
-        $friend->email = $request->input('friendemail');
-        $friend->save();
+        $user = User::find(Auth::user()->id);
+
+        foreach ($user->friends as $friendOfUser)
+        {
+            $friendName = Tools::removeSpaces($friendOfUser->name);
+            if ($friendName == $name)
+            {
+                $friendsError = "Please use another name.";
+            }
+        }
+
+        if ($friendsError == "")
+        {
+            $friend = new Friend();
+            $friend->user_id = Auth::user()->id;
+            $friend->name = $request->input('friendname');
+            $friend->email = $request->input('friendemail');
+            $friend->save();
+        }
+
+        Session::set('friendsError', $friendsError);
 
         return redirect()->route('friends_list');
     }

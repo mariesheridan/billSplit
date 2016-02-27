@@ -16,6 +16,10 @@
                         <div class="app-label-word">Email</div>
                         <div class="app-value"><input type="text" name="friendemail" autofocus required></div>
                         <div class="app-spacer"></div>
+                        @if ($friendsError != "")
+                            <div class='help-block'><strong>{{ $friendsError }}</strong></div>
+                            <div class="app-spacer"></div>
+                        @endif
                         <input type="hidden" name="_token" value={{ csrf_token() }}>
                         <div class="app-button"><input type="submit" name="back" value="Add"></div>
                     </form>
