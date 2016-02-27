@@ -48,7 +48,7 @@ class PersonListBuilder
         $key = $this->removeSpaces($name);
         if (array_key_exists($key, $this->personsWithEmail))
         {
-            $email = $this->personsWithEmail[$key];
+            $email = $this->personsWithEmail[$key]['email'];
         }
         return $email;
     }

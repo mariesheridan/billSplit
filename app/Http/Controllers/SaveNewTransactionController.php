@@ -14,6 +14,7 @@ use App\Order;
 use Session;
 use App\MyLibrary\ItemBuilder;
 use App\MyLibrary\TransactionDetails;
+use App\MyLibrary\PersonListBuilder;
 
 class SaveNewTransactionController extends Controller
 {
@@ -44,7 +45,8 @@ class SaveNewTransactionController extends Controller
         $transactionId = Session::get('transactionId', 0);
         $store = Session::get('store');
         $date = Session::get('date');
-        $persons = Session::get('persons');
+        $persons = new PersonListBuilder;
+        $persons->copyArrayWithEmail(Session::get('persons'));
         $items = ItemBuilder::copyArray(Session::get('items'));
         $totalServiceCharge = Session::get('svcCharge');
         $personsWithEmail = array();
@@ -79,16 +81,16 @@ class SaveNewTransactionController extends Controller
         $dbServiceCharge = Item::create(array('transaction_id' => $dbTransaction->id,
                                               'name' => 'SvcCharge',
                                               'price' => $totalServiceCharge));
-        foreach ($persons as $key=>$person)
+        foreach ($persons->getEmailArray() as $key=>$person)
         {
-            $email = '';
-            if (array_key_exists($key, $personsWithEmail))
+            // Use email set from friends list if available, otherwise, use the one from Tag page
+            $email = $person['email'];
+            if (($email == "") && array_key_exists($key, $personsWithEmail))
             {
                 $email = $personsWithEmail[$key]['email'];
-
             }
             $dbPerson = Person::create(array('transaction_id' => $dbTransaction->id,
-                                             'name' => $person,
+                                             'name' => $person['name'],
                                              'email' => $email));
             // We need to check if service charge exists for a user or not
             $svChargeKey = $key . 'SvcCharge' . 'UnitPrice';
