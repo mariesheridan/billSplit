@@ -2,6 +2,8 @@
 
 namespace App\MyLibrary;
 
+use App\MyLibrary\Tools;
+
 /**
  * Structure:
  * key =>
@@ -112,7 +114,7 @@ class ItemBuilder
 
     private function removeSpaces($input)
     {
-        return preg_replace('/[^a-zA-Z0-9]/', '', $input);
+        return Tools::removeSpaces($input);
     }
 
     public function getSubtotal()

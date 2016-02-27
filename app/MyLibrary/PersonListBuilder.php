@@ -3,6 +3,7 @@
 namespace App\MyLibrary;
 
 use App\MyLibrary\JSConverter;
+use App\MyLibrary\Tools;
 
 class PersonListBuilder
 {
@@ -55,6 +56,7 @@ class PersonListBuilder
 
     public function removeSpaces($string)
     {
-        return preg_replace('/[^a-zA-Z0-9]/', '', $string);
+        echo Tools::removeSpaces($string) . "<br>";
+        return Tools::removeSpaces($string);
     }
 }
