@@ -13,8 +13,11 @@
                     {{ $date }}
                     <div class="app-spacer"></div>
                     <form id="app-form" action="update_persons" method="POST">
+                        <input type="hidden" name="_token" value={{ csrf_token() }}>
                         <div class="app-button"><input type="submit" name="addressbook" value="Add From Friends List"></div>
-                        <div class="app-spacer"></div>
+                    </form>
+                    <div class="app-spacer"></div>
+                    <form id="app-form" action="update_persons" method="POST">
                         <div id="app-persons">
                         </div>
                         <div class="app-spacer"></div>
