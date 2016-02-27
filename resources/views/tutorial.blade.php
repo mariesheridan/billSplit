@@ -53,6 +53,7 @@
                             <li><a href="#servicechargeexplained">What is the service charge?</a></li>
                             <li><a href="#taggingexplained">How does tagging work?</a></li>
                             <li><a href="#sendingnotification">How do I an send email notification to my friends? What does the notification contain?</a></li>
+                            <li><a href="#addfriends">How do I add friends?</a></li>
                         </ol>
                     </div>
                 </div>
@@ -159,6 +160,8 @@
                             <li>
                                 Enter the names of the people sharing the bill, including yourself if you are part of the bill. You don't have to put yourself if you just paid on behalf of the group, but you did not really consume anything.
                                 <div><img id="tutorial05"></div>
+                                You can add friends from your Friends List. In this case, your friends will be tagged automatically. However, you can still add people that are not saved in your Friends List, then you just have to tag them later. <a href="#taggingexplained">(How does tagging work?)</a> To include your friends in the list, click on "Add From Friends List", then check the names.
+                                <div><img id="tutorial14"></div>
                             </li>
                             <li>
                                 Enter the items bought and their corresponding prices. Include a service charge if applicable. <a href="#servicechargeexplained">(What is the service charge?)</a>
@@ -299,6 +302,22 @@
                         <p>To send an email notification, just check the Send Notification box beside the name of the person in the Tag page, and click on Save & Send.</p>
                         <p>The notification contains details of the transaction and to whom the person should pay the amount.</p>
                         <div><img id="tutorial12"></div>
+                        <a href="#top">Back to Top</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="addfriends">How do I add friends?</div>
+                    <div class="panel-body">
+                        <p>To add friends, click on Friends found on the menu bar.</p>
+                        <p>Just type in the name and email address at the designated textboxes. You should use unique names, but you can save a single email address under different names.</p>
+                        <div><img id="tutorial13"></div>
                         <a href="#top">Back to Top</a>
                     </div>
                 </div>

@@ -414,6 +414,16 @@ label {
     content: url('../img/Tutorial12.PNG');
 }
 
+#tutorial13 {
+    max-width: 100%;
+    content: url('../img/Tutorial13.PNG');
+}
+
+#tutorial14 {
+    max-width: 100%;
+    content: url('../img/Tutorial13.PNG');
+}
+
 @media screen and (max-width: 430px) {
     input.app-remove, input.app-show{
         margin-left: 30px;
