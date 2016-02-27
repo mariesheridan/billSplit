@@ -72,4 +72,16 @@ class FriendsController extends Controller
 
         return redirect()->route('create_persons');
     }
+
+    public function add(Request $request)
+    {
+        $friend = new Friend();
+
+        $friend->user_id = Auth::user()->id;
+        $friend->name = $request->input('friendname');
+        $friend->email = $request->input('friendemail');
+        $friend->save();
+
+        return redirect()->route('friends_list');
+    }
 }

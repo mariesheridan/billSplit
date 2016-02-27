@@ -65,7 +65,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('friends_checkbox', ['as' => 'friends_checkbox', 'uses' => 'FriendsController@checkbox']);
     Route::get('friends_list', ['as' => 'friends_list', 'uses' => 'FriendsController@view']);
     Route::post('include_friends', 'FriendsController@include');
-    Route::post('delete_friend/{id}', 'FriendsController@delete');
+    Route::post('delete_friend/{id}', ['as' => 'delete_friend', 'uses' => 'FriendsController@delete']);
     Route::post('add_friend', 'FriendsController@add');
 
 });

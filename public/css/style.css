@@ -322,6 +322,23 @@ input.app-remove, input.app-show {
     text-transform: uppercase;
 }
 
+.friend {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+}
+
+.friend-name {
+    width: 20%;
+}
+
+.friend-email {
+    width: 30%;
+}
+
 #tutorial01 {
     width: 100%;
     max-width: 100%;
