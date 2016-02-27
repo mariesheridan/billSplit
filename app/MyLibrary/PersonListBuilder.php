@@ -64,7 +64,6 @@ class PersonListBuilder
 
     public function removeSpaces($string)
     {
-        echo Tools::removeSpaces($string) . "<br>";
         return Tools::removeSpaces($string);
     }
 }
