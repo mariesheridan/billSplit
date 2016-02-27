@@ -20,6 +20,14 @@ class PersonListBuilder
         asort($this->personsWithEmail);
     }
 
+    public function appendArrayWithEmail($arrayWithEmail)
+    {
+        foreach ($arrayWithEmail as $key => $person)
+        {
+            $this->personsWithEmail[$key] = $person;
+        }
+    }
+
     public function namesToJSObject()
     {
         $persons = array();

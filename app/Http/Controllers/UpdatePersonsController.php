@@ -23,6 +23,8 @@ class UpdatePersonsController extends Controller
         $persons = new PersonListBuilder;
         $savedPersons = new PersonListBuilder;
         $savedPersons->copyArrayWithEmail(Session::get('persons', array()));
+        $savedPersons->appendArrayWithEmail(Session::get('includedFriends', array()));
+
         foreach($request->all() as $key=>$person)
         {
             if(preg_match('/^person[\d]+/', $key))
@@ -40,10 +42,6 @@ class UpdatePersonsController extends Controller
         else if ($request->__get('back'))
         {
             return redirect()->route('create_transaction');
-        }
-        else if ($request->__get('addressbook'))
-        {
-            return redirect()->route('friends_checkbox');
         }
         else
         {

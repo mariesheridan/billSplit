@@ -12,7 +12,7 @@
                     <br>
                     {{ $date }}
                     <div class="app-spacer"></div>
-                    <form id="app-form" action="update_persons" method="POST">
+                    <form id="app-form" action="friends_checkbox" method="POST">
                         <input type="hidden" name="_token" value={{ csrf_token() }}>
                         <div class="app-button"><input type="submit" name="addressbook" value="Add From Friends List"></div>
                     </form>

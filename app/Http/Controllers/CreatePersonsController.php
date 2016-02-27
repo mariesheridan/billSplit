@@ -19,12 +19,20 @@ class CreatePersonsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
+    public function index()
+    {
         $store = Session::get('store');
         $date = Session::get('date');
         $persons = new PersonListBuilder;
         $persons->copyArrayWithEmail(Session::get('persons', array()));
+
+        // These are the people from the friends list that you included
+        $persons->appendArrayWithEmail(Session::get('includedFriends', array()));
         $personsJSObject = $persons->namesToJSObject();
+        
+        // We need to forget this so that when we remove a person, it will not be shown again in this page.
+        Session::forget('includedFriends');
+        
         return view('createpersons', array('store' => $store, 'date' => $date, 'persons' => $personsJSObject));
     }
 }

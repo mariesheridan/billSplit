@@ -68,7 +68,6 @@ class FriendsController extends Controller
     public function includeFriend(Request $request)
     {
         $persons = new PersonListBuilder;
-        $persons->copyArrayWithEmail(Session::get('persons', array()));
         foreach ($request->all() as $key=>$friendIds)
         {
             if (preg_match('/^friends$/', $key))
@@ -81,7 +80,7 @@ class FriendsController extends Controller
             }
         }
 
-        Session::set('persons', $persons->getEmailArray());
+        Session::set('includedFriends', $persons->getEmailArray());
 
         return redirect()->route('create_persons');
     }
