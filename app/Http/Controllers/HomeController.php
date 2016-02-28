@@ -41,7 +41,7 @@ class HomeController extends Controller
 
         $transactions = Transaction::where('user_id', '=', Auth::user()->id)
                         ->orderByRaw("CASE status WHEN 'Verifying' THEN 0 WHEN 'Unpaid' THEN 1 WHEN 'Paid' THEN 2 ELSE status END")
-                        ->orderBy('date', 'desc')->paginate(5);
+                        ->orderBy('date', 'asc')->paginate(5);
 
         // This is important, so that transaction id will not be shown in the URL
         $tempIds = array();
@@ -56,7 +56,7 @@ class HomeController extends Controller
                     ->where(DB::raw('persons.user_id'), '=', Auth::user()->id)
                     ->where(DB::raw('transactions.user_id'), '!=', Auth::user()->id)
                     ->orderByRaw("CASE persons.status WHEN 'Unpaid' THEN 0 WHEN 'Verifying' THEN 1 WHEN 'Paid' THEN 2 ELSE persons.status END")
-                    ->orderBy(DB::raw('transactions.date'), 'desc')
+                    ->orderBy(DB::raw('transactions.date'), 'asc')
                     ->paginate(5);
 
         foreach ($payables as $pay)
@@ -94,7 +94,7 @@ class HomeController extends Controller
 
     public function updateStatusOfPayables()
     {
-        $transactions = Transaction::whereHas('persons', function($query){ 
+        $transactions = Transaction::whereHas('persons', function($query){
                             $query->where('user_id', '=', Auth::user()->id);
                         })->where('user_id', '!=', Auth::user()->id)->get();
         foreach ($transactions as $transaction)
@@ -103,7 +103,7 @@ class HomeController extends Controller
             $status = $helper->getTransaction($transaction->id)->getStatus();
             $transaction->status = $status;
             $transaction->save();
-        }   
+        }
     }
 
     public function back()

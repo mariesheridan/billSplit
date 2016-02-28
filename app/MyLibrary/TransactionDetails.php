@@ -27,7 +27,7 @@ class TransactionDetails
 
     public function getDate()
     {
-        return $this->transaction->date;
+        return date('m/d/Y', strtotime($this->transaction->date));
     }
 
     public function getId()

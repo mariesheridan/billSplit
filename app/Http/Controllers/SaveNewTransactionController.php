@@ -54,7 +54,7 @@ class SaveNewTransactionController extends Controller
         if ($transactionId == 0)
         {
             $dbTransaction = Transaction::create(array('user_id' => $request->user()->id,
-                                                   'date' => $date,
+                                                   'date' => date('Y-m-d', strtotime($date)),
                                                    'store' => $store));
         }
         else
@@ -76,6 +76,11 @@ class SaveNewTransactionController extends Controller
             {
                 $item->delete();
             }
+
+            // Update the store and date if they were changed
+            $dbTransaction->store = $store;
+            $dbTransaction->date = date('Y-m-d', strtotime($date));
+            $dbTransaction->save();
         }
 
         $dbServiceCharge = Item::create(array('transaction_id' => $dbTransaction->id,

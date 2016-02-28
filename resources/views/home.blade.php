@@ -15,12 +15,12 @@
                     <div class='app-table'>
                     @foreach ($transactions->getCollection()->all() as $transaction)
                         <div class='app-tr'>
-                            <div class='app-td-date app-column'>{{ $transaction->date }}</div>
+                            <div class='app-td-date app-column'>{{ date('m/d/Y', strtotime($transaction->date)) }}</div>
                             <div class='app-td-store app-column'>
                                 {!! HTML::linkRoute('transactions.show', $transaction->store, $tempIds[$transaction->id]) !!}
                             </div>
                             <div class='app-td-persons app-column'>
-                                <?php 
+                                <?php
                                     $personsList = [];
                                     foreach ($transaction->persons as $person)
                                     {
@@ -33,7 +33,7 @@
                                 {{ number_format($transactionHelper->getTransaction($transaction->id)->getTotal(), 2) }}
                             </div>
                             <div class='app-td-status app-column {{ $statusClass->getStatusClass($transactionHelper->getStatus()) }}'>
-                                {{ $transaction->status }}                            
+                                {{ $transaction->status }}
                             </div>
                             <div class='app-column'>
                                 <div class="app-td-tag">{!! HTML::linkRoute('tag', 'Tag', $tempIds[$transaction->id]) !!}</div>
@@ -44,7 +44,7 @@
                         </div>
                     @endforeach
                     @if ($transactions->getCollection()->count() == 0)
-                         You don't have any transactions! 
+                         You don't have any transactions!
                     @endif
                     </div>
                     <div>{{ $transactions->links() }}</div>
@@ -65,7 +65,7 @@
                     @foreach ($payables->getCollection()->all() as $payable)
                         <div class='app-tr'>
                             <div class='app-td-date app-column'>
-                                {{ $payable->transaction->date }}
+                                {{ date('m/d/Y', strtotime($payable->transaction->date)) }}
                             </div>
                             <div class='app-td-store app-column'>
                                 {!! HTML::linkRoute('transactions.show', $payable->transaction->store, $tempIds[$payable->transaction->id]) !!}
@@ -76,13 +76,13 @@
                                 {{ number_format($personalOrder->getTotal(), 2) }}
                             </div>
                             <div class='app-td-status app-column {{ $statusClass->getStatusClass($personalOrder->getStatus()) }}'>
-                                {{ $personalOrder->getStatus() }}                            
+                                {{ $personalOrder->getStatus() }}
                             </div>
                             <div class='app-spacer'></div>
                         </div>
                     @endforeach
                     @if ($payables->getCollection()->count() == 0)
-                         You don't have any payables! 
+                         You don't have any payables!
                     @endif
                     </div>
                     <div>{{ $payables->links() }}</div>
