@@ -13,8 +13,16 @@
                         <div class="tag-block">
                             <div class='tag-person-name'>{{ $person['name'] }}</div>
                             <div class='tag-email'><input type='text' name='tag_{{$key}}' value="{{$person['email']}}"></div>
+                            <div class='tag-person-name'>{{ $person['status'] }}</div>
                             <div class='tag-checkbox'>
-                                <input type='checkbox' id="send_{{$key}}_checkbox" name='send_{{$key}}' checked>
+                                <?php
+                                    $isBoxChecked = "";
+                                    if ($person['status'] == "Unpaid")
+                                    {
+                                        $isBoxChecked = "checked";
+                                    }
+                                ?>
+                                <input type='checkbox' id="send_{{$key}}_checkbox" name='send_{{$key}}' {{$isBoxChecked}}>
                                 <label for="send_{{$key}}_checkbox">Send Notification</label>
                             </div>
                             <div class='app-spacer'></div>

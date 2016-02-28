@@ -75,7 +75,7 @@ class FriendsController extends Controller
                 foreach ($friendIds as $friendId)
                 {
                     $friend = Friend::find($friendId);
-                    $persons->addWithEmail($friend->name, $friend->email);
+                    $persons->add($friend->name, $friend->email);
                 }
             }
         }

@@ -29,7 +29,7 @@ class UpdatePersonsController extends Controller
             if(preg_match('/^person[\d]+/', $key))
             {
                 echo $person . " : " . $savedPersons->getEmail($person) . "<br>";
-                $persons->addWithEmail($person, $savedPersons->getEmail($person));
+                $persons->add($person, $savedPersons->getEmail($person), $savedPersons->getStatus($person));
             }
         }
 

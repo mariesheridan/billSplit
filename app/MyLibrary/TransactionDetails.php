@@ -48,7 +48,7 @@ class TransactionDetails
         $list = new PersonListBuilder();
         foreach ($persons as $person)
         {
-            $list->addWithEmail($person->name, $person->email);
+            $list->add($person->name, $person->email, $person->status);
         }
         return $list->getEmailArray();
     }

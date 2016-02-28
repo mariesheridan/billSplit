@@ -39,11 +39,12 @@ class PersonListBuilder
         return JSConverter::toJSObject($persons);
     }
 
-    public function addWithEmail($name, $email)
+    public function add($name, $email, $status = "Unpaid")
     {
         $key = $this->removeSpaces($name);
         $this->personsWithEmail[$key]['name'] = $name;
         $this->personsWithEmail[$key]['email'] = $email;
+        $this->personsWithEmail[$key]['status'] = $status;
         asort($this->personsWithEmail);
     }
 
@@ -61,6 +62,17 @@ class PersonListBuilder
             $email = $this->personsWithEmail[$key]['email'];
         }
         return $email;
+    }
+
+    public function getStatus($name)
+    {
+        $status = '';
+        $key = $this->removeSpaces($name);
+        if (array_key_exists($key, $this->personsWithEmail))
+        {
+            $status = $this->personsWithEmail[$key]['status'];
+        }
+        return $status;
     }
 
     public function removeSpaces($string)
