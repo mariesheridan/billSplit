@@ -515,6 +515,10 @@ label {
         clear: both;
         height: 10px;
     }
+
+    .tag-checkbox {
+        clear: both;
+    }
 }
 
 @media screen and (max-width: 355px) {
