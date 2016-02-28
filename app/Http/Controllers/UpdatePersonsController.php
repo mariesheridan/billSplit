@@ -17,18 +17,18 @@ class UpdatePersonsController extends Controller
     {
         $this->middleware('auth');
     }
-    
-    public function update(Request $request)    
+
+    public function update(Request $request)
     {
         $persons = new PersonListBuilder;
         $savedPersons = new PersonListBuilder;
         $savedPersons->copyArrayWithEmail(Session::get('persons', array()));
-        $savedPersons->appendArrayWithEmail(Session::get('includedFriends', array()));
 
         foreach($request->all() as $key=>$person)
         {
             if(preg_match('/^person[\d]+/', $key))
             {
+                echo $person . " : " . $savedPersons->getEmail($person) . "<br>";
                 $persons->addWithEmail($person, $savedPersons->getEmail($person));
             }
         }

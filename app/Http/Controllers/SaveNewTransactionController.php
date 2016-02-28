@@ -23,7 +23,7 @@ class SaveNewTransactionController extends Controller
         $this->middleware('auth');
     }
 
-   public function update(Request $request)    
+   public function update(Request $request)
     {
         if ($request->__get('next'))
         {
@@ -59,7 +59,7 @@ class SaveNewTransactionController extends Controller
         }
         else
         {
-            // If transaction exists because this is just the edit page, 
+            // If transaction exists because this is just the edit page,
             //     we should delete the existing relations from db and create new ones.
             $dbTransaction = Transaction::find($transactionId);
             $transaction = new TransactionDetails($transactionId);
@@ -100,7 +100,7 @@ class SaveNewTransactionController extends Controller
                 Order::create(array('transaction_id' => $dbTransaction->id,
                                     'person_id' => $dbPerson->id,
                                     'item_id' => $dbServiceCharge->id,
-                                    'quantity' => 1,    
+                                    'quantity' => 1,
                                     'price' => $svcCharge));
             }
         }

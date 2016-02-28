@@ -45,8 +45,8 @@ class FriendsController extends Controller
 
         Session::set('tempFriendsIds', $tempFriendsIds);
 
-        return view('friendslist', array('friends' => $friends, 
-                                         'tempFriendsIds' => $tempFriendsIds, 
+        return view('friendslist', array('friends' => $friends,
+                                         'tempFriendsIds' => $tempFriendsIds,
                                          'friendsError' => $friendsError));
     }
 
@@ -75,7 +75,7 @@ class FriendsController extends Controller
                 foreach ($friendIds as $friendId)
                 {
                     $friend = Friend::find($friendId);
-                    $persons->addWithEmail($friend->name, $friend->email);                    
+                    $persons->addWithEmail($friend->name, $friend->email);
                 }
             }
         }
@@ -104,7 +104,7 @@ class FriendsController extends Controller
         $email = $request->input('friendemail');
         if (!filter_var($email, FILTER_VALIDATE_EMAIL))
         {
-            $friendsError = "Invalid email format!"; 
+            $friendsError = "Invalid email format!";
         }
 
         if ($friendsError == "")

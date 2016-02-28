@@ -32,7 +32,7 @@ class OrderDetailsController extends Controller
         $itemNamesJSArray = JSConverter::toJSArray($itemNames);
         $subtotal = $items->getSubtotal();
 
-        return view('orderdetails', array('store' => $store, 
+        return view('orderdetails', array('store' => $store,
                                           'date' => $date,
                                           'svcCharge' => $svcCharge,
                                           'persons' => $personsJSObject,

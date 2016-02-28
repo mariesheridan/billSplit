@@ -26,6 +26,7 @@ class PersonListBuilder
         {
             $this->personsWithEmail[$key] = $person;
         }
+        asort($this->personsWithEmail);
     }
 
     public function namesToJSObject()
