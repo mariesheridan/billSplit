@@ -449,6 +449,10 @@ label {
         width: 50px;
     }
 
+    .summary-block {
+        width: 100%;
+    }
+
     .app-table {
         padding: 5px;
     }
@@ -493,15 +497,18 @@ label {
 
     .friend-name {
         float: left;
+        width: 80%;
     }
 
     .friend-email {
         clear: both;
         width: 100%;
+        margin-left: 30px;
     }
 
     .friend-delete {
         clear: both;
+        margin-left: 30px;
     }
 
     .collapsing-spacer {

@@ -201,17 +201,17 @@ function divForPersons(nameToUse, number, itemObject, names)
         //var checked = "checked";
         appendValue += divForSpacer(nameToUse, number);
         appendValue += "<div class='app-checkbox' id='" 
-                       + nameToUse + number + names[iter] + "' data-name='"
+                       + nameToUse + number + iter + "' data-name='"
                        + names[iter].replace(/[^a-zA-Z0-9]/g, '') + "' data-number='"
                        + number + "'>" 
                        + "<div class='app-name' id='" 
-                       + nameToUse + number + names[iter] 
+                       + nameToUse + number + iter 
                        + "Checkbox'>" 
                        + "<input type='checkbox' id='cb" 
-                       + nameToUse + number + names[iter] + "' name='"
+                       + nameToUse + number + iter + "' name='"
                        + nameToUse + number 
                        + "Name[]' value='" + names[iter] + "'" + checked + "/>"
-                       + "<label for='cb" + nameToUse + number + names[iter] + "'>" + names[iter] 
+                       + "<label for='cb" + nameToUse + number + iter + "'>" + names[iter] 
                        + "</label></div></div>";
     }
     appendValue += "</div></div>";
