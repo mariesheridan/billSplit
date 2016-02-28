@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
 {
-    protected $fillable = ['transaction_id', 'name', 'email'];
+    protected $fillable = ['transaction_id', 'name', 'email', 'status'];
 
     protected $table = "persons";
-    
+
     public function transaction()
     {
         return $this->belongsTo('App\Transaction');

@@ -85,13 +85,23 @@ class SaveNewTransactionController extends Controller
         {
             // Use email set from friends list if available, otherwise, use the one from Tag page
             $email = $person['email'];
-            if (($email == "") && array_key_exists($key, $personsWithEmail))
+            $status = $person['status'];
+
+            if (array_key_exists($key, $personsWithEmail))
             {
-                $email = $personsWithEmail[$key]['email'];
+                $status = $personsWithEmail[$key]['status'];
+
+                // If email was not set using the friends list, then we will use the one from the tag page
+                if ($email == "")
+                {
+                   $email = $personsWithEmail[$key]['email'];
+                }
             }
+
             $dbPerson = Person::create(array('transaction_id' => $dbTransaction->id,
                                              'name' => $person['name'],
-                                             'email' => $email));
+                                             'email' => $email,
+                                             'status' => $status));
             // We need to check if service charge exists for a user or not
             $svChargeKey = $key . 'SvcCharge' . 'UnitPrice';
             if (array_key_exists($svChargeKey, $request->all()))
