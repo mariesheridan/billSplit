@@ -2,7 +2,7 @@
 
 <p>Hi {{ $person->name }},</p>
 <div class="app-spacer" style="clear: both;height: 10px;"></div>
-<p>Here are the details of your purchase at {{ $dbTransaction->store }} on {{ $dbTransaction->date }}.</p>
+<p>Here are the details of your purchase at {{ $dbTransaction->store }} on {{ date('F j, Y', strtotime($dbTransaction->date)) }}.</p>
 <div class="app-spacer" style="clear: both;height: 10px;"></div>
 <div class="person-summary" style="width: 300px;border-style: solid;border-color: gray;border-width: 1px;padding: 10px;border-radius: 15px;">
     {!! $orders->setPersonId($dbTransaction->id, $person->id) !!}

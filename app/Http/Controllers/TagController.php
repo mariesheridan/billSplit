@@ -92,7 +92,7 @@ class TagController extends Controller
                                 function($message) use ($email, $name, $transaction)
                     {
                         $message->from('noreply@billsplit.mstuazon.com', 'BillSplit');
-                        $message->to($email, $name)->subject('Here is you bill from ' . $transaction->store . " on " . $transaction->date);
+                        $message->to($email, $name)->subject('Here is you bill from ' . $transaction->store . " on " . date('F j, Y', strtotime($transaction->date)));
                     });
                 }
             }

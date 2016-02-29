@@ -2,7 +2,7 @@
 
 <p>Hi {{ $person->transaction->user->name }},</p>
 <div class="app-spacer" style="clear: both;height: 10px;"></div>
-<p>Please verify if you have received {{ $person->name }}'s payment for the transaction at {{ $person->transaction->store }} on {{ $person->transaction->date }}.</p>
+<p>Please verify if you have received {{ $person->name }}'s payment for the transaction at {{ $person->transaction->store }} on {{ date('F j, Y', strtotime($person->transaction->date)) }}.</p>
 <div class="app-spacer" style="clear: both;height: 10px;"></div>
 <p>Here are the details for {{ $person->name }}'s purchase:</p>
 <div class="app-spacer" style="clear: both;height: 10px;"></div>

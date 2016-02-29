@@ -32,12 +32,12 @@ class PersonStatusController extends Controller
             $name = $person->transaction->user->name;
             $transaction = $person->transaction;
             $payerName = $person->name;
-            Mail::send('emails.paymentnotification', 
-                        array('person' => $person), 
-                        function($message) use ($email, $name, $transaction, $payerName) 
+            Mail::send('emails.paymentnotification',
+                        array('person' => $person),
+                        function($message) use ($email, $name, $transaction, $payerName)
             {
                 $message->from('noreply@billsplit.mstuazon.com', 'BillSplit');
-                $message->to($email, $name)->subject('Payment made by ' . $payerName . ' for transaction at ' . $transaction->store . " on " . $transaction->date);
+                $message->to($email, $name)->subject('Payment made by ' . $payerName . ' for transaction at ' . $transaction->store . " on " . date('F j, Y', strtotime($transaction->date)));
             });
         }
 
