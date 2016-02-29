@@ -13,6 +13,7 @@ use App\Item;
 use App\Order;
 use Session;
 use App\MyLibrary\ItemBuilder;
+use App\MyLibrary\Tools;
 use App\MyLibrary\TransactionDetails;
 use App\MyLibrary\PersonListBuilder;
 
@@ -107,6 +108,10 @@ class SaveNewTransactionController extends Controller
                                              'name' => $person['name'],
                                              'email' => $email,
                                              'status' => $status));
+
+            //Update the user_id of the person, so the person can see the transaction in receivables section
+            Tools::updatePersonUserId($dbPerson);
+
             // We need to check if service charge exists for a user or not
             $svChargeKey = $key . 'SvcCharge' . 'UnitPrice';
             if (array_key_exists($svChargeKey, $request->all()))
