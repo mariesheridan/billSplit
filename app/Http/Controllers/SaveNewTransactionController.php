@@ -30,7 +30,7 @@ class SaveNewTransactionController extends Controller
         if ($request->__get('next'))
         {
             $this->saveToDB($request);
-            return redirect()->route('home');
+            return redirect()->route('confirm_send_mail');
         }
         else if ($request->__get('back'))
         {
@@ -146,16 +146,34 @@ class SaveNewTransactionController extends Controller
             }
         }
 
-        $this->sendEmail($dbTransaction);
+        Session::set('transactionId', $dbTransaction->id);
     }
 
-    private function sendEmail(Transaction $transaction)
+    public function showConfirmation()
     {
+        return view('sendemailconfirmation');
+    }
+
+    public function sendEmail(Request $request)
+    {
+        if ($request->__get('yes'))
+        {
+            $this->send();
+        }
+        return redirect()->route('home');
+    }
+
+    public function send()
+    {
+        $transactionId = Session::get('transactionId', 0);
+        $transaction = Transaction::find($transactionId);
+
         if ($transaction)
         {
             $persons = $transaction->persons;
             foreach ($persons as $person)
             {
+                $key = Tools::removeSpaces($person->name);
                 // Send email only to entries with email addresses
                 if ($person->email != '')
                 {
@@ -166,7 +184,7 @@ class SaveNewTransactionController extends Controller
                                 function($message) use ($email, $name, $transaction)
                     {
                         $message->from('noreply@billsplit.mstuazon.com', 'BillSplit');
-                        $message->to($email, $name)->subject('Here is you bill from ' . $transaction->store . " on " . date('F j, Y', strtotime($transaction->date)));
+                        $message->to($email, $name)->subject('Here is your bill for your purchase at ' . $transaction->store . " on " . date('F j, Y', strtotime($transaction->date)));
                     });
                 }
             }

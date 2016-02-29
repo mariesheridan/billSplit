@@ -49,7 +49,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/tag/{id}', ['as' => 'tag', 'uses' => 'TagController@index']);
     Route::post('/save_the_tag', 'TagController@save');
 
+    Route::get('/confirm_send_mail', ['as' => 'confirm_send_mail', 'uses' => 'SaveNewTransactionController@showConfirmation']);
     Route::post('/save_new_transaction', 'SaveNewTransactionController@update');
+    Route::post('/send_email', 'SaveNewTransactionController@sendEmail');
 
     Route::post('/setVerifying', 'PersonStatusController@setVerifying');
     Route::post('/setUnpaid', 'PersonStatusController@setUnpaid');

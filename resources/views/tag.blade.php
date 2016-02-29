@@ -41,7 +41,7 @@
                         <div class="app-spacer"></div>
                         <input type="hidden" name="_token" value={{ csrf_token() }}>
                         <div class="app-button"><input type="submit" name="back" value="<< Back"></div>
-                        <div class="app-button"><input type="submit" name="next" value="Save & Send"></div>
+                        <div class="app-button"><input type="submit" name="next" value="Send"></div>
                     </form>
                 </div>
             </div>

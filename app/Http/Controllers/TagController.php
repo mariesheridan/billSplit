@@ -74,7 +74,6 @@ class TagController extends Controller
     private function sendEmail(Request $request)
     {
         $transactionId = Session::get('transactionId', 0);
-        $personsWithEmail = Session::get('personsWithEmail', array());
         $transaction = Transaction::find($transactionId);
 
         if ($transaction)
