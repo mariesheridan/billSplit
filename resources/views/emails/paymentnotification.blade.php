@@ -13,15 +13,15 @@
             <div class="summary-item-name" style="float: left;width: 120px;vertical-align: middle;">{{ $order->item->name }}</div>
             <div class="summary-qty" style="float: left;width: 30px;text-align: right;margin-right: 10px;">{{ $order->quantity }}</div>
             <div class="summary-unit-price" style="float: left;width: 60px;">{{ '@' . $order->price }}</div>
-            <div class="summary-item-price" style="float: right;width: 50px;text-align: right;vertical-align: middle;height: 100%;">{{ number_format(($order->quantity * $order->price), 2) }}</div>
+            <div class="summary-item-price" style="float: right;width: 80px;text-align: right;vertical-align: middle;height: 100%;">{{ number_format(($order->quantity * $order->price), 2) }}</div>
             <div class="clear-both" style="clear: both;"></div>
         </div>
     @endforeach
     @if ($orders->getSvcCharge() != 0)
         <div class="summary-item-block" style="clear: both;box-sizing: border-box;">
             <div class="summary-item-name" style="float: left;width: 120px;vertical-align: middle;">Service Charge</div>
-            <div class="summary-placeholder" style="float: left;width: 100px;">&nbsp</div>
-            <div class="summary-item-price" style="float: right;width: 50px;text-align: right;vertical-align: middle;height: 100%;">{{ number_format($orders->getSvcCharge(), 2) }}</div>
+            <div class="summary-placeholder" style="float: left;width: 100px;">&nbsp;</div>
+            <div class="summary-item-price" style="float: right;width: 80px;text-align: right;vertical-align: middle;height: 100%;">{{ number_format($orders->getSvcCharge(), 2) }}</div>
         </div>
     @endif
     <div class="app-line-space" style="clear: both;height: 5px;"></div>
@@ -29,8 +29,8 @@
     <div class="app-line-space" style="clear: both;height: 5px;"></div>
     <div class="summary-item-block" style="clear: both;box-sizing: border-box;"><strong>
         <div class="summary-item-name" style="float: left;width: 120px;vertical-align: middle;">Total</div>
-        <div class="summary-placeholder" style="float: left;width: 100px;">&nbsp</div>
-        <div class="summary-item-price" style="float: right;width: 50px;text-align: right;vertical-align: middle;height: 100%;">{{ number_format($orders->getTotal(), 2) }}</div>
+        <div class="summary-placeholder" style="float: left;width: 100px;">&nbsp;</div>
+        <div class="summary-item-price" style="float: right;width: 80px;text-align: right;vertical-align: middle;height: 100%;">{{ number_format($orders->getTotal(), 2) }}</div>
     </strong></div>
     <div class="clear-both" style="clear: both;"></div>
 </div>
