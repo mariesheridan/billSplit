@@ -62,10 +62,11 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/verificationemailsent', ['as' => 'verificationemailsent', 'uses' => 'ValidateEmailController@index']);
     Route::get('register/verify/{confirmationCode}', ['as' => 'confirmation_path', 'uses' => 'ValidateEmailController@confirm']);
 
-    Route::post('friends_checkbox', ['as' => 'friends_checkbox', 'uses' => 'FriendsController@checkbox']);
     Route::get('friends_list', ['as' => 'friends_list', 'uses' => 'FriendsController@view']);
-    Route::post('include_friends', 'FriendsController@includeFriend');
     Route::get('delete_friend/{id}', ['as' => 'delete_friend', 'uses' => 'FriendsController@delete']);
+    Route::get('showlistforfetch/{id}', ['as' => 'showlistforfetch', 'uses' => 'FriendsController@showlistforfetch']);
+    Route::post('friends_checkbox', ['as' => 'friends_checkbox', 'uses' => 'FriendsController@checkbox']);
+    Route::post('include_friends', 'FriendsController@includeFriend');
     Route::post('add_friend', 'FriendsController@add');
-
+    Route::post('tag_friend', 'FriendsController@tagFriend');
 });

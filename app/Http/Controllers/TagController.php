@@ -12,6 +12,7 @@ use Session;
 use App\Transaction;
 use App\Person;
 use App\User;
+use App\MyLibrary\Tools;
 use App\MyLibrary\TransactionDetails;
 use App\MyLibrary\PersonListBuilder;
 
@@ -24,24 +25,32 @@ class TagController extends Controller
 
     public function index($id)
     {
+        // Forget the specific person when all persons are shown
+        Session::forget('personIdForEdit');
+
         $tempIds = array_flip(Session::get('tempIds', array()));
-        //$transaction = Transaction::find($tempIds[$id]);
+
         if ($id > count($tempIds))
         {
             return view('transactionnotfound');
         }
-        $transaction = new TransactionDetails($tempIds[$id]);
 
-        $store = $transaction->getStore();
-        $date = $transaction->getDate();
-        $personsWithEmail = $transaction->getPersonsEmailList();
+        $transaction = Transaction::find($tempIds[$id]);
+
+        $persons = $transaction->persons;
+        $counter = 0;
+        $tempPersonsIds = array();
+        foreach ($persons as $person)
+        {
+            $counter++;
+            $tempPersonsIds[$person->id] = $counter;
+        }
 
         Session::set('transactionId', $tempIds[$id]);
-        Session::set('personsWithEmail', $personsWithEmail);
+        Session::set('tempPersonsIds', $tempPersonsIds);
 
-        return view('tag', array('store' => $store,
-                                 'date' => $date,
-                                 'persons' => $personsWithEmail));
+        return view('tag', array('persons' => $persons,
+                                 'tempPersonsIds' => $tempPersonsIds));
     }
 
     public function save(Request $request)
@@ -66,44 +75,26 @@ class TagController extends Controller
         $transactionId = Session::get('transactionId', 0);
         $personsWithEmail = Session::get('personsWithEmail', array());
         $transaction = Transaction::find($transactionId);
-        foreach ($request->all() as $key=>$email)
-        {
-            if (preg_match('/^tag_(.*)/', $key))
-            {
-                $name = substr($key, strpos($key, "_") + 1);
-                $actualName = $personsWithEmail[$name]['name'];
-                $personsWithEmail[$name]['email'] = $email;
 
+        if ($transaction)
+        {
+            $persons = $transaction->persons;
+            foreach ($persons as $person)
+            {
+                $key = Tools::removeSpaces($person->name);
                 // Send email only to entries with email addresses
-                if (($email != '') && ($request->input('send_' . $name)))
+                if (($person->email != '') && ($request->input('send_' . $key)))
                 {
-                    $person = Person::forTransaction($transactionId)->withName($personsWithEmail[$name]['name'])->first();
-                    Mail::send('emails.personalbill', 
-                                array('dbTransaction' => $transaction, 'person' => $person), 
-                                function($message) use ($email, $actualName, $transaction) 
+                    $email = $person->email;
+                    $name = $person->name;
+                    Mail::send('emails.personalbill',
+                                array('dbTransaction' => $transaction, 'person' => $person),
+                                function($message) use ($email, $name, $transaction)
                     {
                         $message->from('noreply@billsplit.mstuazon.com', 'BillSplit');
-                        $message->to($email, $actualName)->subject('Here is you bill from ' . $transaction->store . " on " . $transaction->date);
+                        $message->to($email, $name)->subject('Here is you bill from ' . $transaction->store . " on " . $transaction->date);
                     });
                 }
-            }
-        }
-
-        // Save the email to DB so when the person logs in, they will see the transaction in payables section
-        foreach ($personsWithEmail as $person)
-        {
-            $buyer = Person::forTransaction($transactionId)->withName($person['name'])->first();
-            $user = User::withEmail($person['email'])->first();
-            if ($buyer)
-            {
-                $buyer->email = $person['email'];
-
-                if ($user)
-                {
-                    $buyer->user_id = $user->id;
-                }
-
-                $buyer->save();
             }
         }
     }

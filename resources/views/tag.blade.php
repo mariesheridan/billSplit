@@ -9,11 +9,15 @@
 
                 <div class="panel-body">
                     <form action="/save_the_tag" method="POST">
-                        @foreach ($persons as $key => $person)
+                        @foreach ($persons as $person)
+                        <?php
+                            $key = preg_replace('/[^a-zA-Z0-9]/', '', $person->name);
+                        ?>
                         <div class="tag-block">
-                            <div class='tag-person-name'>{{ $person['name'] }}</div>
-                            <div class='tag-email'><input type='text' name='tag_{{$key}}' value="{{$person['email']}}"></div>
-                            <div class='tag-person-name'>{{ $person['status'] }}</div>
+                            <div class='tag-person-name'>{{ $person->name }}</div>
+                            <div class='tag-email'>{{ $person->email }} &nbsp</div>
+                            <div class='tag-person-name'>{!! HTML::linkRoute('showlistforfetch', 'Edit', $tempPersonsIds[$person->id]) !!}</div>
+                            <div class='tag-person-name'>{{ $person->status }}</div>
                             <div class='tag-checkbox'>
                                 <?php
                                     $isBoxChecked = "";

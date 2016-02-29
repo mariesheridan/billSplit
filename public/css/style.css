@@ -241,6 +241,7 @@ label {
 .tag-email {
     float: left;
     margin-right: 10px;
+    width: 200px;
 }
 
 .my-order-unpaid {
@@ -313,8 +314,8 @@ label {
     margin: 0;
     padding: 0;
     border: 0;
-    border-bottom: 1px solid blue; 
-    color: blue; 
+    border-bottom: 1px solid blue;
+    color: blue;
     cursor: pointer;"
 }
 
@@ -518,6 +519,10 @@ label {
 
     .tag-checkbox {
         clear: both;
+    }
+
+    .tag-email {
+        width: 100%;
     }
 }
 

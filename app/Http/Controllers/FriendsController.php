@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Session;
 use App\Friend;
+use App\Person;
+use App\Transaction;
 use App\User;
 use App\MyLibrary\PersonListBuilder;
 use App\MyLibrary\Tools;
@@ -119,5 +121,61 @@ class FriendsController extends Controller
         Session::set('friendsError', $friendsError);
 
         return redirect()->route('friends_list');
+    }
+
+    public function showlistforfetch($id)
+    {
+        $personIds = array_flip(Session::get('tempPersonsIds', array()));
+        if ($id > count($personIds))
+        {
+            return view('personnotfound');
+        }
+
+        $person = Person::find($personIds[$id]);
+
+        Session::set('personIdForEdit', $personIds[$id]);
+
+        $friends = Friend::where('user_id', '=', Auth::user()->id)
+                        ->orderBy('name', 'asc')->paginate(100);
+
+        return view('friendsfortag', array('friends' => $friends, 'person' => $person, 'errorMessage' => Session::get('friendsError', "")));
+
+    }
+
+    public function tagFriend(Request $request)
+    {
+        $tempPersonsIds = Session::get('tempPersonsIds');
+        $personId = Session::get('personIdForEdit');
+        $tempIds = Session::get('tempIds', array());
+        $transactionId = Session::get('transactionId', 0);
+        $errorMessage = "";
+        $input = $request->input('email');
+
+        if ($input == "input_email")
+        {
+            $input = $request->input('input_email');
+            if (!filter_var($input, FILTER_VALIDATE_EMAIL))
+            {
+                $errorMessage = "Invalid email format!";
+            }
+        }
+        else if ($input == "input_none")
+        {
+            $input = "";
+        }
+
+        if ($errorMessage == "")
+        {
+            $person = Person::find($personId);
+            $person->email = $input;
+            $person->save();
+
+            return redirect()->route('tag', array('id' => $tempIds[$transactionId]));
+        }
+        else
+        {
+            Session::set('friendsError', $errorMessage);
+            return redirect()->route('showlistforfetch', array('id' => $tempPersonsIds[$personId]));
+        }
     }
 }
