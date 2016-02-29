@@ -15,7 +15,13 @@
                         ?>
                         <div class="tag-block">
                             <div class='tag-person-name'>{{ $person->name }}</div>
-                            <div class='tag-email'>{{ $person->email }} &nbsp</div>
+                            <div class='tag-email'>
+                            @if ($person->email != "")
+                                {{ $person->email }}
+                            @else
+                                <span style="color:#a94442;"><strong>No email set!</strong></span>
+                            @endif
+                            </div>
                             <div class='tag-person-name'>{!! HTML::linkRoute('showlistforfetch', 'Edit', $tempPersonsIds[$person->id]) !!}</div>
                             <div class='tag-person-name'>{{ $person->status }}</div>
                             <div class='tag-checkbox'>
@@ -27,7 +33,7 @@
                                     }
                                 ?>
                                 <input type='checkbox' id="send_{{$key}}_checkbox" name='send_{{$key}}' {{$isBoxChecked}}>
-                                <label for="send_{{$key}}_checkbox">Send Notification</label>
+                                <label for="send_{{$key}}_checkbox">Send Email Notification</label>
                             </div>
                             <div class='app-spacer'></div>
                         </div>

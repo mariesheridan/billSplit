@@ -36,7 +36,7 @@
                                 {{ $transaction->status }}
                             </div>
                             <div class='app-column'>
-                                <div class="app-td-tag">{!! HTML::linkRoute('tag', 'Tag', $tempIds[$transaction->id]) !!}</div>
+                                <div class="app-td-tag">{!! HTML::linkRoute('tag', 'Remind', $tempIds[$transaction->id]) !!}</div>
                                 <div class="app-td-tag">{!! HTML::linkRoute('transactions.edit', 'Edit', $tempIds[$transaction->id]) !!}</div>
                             </div>
 

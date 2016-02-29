@@ -11,6 +11,7 @@ use App\Transaction;
 use App\Person;
 use App\Item;
 use App\Order;
+use Mail;
 use Session;
 use App\MyLibrary\ItemBuilder;
 use App\MyLibrary\Tools;
@@ -142,6 +143,32 @@ class SaveNewTransactionController extends Controller
                                     'item_id' => $dbItem->id,
                                     'quantity' => $buyer['qty'],
                                     'price' => $unitPrice));
+            }
+        }
+
+        $this->sendEmail($dbTransaction);
+    }
+
+    private function sendEmail(Transaction $transaction)
+    {
+        if ($transaction)
+        {
+            $persons = $transaction->persons;
+            foreach ($persons as $person)
+            {
+                // Send email only to entries with email addresses
+                if ($person->email != '')
+                {
+                    $email = $person->email;
+                    $name = $person->name;
+                    Mail::send('emails.personalbill',
+                                array('dbTransaction' => $transaction, 'person' => $person),
+                                function($message) use ($email, $name, $transaction)
+                    {
+                        $message->from('noreply@billsplit.mstuazon.com', 'BillSplit');
+                        $message->to($email, $name)->subject('Here is you bill from ' . $transaction->store . " on " . date('F j, Y', strtotime($transaction->date)));
+                    });
+                }
             }
         }
     }

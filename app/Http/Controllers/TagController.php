@@ -27,6 +27,7 @@ class TagController extends Controller
     {
         // Forget the specific person when all persons are shown
         Session::forget('personIdForEdit');
+        Session::forget('friendsError');
 
         $tempIds = array_flip(Session::get('tempIds', array()));
 
@@ -57,7 +58,7 @@ class TagController extends Controller
     {
         if ($request->__get('next'))
         {
-            $this->updateDB($request);
+            $this->sendEmail($request);
             return redirect()->route('home');
         }
         else if ($request->__get('back'))
@@ -70,7 +71,7 @@ class TagController extends Controller
         }
     }
 
-    private function updateDB(Request $request)
+    private function sendEmail(Request $request)
     {
         $transactionId = Session::get('transactionId', 0);
         $personsWithEmail = Session::get('personsWithEmail', array());
@@ -92,7 +93,7 @@ class TagController extends Controller
                                 function($message) use ($email, $name, $transaction)
                     {
                         $message->from('noreply@billsplit.mstuazon.com', 'BillSplit');
-                        $message->to($email, $name)->subject('Here is you bill from ' . $transaction->store . " on " . date('F j, Y', strtotime($transaction->date)));
+                        $message->to($email, $name)->subject('Reminder for payment for purchase at ' . $transaction->store . " on " . date('F j, Y', strtotime($transaction->date)));
                     });
                 }
             }
