@@ -53,7 +53,7 @@ class HomeController extends Controller
         }
 
         $payables = Person::join('transactions', DB::raw('persons.transaction_id'), '=', Db::raw('transactions.id'))
-                    ->where(DB::raw('persons.user_id'), '=', Auth::user()->id)
+                    ->where(DB::raw('persons.email'), '=', Auth::user()->email)
                     ->where(DB::raw('transactions.user_id'), '!=', Auth::user()->id)
                     ->orderByRaw("CASE persons.status WHEN 'Unpaid' THEN 0 WHEN 'Verifying' THEN 1 WHEN 'Paid' THEN 2 ELSE persons.status END")
                     ->orderBy(DB::raw('transactions.date'), 'asc')
