@@ -11,14 +11,30 @@
                     <div class="app-spacer"></div>
                     <form id="app-form" action="/tag_friend" method="POST">
                         <div id="app-persons">
+                            <div class='friend'>
+                                <span class='friend-name'>
+                                    <input type='radio' id='current_email' name='email' value='{{ $person->email }}' checked>
+                                    <label for='current_email'>
+                                        Current
+                                    </label>
+                                </span>
+                                <span class='friend-email'>
+                                    @if ($person->email != "")
+                                        {{ $person->email }}
+                                    @else
+                                        <span style="color:#a94442;"><strong>No email set!</strong></span>
+                                    @endif
+                                </span>
+                            </div>
+                            <div class="app-spacer"></div>
                             <div class="friend">
                                 <span class='friend-name'>
-                                    <input type='radio' id='new_email' name='email' value='input_email' checked>
+                                    <input type='radio' id='new_email' name='email' value='input_email'>
                                     <label for='new_email'>
                                         Enter Email:
                                     </label>
                                 </span>
-                                <span class='friend-email'><input type='text' id="input_email" name="input_email" autofocus></span>
+                                <span class='friend-email'><input type='text' id="input_email" name="input_email"></span>
                             </div>
                             <div class="app-spacer"></div>
                             @if ($errorMessage != "")
