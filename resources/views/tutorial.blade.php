@@ -25,6 +25,10 @@
         .fa-btn {
             margin-right: 6px;
         }
+
+        li {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
