@@ -37,6 +37,12 @@ class AuthController extends Controller
     protected $redirectTo = '/';
 
     /**
+     * Added this so that when user is logged out after long time with no activity, when they log in again,
+     * they will be directed to home and not to the previous window they were at.
+     */
+    protected $redirectPath = '/home';
+
+    /**
      * Create a new authentication controller instance.
      *
      * @return void
