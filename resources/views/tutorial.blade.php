@@ -73,6 +73,8 @@
                             <li>Compute the amount that each person in the group has the pay</li>
                             <li>Track who already settled the payment (for the person who paid the bill on behalf of the whole group)</li>
                             <li>Track the unpaid items (for the other persons who owe the one who paid the bill)</li>
+                            <li>Send the bill to the person via email</li>
+                            <li>Send email reminders about the status of the person's bill</li>
                         </ol>
                         <a href="#top">Back to Top</a>
                     </div>
@@ -95,7 +97,7 @@
                             <li>The persons sharing the bill with them</li>
                             <li>The total price of the bill</li>
                             <li>Status of the bill</li>
-                            <li>Link for tagging</li>
+                            <li>Link for sending reminders</li>
                             <li>Link for editing</li>
                         </ol>
                         <div><img id="tutorial01"></div>
@@ -158,10 +160,12 @@
                                 <div><img id="tutorial04"></div>
                             </li>
                             <li>
+                                You can add friends from your Friends List. In this case, your friends will be tagged automatically. To include your friends in the list, click on "Add From Friends List", then check the names.
+                                <div><img id="tutorial14"></div>
+                                However, you can still add people that are not saved in your Friends List, then you just have to tag them later. <a href="#taggingexplained">(How does tagging work?)</a>
+                                <br>
                                 Enter the names of the people sharing the bill, including yourself if you are part of the bill. You don't have to put yourself if you just paid on behalf of the group, but you did not really consume anything.
                                 <div><img id="tutorial05"></div>
-                                You can add friends from your Friends List. In this case, your friends will be tagged automatically. However, you can still add people that are not saved in your Friends List, then you just have to tag them later. <a href="#taggingexplained">(How does tagging work?)</a> To include your friends in the list, click on "Add From Friends List", then check the names.
-                                <div><img id="tutorial14"></div>
                             </li>
                             <li>
                                 Enter the items bought and their corresponding prices. Include a service charge if applicable. <a href="#servicechargeexplained">(What is the service charge?)</a>
@@ -182,16 +186,20 @@
                                     <li>Marvin: checked, Qty: <b>1</b></li>
                                     <li>Sab: unchecked</li>
                                 </ol>
-                                <div><img id="tutorial07"></div> 
+                                <div><img id="tutorial07"></div>
                                 The default for an item is that all persons are checked with quantity equal to 1.
                             </li>
                             <li>
                                 Click the Next button so you can be directed to the Summary page, where you can check if the previous inputs are correct.
-                                <div><img id="tutorial08"></div> 
+                                <div><img id="tutorial08"></div>
                             </li>
                             <li>
-                                After verifying that all details are correct, click the Save button to save this transaction. Now, you can see this transaction in the <i>Receivables</i> section.
-                                <div><img id="tutorial09"></div> 
+                                After verifying that all details are correct, click the Save button to save this transaction. Now, your transaction is saved, and you will be directed to the confirmation page on whether to send notification to your friends or not.
+                                <div><img id="tutorial15"></div>
+                            </li>
+                            <li>
+                                In either case, you will be directed to your home page. Now, you can see this transaction in the <i>Receivables</i> section.
+                                <div><img id="tutorial09"></div>
                             </li>
                         </ol>
                         <a href="#top">Back to Top</a>
@@ -276,14 +284,25 @@
                     <div class="panel-heading" id="taggingexplained">How does tagging work?</div>
                     <div class="panel-body">
                         <p>The creator of the transaction can tag the email of the persons who share the bill. Once tagged, that person will be able to see the transaction in their <i>Payables</i> section upon signing in.</p><p>You can tag any email even if it is not yet registered in the app. When the person who owns that email registers later, they will automatically see the bill in their <i>Payables</i> section.</p>
-                        <p>To tag a person:</p>
+                        <p>There are two ways to tag a person:</p>
                         <ol>
-                            <li>Click on the "Tag" link in the <i>Receivables</i> section.</li>
-                            <li>Type the person's email beside their name.<div><img id="tutorial10"></div> </li>
-                            <li>Click the Save & Send button.</li>
+                            <li>
+                                <p>During creation of the transaciton, click on "Add from Friends List", and select the friends that are included in the purchase. The friends selected here will be automatically tagged when the transaction is saved.</p>
+                                <div><img id="tutorial16"></div>
+                                <div><img id="tutorial14"></div>
+                            </li>
+                            <li>
+                                <p>Using the Remind link in the <i>Receivables</i> section, you can set the email of the persons included in the transaction.</p>
+                                <div><img id="tutorial10"></div>
+                                <p>Click the Edit link for the person, and you can put in a different email, or select existing emails from your friends list.</p>
+                                <div><img id="tutorial17"></div>
+                            </li>
                         </ol>
                         <p>
-                            Marie logs in with marie@yahoo.com, and she can see the transaction in her <i>Payables</i> section. When she goes to the transaction details, she can see the status of the item where she is tagged, but she won't see the status of the others.
+                            Crista, Marie, Marvin, and Sab are now tagged in this transaction.
+                        </p>
+                        <p>
+                            When Marie logs in with marie@yahoo.com, and she will be able to see the transaction in her <i>Payables</i> section. When she goes to the transaction details, she will be able to see the status of the item where she is tagged, but she won't see the status of the others.
                             <div><img id="tutorial11"></div>
                         </p>
                         <a href="#top">Back to Top</a>

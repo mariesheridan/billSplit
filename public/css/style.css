@@ -42,6 +42,10 @@ label {
     font-size: 1em;
 }
 
+li {
+    margin-top: 10px;
+}
+
 .app-price {
     float: left;
 }
@@ -422,7 +426,22 @@ label {
 
 #tutorial14 {
     max-width: 100%;
-    content: url('../img/Tutorial13.PNG');
+    content: url('../img/Tutorial14.PNG');
+}
+
+#tutorial15 {
+    max-width: 100%;
+    content: url('../img/Tutorial15.PNG');
+}
+
+#tutorial16 {
+    max-width: 100%;
+    content: url('../img/Tutorial16.PNG');
+}
+
+#tutorial17 {
+    max-width: 100%;
+    content: url('../img/Tutorial17.PNG');
 }
 
 @media screen and (max-width: 430px) {
