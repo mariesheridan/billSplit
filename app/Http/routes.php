@@ -32,6 +32,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/', 'HomeController@index');
     Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@index']);
 
+    Route::get('precreate_transaction', 'CreateTransactionController@beforeCreate');
     Route::get('/create_transaction', ['as' => 'create_transaction', 'uses' => 'CreateTransactionController@index']);
     Route::post('/update_transaction', 'UpdateTransactionController@update');
 

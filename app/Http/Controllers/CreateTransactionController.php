@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
+use Session;
+use App\MyLibrary\SessionDetails;
 
 class CreateTransactionController extends Controller
 {
@@ -20,5 +22,11 @@ class CreateTransactionController extends Controller
         $store = Session::get('store', '');
         $date = Session::get('date', '');
         return view('createtransaction', array('store' => $store, 'date' => $date));
+    }
+
+    public function beforeCreate()
+    {
+        SessionDetails::forget();
+        return redirect()->route('create_transaction');
     }
 }

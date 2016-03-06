@@ -14,6 +14,7 @@ use App\Person;
 use App\Transaction;
 use App\User;
 use App\MyLibrary\PersonListBuilder;
+use App\MyLibrary\SessionDetails;
 use App\MyLibrary\Tools;
 
 class FriendsController extends Controller
@@ -33,6 +34,7 @@ class FriendsController extends Controller
 
     public function view()
     {
+        SessionDetails::forget();
         $friendsError = Session::get('friendsError', "");
         $friends = Friend::where('user_id', '=', Auth::user()->id)
                         ->orderBy('name', 'asc')->paginate(100);
